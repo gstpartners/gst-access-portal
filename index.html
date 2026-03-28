@@ -1,1 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Access</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232AABB8'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EGST%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#F4F4F2;--surface:#fff;--surface2:#F9F9F8;--border:#E2E2DE;--bordersoft:#EAEAE7;--teal:#2AABB8;--teald:#1D8F9B;--tealbg:#EDF8FA;--tealbr:#B8E5EA;--gray:#767676;--black:#1A1A1A;--body:#3D3D3D;--muted:#ABABAB;--soft:#888;--green:#1A7F4B;--greenbg:#EBF7F1;--greenbr:#C2E8D4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--body);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:13px}
+/* LOGIN */
+.lp{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.lc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:40px;width:100%;max-width:380px}
+.logo-login{text-align:center;margin-bottom:28px}
+.logo-gst-big{font-family:'Inter Tight',sans-serif;font-size:28px;font-weight:700;color:var(--gray);line-height:1}
+.logo-pill{display:inline-block;background:var(--teal);padding:3px 12px;margin-top:4px}
+.logo-pill span{font-size:8px;font-weight:700;letter-spacing:0.2em;color:white;text-transform:uppercase}
+.lt{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:600;color:var(--black);margin-bottom:6px;letter-spacing:-0.02em}
+.ls{font-size:12px;color:var(--muted);margin-bottom:24px}
+.fl{display:block;font-size:11px;font-weight:500;color:var(--body);margin-bottom:5px}
+.fi{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;color:var(--black);background:var(--surface);margin-bottom:14px;transition:border-color .15s}
+.fi:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px var(--tealbg)}
+.bp{width:100%;padding:10px;background:var(--teal);color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
+.bp:hover{background:var(--teald)}
+.bp:disabled{opacity:.6;cursor:default}
+.lerr{font-size:12px;color:#D32F2F;margin-top:10px;text-align:center}
+.lfoot{margin-top:24px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-align:center}
+/* APP */
+.app{display:none;min-height:100vh}
+.app.on{display:flex}
+/* SIDEBAR */
+.sb{width:232px;min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0}
+.sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--border)}
+.sb-user{padding:11px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.av{width:28px;height:28px;border-radius:50%;background:var(--tealbg);border:1px solid var(--tealbr);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--teald);flex-shrink:0}
+.un{font-size:12px;font-weight:500;color:var(--black)}
+.up{font-size:10px;color:var(--muted);margin-top:1px}
+.sb-nav{padding:14px 10px;flex:1}
+.ns{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0 10px;margin-bottom:4px;margin-top:16px}
+.ns:first-child{margin-top:0}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:5px;cursor:pointer;font-size:13px;color:var(--soft);text-decoration:none;margin-bottom:1px;transition:all .12s}
+.ni:hover{background:var(--bg);color:var(--body)}
+.ni.on{background:var(--tealbg);color:var(--teald);font-weight:500}
+.ni svg{width:15px;height:15px;opacity:.4;flex-shrink:0}
+.ni.on svg{opacity:1}
+.sb-bot{padding:14px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.lang{display:flex;gap:2px}
+.lb{padding:3px 8px;font-size:11px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:3px;transition:all .12s}
+.lb.on{border-color:var(--tealbr);color:var(--teald);background:var(--tealbg)}
+.outbtn{font-size:11px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Inter',sans-serif}
+.outbtn:hover{color:var(--soft)}
+/* MAIN */
+.mn{margin-left:232px;flex:1;padding:40px 48px 40px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.tb-ey{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.tb-ti{font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:600;color:var(--black);letter-spacing:-.03em;line-height:1}
+.badge{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:500;color:var(--green);background:var(--greenbg);border:1px solid var(--greenbr);padding:4px 11px;border-radius:20px}
+.dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 22px 18px;transition:box-shadow .15s}
+.metric:first-child{border-left:3px solid var(--teal)}
+.metric:hover{box-shadow:0 2px 14px rgba(0,0,0,.06)}
+.ml{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.mv{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--black);letter-spacing:-.03em;line-height:1}
+.mv.tl{color:var(--teald)}
+.ms{font-size:11px;color:var(--muted);margin-top:7px}
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--bordersoft)}
+.ct{font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:600;color:var(--black)}
+.cm{font-size:11px;color:var(--muted)}
+.cb{padding:20px}
+/* TABLE */
+table{width:100%;border-collapse:collapse;min-width:360px}
+thead tr{border-bottom:1px solid var(--border)}
+th{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;background:var(--surface2)}
+td{padding:13px 16px;font-size:12px;color:var(--body);border-bottom:1px solid var(--bordersoft);transition:background .1s}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface2)}
+.tm{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--black)}
+.tt{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teald);font-weight:500}
+.td{color:var(--muted)}
+.sb2{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.sp{background:var(--greenbg);color:var(--green);border:1px solid var(--greenbr)}
+.spe{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.sa{background:var(--tealbg);color:var(--teald);border:1px solid var(--tealbr)}
+/* EMPTY */
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.ei{font-size:32px;margin-bottom:12px}
+.et{font-size:14px;font-weight:500;color:var(--soft);margin-bottom:4px}
+/* PHASES */
+.ph-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:14px 0 8px}
+.ph-fill{height:100%;background:var(--teal);border-radius:2px;transition:width .6s ease}
+.ph-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:16px}
+.ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pc{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px}
+.pc.on{background:var(--tealbg);border-color:var(--tealbr)}
+.pl{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.pc.on .pl{color:var(--teald)}
+.pn{font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:4px}
+.pc.on .pn{color:var(--teald)}
+.pd{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+/* PAGES */
+.pg{display:none}
+.pg.on{display:block}
+/* FOOTER */
+.foot{display:flex;align-items:center;gap:16px;padding:13px 18px;border:1px solid var(--border);border-radius:6px;margin-top:8px;background:var(--surface)}
+.fi2{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.fs{width:1px;height:12px;background:var(--border)}
+/* CHART */
+.chart-box{position:relative;height:180px;width:100%}
+/* TWO COL */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+/* ANNOUNCE */
+.ann{background:var(--tealbg);border:1px solid var(--tealbr);border-left:3px solid var(--teal);border-radius:6px;padding:12px 16px;margin-bottom:10px}
+.ann-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.ann-t{font-size:12px;font-weight:600;color:var(--teald)}
+.ann-d{font-size:10px;color:var(--muted)}
+.ann-b{font-size:12px;color:var(--body);line-height:1.5}
+/* BANK */
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bst{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.br{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bordersoft)}
+.br:last-child{border-bottom:none}
+.blab{font-size:11px;color:var(--muted)}
+.bval{font-size:12px;font-weight:500;color:var(--black);font-family:'JetBrains Mono',monospace}
+.cbtn{font-size:10px;padding:2px 7px;border:1px solid var(--border);border-radius:4px;cursor:pointer;color:var(--muted);background:var(--bg);transition:all .12s;font-family:'Inter',sans-serif}
+.cbtn:hover{border-color:var(--teal);color:var(--teald)}
+.cbtn.ok{border-color:var(--greenbr);color:var(--green);background:var(--greenbg)}
+/* NEWS */
+.ni2{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bordersoft);cursor:pointer}
+.ni2:last-child{border-bottom:none;padding-bottom:0}
+.ndot{width:6px;height:6px;border-radius:50%;background:var(--teal);margin-top:5px;flex-shrink:0}
+.ntit{font-size:12px;font-weight:500;color:var(--black);margin-bottom:3px;line-height:1.4}
+.nmet{font-size:10px;color:var(--muted)}
+/* CAL */
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cdh{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 0}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;color:var(--body)}
+.cd.today{background:var(--teal);color:white;font-weight:600}
+.cd.pay{background:var(--tealbg);color:var(--teald);font-weight:600;border:1px solid var(--tealbr)}
+.cd.past{color:var(--muted)}
+.cleg{display:flex;gap:16px;margin-top:12px}
+.cli{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.cld{width:10px;height:10px;border-radius:3px}
+/* MOBILE */
+@media(max-width:768px){
+  .sb{width:100%!important;min-height:auto!important;height:60px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(--border)!important;z-index:100}
+  .sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
+  .sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important}
+  .ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:6px 4px!important;border-radius:0!important;font-size:10px!important;margin-bottom:0!important}
+  .ni.on{background:var(--tealbg)!important;border-top:2px solid var(--teal)!important}
+  .ni svg{width:20px!important;height:20px!important;opacity:.6!important}
+  .ni.on svg{opacity:1!important}
+  .mn{margin-left:0!important;padding:72px 16px 76px!important}
+  .topbar{flex-direction:column!important;align-items:flex-start!important;gap:10px!important;margin-bottom:18px!important}
+  .tb-ti{font-size:20px!important}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+  .mv{font-size:20px!important}
+  .ph-grid{grid-template-columns:1fr!important}
+  .twocol{grid-template-columns:1fr!important}
+  .bgrid{grid-template-columns:1fr!important}
+  .foot{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+  .fs{display:none!important}
+  .lc{margin:16px!important;padding:28px 24px!important}
+  .mob-top{display:flex!important}
+}
+@media(min-width:769px){.mob-top{display:none!important}}
+.mob-top{position:fixed;top:0;left:0;right:0;height:56px;background:var(--surface);border-bottom:1px solid var(--border);align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
+</style>
+</head>
+<body>
 
+<!-- LOGIN -->
+<div class="lp" id="LP">
+  <div class="lc">
+    <div class="logo-login">
+      <div class="logo-gst-big">GST</div>
+      <div class="logo-pill"><span>PARTNERS</span></div>
+    </div>
+    <div class="lt" id="lt">Bem-vindo</div>
+    <div class="ls" id="ls">Entre com seu e-mail e senha para acessar o portal.</div>
+    <label class="fl" id="ll1">E-mail</label>
+    <input class="fi" type="email" id="EM" placeholder="seu@email.com">
+    <label class="fl" id="ll2">Senha</label>
+    <input class="fi" type="password" id="PW" placeholder="••••••••">
+    <button class="bp" id="LB" onclick="doLogin()"><span id="LBT">Entrar</span></button>
+    <div class="lerr" id="LE"></div>
+    <div class="lfoot">Acesso restrito · GST Partners Corp · Orlando, FL</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="APP">
+
+  <!-- MOBILE TOP BAR -->
+  <div class="mob-top" id="MOB">
+    <div>
+      <div style="font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:700;color:var(--gray);line-height:1">GST</div>
+      <div style="background:var(--teal);padding:2px 8px;display:inline-block;margin-top:2px"><span style="font-size:7px;font-weight:700;letter-spacing:.2em;color:white;text-transform:uppercase">PARTNERS</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="text-align:right">
+        <div id="MUN" style="font-size:12px;font-weight:500;color:var(--black)">—</div>
+        <div id="MPL" style="font-size:10px;color:var(--muted)">—</div>
+      </div>
+      <div id="MAV" class="av" style="width:32px;height:32px;font-size:11px">--</div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <div style="font-family:'Inter Tight',sans-serif;font-size:28px;font-weight:700;color:var(--gray);line-height:1">GST</div>
+      <div style="background:var(--teal);padding:3px 12px;display:inline-block;margin-top:5px"><span style="font-size:8px;font-weight:700;letter-spacing:.2em;color:white;text-transform:uppercase">PARTNERS</span></div>
+    </div>
+    <div class="sb-user">
+      <div class="av" id="AV">--</div>
+      <div><div class="un" id="UN">—</div><div class="up" id="UP">—</div></div>
+    </div>
+    <nav class="sb-nav">
+      <div class="ns" id="ns1">Visão Geral</div>
+      <a class="ni on" id="n-dash" onclick="nav('dashboard',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.354 1.146a.5.5 0 00-.708 0l-6 6A.5.5 0 002 7.5v7a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-4h2v4a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-7a.5.5 0 00-.146-.354L13 5.793V2.5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v1.293z"/></svg>
+        <span id="nt1">Dashboard</span>
+      </a>
+      <a class="ni" id="n-pay" onclick="nav('payments',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v1h14V4a1 1 0 00-1-1H2zm13 4H1v5a1 1 0 001 1h12a1 1 0 001-1V7z"/></svg>
+        <span id="nt2">Pagamentos</span>
+      </a>
+      <div class="ns" id="ns2">Documentos</div>
+      <a class="ni" id="n-doc" onclick="nav('documents',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 0h5.293A1 1 0 0110 .293L13.707 4a1 1 0 01.293.707V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2zm5.5 1.5v2a1 1 0 001 1h2L9.5 1.5z"/></svg>
+        <span id="nt3">Documentos</span>
+      </a>
+      <div class="ns" id="ns3">Mais</div>
+      <a class="ni" id="n-tr" onclick="nav('transfer',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"/></svg>
+        <span id="nt4">Transferência</span>
+      </a>
+      <a class="ni" id="n-nw" onclick="nav('news',this)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.5A1.5 1.5 0 011.5 1h11A1.5 1.5 0 0114 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 000-1H14v-9a.5.5 0 00-1 0v9H1.497A1.497 1.497 0 012 12.5v-10zm3.5 1a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4z"/></svg>
+        <span id="nt5">Notícias</span>
+      </a>
+    </nav>
+    <div class="sb-bot">
+      <div class="lang">
+        <button class="lb on" onclick="setLang('pt')">PT</button>
+        <button class="lb" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="outbtn" onclick="doLogout()">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg>
+        <span id="nt6">Sair</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="mn">
+
+    <!-- DASHBOARD -->
+    <div class="pg on" id="pg-dashboard">
+      <div class="topbar">
+        <div>
+          <div class="tb-ey" id="tb-ey">Dashboard · GST Access</div>
+          <div class="tb-ti" id="tb-ti">Visão Geral do Portfólio</div>
+        </div>
+        <div class="badge"><div class="dot"></div><span id="tb-st">Ativo</span></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="ml" id="m1l">Valor Aportado</div><div class="mv" id="m1v">—</div><div class="ms" id="m1s">—</div></div>
+        <div class="metric"><div class="ml" id="m2l">Rendimentos Recebidos</div><div class="mv tl" id="m2v">—</div><div class="ms" id="m2s">—</div></div>
+        <div class="metric"><div class="ml" id="m3l">Próximo Pagamento</div><div class="mv" id="m3v">—</div><div class="ms" id="m3s">—</div></div>
+        <div class="metric"><div class="ml" id="m4l">Retorno Mensal</div><div class="mv" id="m4v">—</div><div class="ms" id="m4s">—</div></div>
+      </div>
+      <div id="ann-section"></div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="cy-ti">Ciclo de Investimento</div><div class="cm">10 anos · 120 meses</div></div>
+        <div class="cb">
+          <div class="ph-track"><div class="ph-fill" id="phf" style="width:3%"></div></div>
+          <div class="ph-labels"><span id="ph1">Mês 1–6</span><span id="ph2">Mês 7–18</span><span id="ph3">Mês 19–120</span></div>
+          <div class="ph-grid">
+            <div class="pc on"><div class="pl" id="pc1l">Fase atual</div><div class="pn" id="pc1n">Aceleração</div><div class="pd" id="pc1d">—</div></div>
+            <div class="pc"><div class="pl" id="pc2l">Próxima fase</div><div class="pn" id="pc2n">Devolução</div><div class="pd" id="pc2d">—</div></div>
+            <div class="pc"><div class="pl" id="pc3l">Fase final</div><div class="pn" id="pc3n">Sócio dos Lucros</div><div class="pd" id="pc3d">—</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="twocol">
+        <div class="card">
+          <div class="ch"><div class="ct" id="ch-ti">Evolução dos Rendimentos</div><div class="cm" id="ch-me">Últimos pagamentos</div></div>
+          <div class="cb"><div class="chart-box"><canvas id="RC"></canvas></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct" id="cal-ti">Calendário de Pagamentos</div></div>
+          <div class="cb" id="CAL"><div style="color:var(--muted);font-size:12px">Carregando...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="pg" id="pg-payments">
+      <div class="topbar">
+        <div><div class="tb-ey">GST Access</div><div class="tb-ti" id="py-ti">Histórico de Pagamentos</div></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="py-ct">Pagamentos Mensais</div><div class="cm" id="py-cm">—</div></div>
+        <div id="PAY" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--muted)">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="pg" id="pg-documents">
+      <div class="topbar">
+        <div><div class="tb-ey">GST Access</div><div class="tb-ti" id="dc-ti">Documentos</div></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="dc-ct">Contratos e Relatórios</div></div>
+        <div id="DOC" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--muted)">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- TRANSFER -->
+    <div class="pg" id="pg-transfer">
+      <div class="topbar">
+        <div><div class="tb-ey">GST Access</div><div class="tb-ti" id="tr-ti">Dados para Transferência</div></div>
+      </div>
+      <div class="bgrid">
+        <div class="card">
+          <div class="ch"><div class="ct">🇺🇸 USD Wire Transfer</div></div>
+          <div class="cb">
+            <div class="bst">Beneficiary</div>
+            <div class="br"><span class="blab">Bank Name</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">Bank of America</span><button class="cbtn" onclick="cp('Bank of America',this)">Copy</button></div></div>
+            <div class="br"><span class="blab">Account Name</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">GST Partners Corp</span><button class="cbtn" onclick="cp('GST Partners Corp',this)">Copy</button></div></div>
+            <div class="br"><span class="blab">Account #</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">●●●● 4821</span><button class="cbtn" onclick="cp('000044218421',this)">Copy</button></div></div>
+            <div class="br"><span class="blab">Routing (ABA)</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">026009593</span><button class="cbtn" onclick="cp('026009593',this)">Copy</button></div></div>
+            <div class="br"><span class="blab">SWIFT / BIC</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">BOFAUS3N</span><button class="cbtn" onclick="cp('BOFAUS3N',this)">Copy</button></div></div>
+            <div class="br"><span class="blab">Address</span><span class="bval" style="font-size:11px">200 E Robinson St, Orlando FL 32801</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">🇧🇷 PIX / TED — Reais</div></div>
+          <div class="cb">
+            <div class="bst">Dados Bancários</div>
+            <div class="br"><span class="blab">Banco</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">Itaú Unibanco</span><button class="cbtn" onclick="cp('Itaú Unibanco',this)">Copiar</button></div></div>
+            <div class="br"><span class="blab">Favorecido</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">GST Partners Corp</span><button class="cbtn" onclick="cp('GST Partners Corp',this)">Copiar</button></div></div>
+            <div class="br"><span class="blab">Agência</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">0001</span><button class="cbtn" onclick="cp('0001',this)">Copiar</button></div></div>
+            <div class="br"><span class="blab">Conta</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">●●●●●-8</span><button class="cbtn" onclick="cp('123456-8',this)">Copiar</button></div></div>
+            <div class="br"><span class="blab">Tipo</span><span class="bval">Conta Corrente</span></div>
+            <div class="br"><span class="blab">PIX (CNPJ)</span><div style="display:flex;align-items:center;gap:8px"><span class="bval">38.427.389/0001</span><button class="cbtn" onclick="cp('38427389000100',this)">Copiar</button></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--teal)">
+        <div class="cb" style="display:flex;align-items:center;gap:12px">
+          <span style="font-size:20px">⚠️</span>
+          <div><div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:3px" id="tr-nt">Importante</div>
+          <div style="font-size:12px;color:var(--body)" id="tr-nb">Sempre confirme os dados com a equipe GST antes de realizar uma transferência. Dúvidas: signup@jp-assetmanagement.com</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="pg" id="pg-news">
+      <div class="topbar">
+        <div><div class="tb-ey">GST Access</div><div class="tb-ti" id="nw-ti">Notícias do Mercado</div></div>
+      </div>
+      <div class="twocol">
+        <div class="card">
+          <div class="ch"><div class="ct" id="nw-us">🇺🇸 Mercado Americano</div><div class="cm">Ao vivo</div></div>
+          <div class="cb" id="NUS"><div style="color:var(--muted);font-size:12px">Carregando...</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct" id="nw-br">🇧🇷 Mercado Brasileiro</div><div class="cm">Ao vivo</div></div>
+          <div class="cb" id="NBR"><div style="color:var(--muted);font-size:12px">Carregando...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot" style="flex-wrap:wrap">
+      <div class="fi2">🔒 <span id="fo1">Acesso individual e confidencial</span></div>
+      <div class="fs"></div>
+      <div class="fi2">GST Partners Corp · Orlando, FL 32801</div>
+      <div class="fs"></div>
+      <div class="fi2" style="word-break:break-all">signup@jp-assetmanagement.com</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const SB_URL = 'https://opijtpzlrygujkkjsltf.supabase.co'
+const SB_KEY = 'sb_publishable_cDJ1qwzVvmWBFILegIBvgg_ziL1slRT'
+const { createClient } = supabase
+const db = createClient(SB_URL, SB_KEY)
+
+let CU = null, INV = null, PAYS = [], DOCS = [], lang = 'pt', chart = null
+
+// ── TRANSLATIONS ──
+const T = {
+  pt: { lt:'Bem-vindo', ls:'Entre com seu e-mail e senha para acessar o portal.', ll1:'E-mail', ll2:'Senha', LBT:'Entrar',
+    ns1:'Visão Geral', nt1:'Dashboard', nt2:'Pagamentos', ns2:'Documentos', nt3:'Documentos',
+    ns3:'Mais', nt4:'Transferência', nt5:'Notícias', nt6:'Sair',
+    'tb-ey':'Dashboard · GST Access', 'tb-ti':'Visão Geral do Portfólio', 'tb-st':'Ativo',
+    m1l:'Valor Aportado', m2l:'Rendimentos Recebidos', m3l:'Próximo Pagamento', m4l:'Retorno Mensal',
+    'cy-ti':'Ciclo de Investimento', ph1:'Mês 1–6', ph2:'Mês 7–18', ph3:'Mês 19–120',
+    pc1l:'Fase atual', pc1n:'Aceleração', pc2l:'Próxima fase', pc2n:'Devolução', pc3l:'Fase final', pc3n:'Sócio dos Lucros',
+    'ch-ti':'Evolução dos Rendimentos', 'ch-me':'Últimos pagamentos', 'cal-ti':'Calendário de Pagamentos',
+    'py-ti':'Histórico de Pagamentos', 'py-ct':'Pagamentos Mensais',
+    'dc-ti':'Documentos', 'dc-ct':'Contratos e Relatórios',
+    'tr-ti':'Dados para Transferência', 'tr-nt':'Importante',
+    'tr-nb':'Sempre confirme os dados com a equipe GST antes de realizar uma transferência. Dúvidas: signup@jp-assetmanagement.com',
+    'nw-ti':'Notícias do Mercado', 'nw-us':'🇺🇸 Mercado Americano', 'nw-br':'🇧🇷 Mercado Brasileiro',
+    fo1:'Acesso individual e confidencial',
+    th1:'Mês', th2:'Rendimento', th3:'Amortização', th4:'Total', th5:'Status',
+    td1:'Tipo', td2:'Referência', td3:'Arquivo',
+    ep:'Nenhum pagamento registrado ainda.', ed:'Nenhum documento disponível ainda.',
+    dl:'↓ Abrir', paid:'Pago', pending:'Pendente',
+    p1:'Fase 1 · Aceleração', today:'Hoje', pay:'Pagamento', nodata:'Sem dados de pagamentos ainda.'
+  },
+  en: { lt:'Welcome', ls:'Sign in with your email and password.', ll1:'Email', ll2:'Password', LBT:'Sign in',
+    ns1:'Overview', nt1:'Dashboard', nt2:'Payments', ns2:'Documents', nt3:'Documents',
+    ns3:'More', nt4:'Transfer', nt5:'News', nt6:'Sign out',
+    'tb-ey':'Dashboard · GST Access', 'tb-ti':'Portfolio Overview', 'tb-st':'Active',
+    m1l:'Amount Invested', m2l:'Returns Received', m3l:'Next Payment', m4l:'Monthly Return',
+    'cy-ti':'Investment Cycle', ph1:'Month 1–6', ph2:'Month 7–18', ph3:'Month 19–120',
+    pc1l:'Current phase', pc1n:'Acceleration', pc2l:'Next phase', pc2n:'Repayment', pc3l:'Final phase', pc3n:'Profit Partner',
+    'ch-ti':'Returns Over Time', 'ch-me':'Latest payments', 'cal-ti':'Payment Calendar',
+    'py-ti':'Payment History', 'py-ct':'Monthly Payments',
+    'dc-ti':'Documents', 'dc-ct':'Contracts & Reports',
+    'tr-ti':'Transfer Information', 'tr-nt':'Important',
+    'tr-nb':'Always confirm details with the GST team before making a transfer. Questions: signup@jp-assetmanagement.com',
+    'nw-ti':'Market News', 'nw-us':'🇺🇸 US Market', 'nw-br':'🇧🇷 Brazilian Market',
+    fo1:'Individual and confidential access',
+    th1:'Month', th2:'Return', th3:'Repayment', th4:'Total', th5:'Status',
+    td1:'Type', td2:'Reference', td3:'File',
+    ep:'No payments registered yet.', ed:'No documents available yet.',
+    dl:'↓ Open', paid:'Paid', pending:'Pending',
+    p1:'Phase 1 · Acceleration', today:'Today', pay:'Payment', nodata:'No payment data yet.'
+  }
+}
+
+function t(k) { return T[lang][k] || k }
+
+function setLang(l) {
+  lang = l
+  document.querySelectorAll('.lb').forEach(b => b.classList.remove('on'))
+  document.querySelector('.lb[onclick="setLang(\'' + l + '\')"]').classList.add('on')
+  Object.keys(T[l]).forEach(k => {
+    const el = document.getElementById(k)
+    if (el && !['m1v','m2v','m3v','m4v','m1s','m2s','m3s','m4s','pc1d','pc2d','pc3d','phf','AV','UN','UP','MAV','MUN','MPL','PAY','DOC','ann-section','CAL','NUS','NBR','py-cm'].includes(k)) {
+      el.textContent = T[l][k]
+    }
+  })
+  if (INV) renderInv(INV)
+  renderPay(PAYS)
+  renderDoc(DOCS)
+  renderChart(PAYS)
+  renderCal(PAYS)
+}
+
+// ── AUTH ──
+async function doLogin() {
+  const email = document.getElementById('EM').value.trim()
+  const pass = document.getElementById('PW').value
+  const btn = document.getElementById('LB')
+  const err = document.getElementById('LE')
+  if (!email || !pass) { err.textContent = 'Preencha e-mail e senha.'; return }
+  btn.disabled = true
+  document.getElementById('LBT').textContent = lang === 'pt' ? 'Entrando...' : 'Signing in...'
+  err.textContent = ''
+  const { data, error } = await db.auth.signInWithPassword({ email, password: pass })
+  if (error) {
+    err.textContent = lang === 'pt' ? 'E-mail ou senha incorretos.' : 'Incorrect email or password.'
+    btn.disabled = false
+    document.getElementById('LBT').textContent = t('LBT')
+    return
+  }
+  CU = data.user
+  await loadApp()
+}
+
+async function doLogout() {
+  await db.auth.signOut()
+  document.getElementById('APP').classList.remove('on')
+  document.getElementById('LP').style.display = 'flex'
+  document.getElementById('PW').value = ''
+  CU = null; INV = null; PAYS = []; DOCS = []
+}
+
+// ── LOAD APP ──
+async function loadApp() {
+  document.getElementById('LP').style.display = 'none'
+  document.getElementById('APP').classList.add('on')
+  const email = CU.email
+
+  const { data: inv } = await db.from('Investidor').select('*').eq('E-mail', email).single()
+  if (inv) { INV = inv; renderInv(inv) }
+
+  const { data: pays } = await db.from('Pagamentos').select('*').eq('E-mail', email).order('Mês de Referência', { ascending: false })
+  PAYS = pays || []
+  renderPay(PAYS)
+  renderChart(PAYS)
+  renderCal(PAYS)
+
+  const { data: docs } = await db.from('Documentos').select('*').eq('E-mail', email).order('Mês de Referência', { ascending: false })
+  DOCS = docs || []
+  renderDoc(DOCS)
+
+  loadAnn()
+  loadNews()
+}
+
+// ── RENDER INVESTOR ──
+function renderInv(inv) {
+  const name = inv['Nome Completo'] || ''
+  const ini = name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()
+  document.getElementById('AV').textContent = ini
+  document.getElementById('UN').textContent = name
+  document.getElementById('UP').textContent = (inv['Plano'] || '') + ' · ' + (inv['Status'] || '')
+  document.getElementById('MAV').textContent = ini
+  document.getElementById('MUN').textContent = name.split(' ')[0]
+  document.getElementById('MPL').textContent = inv['Plano'] || ''
+
+  const fmt = n => n ? '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits:0}) : '—'
+  document.getElementById('m1v').textContent = fmt(inv['Aporte (USD)'])
+  document.getElementById('m1s').textContent = (inv['Plano'] || '') + ' · ' + (inv['Data Inicio'] || '—')
+
+  const rates = {'Tier 1':'3%','Tier 2':'4%','Tier 3':'5%'}
+  document.getElementById('m4v').textContent = rates[inv['Plano']] || '—'
+  document.getElementById('m4s').textContent = t('p1')
+
+  const pd = {
+    'Tier 1': ['3% / mês','2% / mês · mês 19','1% / mês · até mês 120'],
+    'Tier 2': ['4% / mês','3% / mês · mês 13','1.5% / mês · até mês 120'],
+    'Tier 3': ['5% / mês','4% / mês · mês 7','2% / mês · até mês 120'],
+  }
+  const p = pd[inv['Plano']] || ['—','—','—']
+  document.getElementById('pc1d').textContent = p[0]
+  document.getElementById('pc2d').textContent = p[1]
+  document.getElementById('pc3d').textContent = p[2]
+}
+
+// ── RENDER PAYMENTS ──
+function renderPay(pays) {
+  const el = document.getElementById('PAY')
+  const cm = document.getElementById('py-cm')
+  const fmt = n => n ? '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits:0}) : '—'
+
+  if (!pays.length) {
+    el.innerHTML = '<div class="empty"><div class="ei">💳</div><div class="et">' + t('ep') + '</div></div>'
+    cm.textContent = '0'
+    document.getElementById('m2v').textContent = '—'
+    document.getElementById('m2s').textContent = '0 ' + t('py-ct').toLowerCase()
+    document.getElementById('m3v').textContent = '—'
+    document.getElementById('m3s').textContent = '—'
+    return
+  }
+
+  cm.textContent = pays.length + ' registros'
+  const paid = pays.filter(p => { const s = (p['Status'] || '').toLowerCase(); return s === 'pago' || s === 'paid' })
+  const total = paid.reduce((s,p) => s + (Number(p['Rendimento Pago (USD)']) || 0), 0)
+  document.getElementById('m2v').textContent = fmt(total)
+  document.getElementById('m2s').textContent = paid.length + ' ' + (lang === 'pt' ? 'pagamentos' : 'payments')
+
+  const pend = pays.find(p => { const s = (p['Status'] || '').toLowerCase(); return s === 'pendente' || s === 'pending' })
+  if (pend) {
+    document.getElementById('m3v').textContent = fmt(pend['Rendimento Pago (USD)'])
+    document.getElementById('m3s').textContent = pend['Mês de Referência'] || '—'
+  } else {
+    document.getElementById('m3v').textContent = '—'
+    document.getElementById('m3s').textContent = lang === 'pt' ? 'Nenhum pendente' : 'None pending'
+  }
+
+  let rows = ''
+  pays.forEach(function(p) {
+    const s = (p['Status'] || '').toLowerCase()
+    const isPaid = s === 'pago' || s === 'paid'
+    const badge = isPaid
+      ? '<span class="sb2 sp">' + t('paid') + '</span>'
+      : '<span class="sb2 spe">' + t('pending') + '</span>'
+    const am = fmt(p['Amortização (USD)'])
+    rows += '<tr><td>' + (p['Mês de Referência'] || '—') + '</td>'
+    rows += '<td class="tt">' + fmt(p['Rendimento Pago (USD)']) + '</td>'
+    rows += '<td class="tm">' + (am || '<span class="td">—</span>') + '</td>'
+    rows += '<td class="tm">' + fmt(p['Total do Mês (USD)']) + '</td>'
+    rows += '<td>' + badge + '</td></tr>'
+  })
+
+  el.innerHTML = '<table><thead><tr><th>' + t('th1') + '</th><th>' + t('th2') + '</th><th>' + t('th3') + '</th><th>' + t('th4') + '</th><th>' + t('th5') + '</th></tr></thead><tbody>' + rows + '</tbody></table>'
+}
+
+// ── RENDER DOCUMENTS ──
+function renderDoc(docs) {
+  const el = document.getElementById('DOC')
+  if (!docs.length) {
+    el.innerHTML = '<div class="empty"><div class="ei">📄</div><div class="et">' + t('ed') + '</div></div>'
+    return
+  }
+  let rows = ''
+  docs.forEach(function(d) {
+    const link = d['Link do Arquivo']
+    const btn = link ? '<a href="' + link + '" target="_blank" class="sb2 sa" style="text-decoration:none">' + t('dl') + '</a>' : '<span class="td">—</span>'
+    rows += '<tr><td class="tm">' + (d['Tipo'] || '—') + '</td><td>' + (d['Mês de Referência'] || '—') + '</td><td>' + btn + '</td></tr>'
+  })
+  el.innerHTML = '<table><thead><tr><th>' + t('td1') + '</th><th>' + t('td2') + '</th><th>' + t('td3') + '</th></tr></thead><tbody>' + rows + '</tbody></table>'
+}
+
+// ── RENDER CHART ──
+function renderChart(pays) {
+  const ctx = document.getElementById('RC')
+  if (!ctx) return
+  const paid = pays.filter(function(p) { const s = (p['Status'] || '').toLowerCase(); return s === 'pago' || s === 'paid' })
+    .sort(function(a,b) { return (a['Mês de Referência'] || '').localeCompare(b['Mês de Referência'] || '') })
+    .slice(-12)
+  if (!paid.length) {
+    ctx.parentElement.innerHTML = '<div class="empty"><div class="ei">📈</div><div class="et">' + t('nodata') + '</div></div>'
+    return
+  }
+  const labels = paid.map(function(p) {
+    const d = new Date(p['Mês de Referência'])
+    return d.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US', {month:'short', year:'2-digit'})
+  })
+  const data = paid.map(function(p) { return Number(p['Rendimento Pago (USD)']) || 0 })
+  if (chart) chart.destroy()
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: { labels: labels, datasets: [{ label: lang === 'pt' ? 'Rendimento (USD)' : 'Return (USD)', data: data, borderColor: '#2AABB8', backgroundColor: 'rgba(42,171,184,0.08)', borderWidth: 2, pointBackgroundColor: '#2AABB8', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, fill: true, tension: 0.3 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return '$' + c.raw.toLocaleString('en-US') } } } }, scales: { y: { beginAtZero: true, grid: { color: '#E2E2DE' }, ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#ABABAB', callback: function(v) { return '$' + v.toLocaleString('en-US') } } }, x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#ABABAB' } } } }
+  })
+}
+
+// ── RENDER CALENDAR ──
+function renderCal(pays) {
+  const el = document.getElementById('CAL')
+  if (!el) return
+  const now = new Date(), yr = now.getFullYear(), mo = now.getMonth(), td = now.getDate()
+  const payDays = new Set()
+  pays.forEach(function(p) {
+    const ref = p['Mês de Referência']
+    if (ref) { const d = new Date(ref); if (d.getFullYear() === yr && d.getMonth() === mo) payDays.add(d.getDate()) }
+  })
+  const mnames = lang === 'pt'
+    ? ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+    : ['January','February','March','April','May','June','July','August','September','October','November','December']
+  const dnames = lang === 'pt' ? ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+  const fd = new Date(yr, mo, 1).getDay()
+  const dim = new Date(yr, mo+1, 0).getDate()
+  let h = '<div style="font-size:13px;font-weight:600;color:var(--black);margin-bottom:12px">' + mnames[mo] + ' ' + yr + '</div>'
+  h += '<div class="cgrid">'
+  dnames.forEach(function(d) { h += '<div class="cdh">' + d + '</div>' })
+  for (let i = 0; i < fd; i++) h += '<div class="cd"></div>'
+  for (let d = 1; d <= dim; d++) {
+    let c = 'cd'
+    if (d === td) c += ' today'
+    else if (payDays.has(d)) c += ' pay'
+    else if (d < td) c += ' past'
+    h += '<div class="' + c + '">' + d + '</div>'
+  }
+  h += '</div>'
+  h += '<div class="cleg"><div class="cli"><div class="cld" style="background:var(--teal)"></div>' + t('today') + '</div>'
+  h += '<div class="cli"><div class="cld" style="background:var(--tealbg);border:1px solid var(--tealbr)"></div>' + t('pay') + '</div></div>'
+  el.innerHTML = h
+}
+
+// ── ANNOUNCEMENTS ──
+async function loadAnn() {
+  const el = document.getElementById('ann-section')
+  if (!el) return
+  try {
+    const { data } = await db.from('Avisos').select('*').order('Data', { ascending: false }).limit(3)
+    if (!data || !data.length) { el.innerHTML = ''; return }
+    let h = ''
+    data.forEach(function(a) {
+      h += '<div class="ann"><div class="ann-h"><div class="ann-t">📢  ' + (a['Titulo'] || 'Aviso GST') + '</div>'
+      h += '<div class="ann-d">' + (a['Data'] || '') + '</div></div>'
+      h += '<div class="ann-b">' + (a['Mensagem'] || '') + '</div></div>'
+    })
+    el.innerHTML = h
+  } catch(e) { el.innerHTML = '' }
+}
+
+// ── NEWS ──
+async function loadNews() {
+  // Use allorigins proxy to bypass CORS on RSS feeds
+  fetchRSS('https://feeds.feedburner.com/wsj/xml/rss/3_7031', 'NUS')
+  fetchRSS('https://www.infomoney.com.br/feed/', 'NBR')
+}
+
+async function fetchRSS(url, elId) {
+  const el = document.getElementById(elId)
+  if (!el) return
+  try {
+    const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url)
+    const res = await fetch(proxy)
+    const data = await res.json()
+    const parser = new DOMParser()
+    const xml = parser.parseFromString(data.contents, 'text/xml')
+    const items = Array.from(xml.querySelectorAll('item')).slice(0, 6)
+    if (items.length) {
+      let h = ''
+      items.forEach(function(item) {
+        const title = item.querySelector('title') ? item.querySelector('title').textContent : ''
+        const link = item.querySelector('link') ? item.querySelector('link').textContent : '#'
+        const pubDate = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent : ''
+        const date = pubDate ? new Date(pubDate).toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : ''
+        h += '<div class="ni2" data-url="' + link.trim() + '"><div class="ndot"></div><div><div class="ntit">' + title + '</div><div class="nmet">' + date + '</div></div></div>'
+      })
+      el.innerHTML = h
+      el.querySelectorAll('.ni2').forEach(function(d) {
+        d.addEventListener('click', function() { window.open(d.getAttribute('data-url'), '_blank') })
+      })
+    } else {
+      showNewsError(el)
+    }
+  } catch(e) {
+    showNewsError(el)
+  }
+}
+
+function showNewsError(el) {
+  el.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:8px 0">' + (lang === 'pt' ? 'Notícias temporariamente indisponíveis.' : 'News temporarily unavailable.') + '</div>'
+}
+
+// ── NAV ──
+function nav(page, el) {
+  document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on') })
+  document.querySelectorAll('.ni').forEach(function(n) { n.classList.remove('on') })
+  document.getElementById('pg-' + page).classList.add('on')
+  el.classList.add('on')
+}
+
+// ── COPY ──
+function cp(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent
+    btn.textContent = '✓'
+    btn.classList.add('ok')
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('ok') }, 1500)
+  })
+}
+
+// ── SESSION CHECK ──
+window.addEventListener('load', async function() {
+  const { data: { session } } = await db.auth.getSession()
+  if (session) { CU = session.user; await loadApp() }
+})
+</script>
+</body>
+</html>
