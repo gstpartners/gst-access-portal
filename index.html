@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt" data-theme="light">
 <head>
 <meta charset="UTF-8">
@@ -36,152 +37,152 @@
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--bo);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:var(--font-base);line-height:1.6}
 
 /* ── LOGIN ── */
-.lp{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
-.lc{background:var(--s);border:1px solid var(--bd);border-radius:12px;padding:44px;width:100%;max-width:400px;box-shadow:0 4px 32px rgba(0,0,0,.06)}
+.lp{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(–bg)}
+.lc{background:var(–s);border:1px solid var(–bd);border-radius:12px;padding:44px;width:100%;max-width:400px;box-shadow:0 4px 32px rgba(0,0,0,.06)}
 .logo-c{text-align:center;margin-bottom:32px}
-.lgst{font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:700;color:var(--gy);line-height:1;letter-spacing:-.02em}
-.lpill{display:inline-block;background:var(--tl);padding:4px 14px;margin-top:5px;border-radius:2px}
+.lgst{font-family:‘Inter Tight’,sans-serif;font-size:32px;font-weight:700;color:var(–gy);line-height:1;letter-spacing:-.02em}
+.lpill{display:inline-block;background:var(–tl);padding:4px 14px;margin-top:5px;border-radius:2px}
 .lpill span{font-size:8.5px;font-weight:700;letter-spacing:.22em;color:white;text-transform:uppercase}
-.ltit{font-family:'Inter Tight',sans-serif;font-size:22px;font-weight:700;color:var(--bk);margin-bottom:6px;letter-spacing:-.02em}
-.lsub{font-size:var(--font-sm);color:var(--mu);margin-bottom:28px;line-height:1.5}
-.fl{display:block;font-size:var(--font-xs);font-weight:600;color:var(--bo);margin-bottom:6px;letter-spacing:.02em}
-.finp{width:100%;padding:11px 14px;border:1px solid var(--bd);border-radius:8px;font-size:var(--font-base);font-family:'Inter',sans-serif;color:var(--bk);background:var(--s);margin-bottom:16px;transition:border-color .15s,box-shadow .15s}
-.finp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.ltit{font-family:‘Inter Tight’,sans-serif;font-size:22px;font-weight:700;color:var(–bk);margin-bottom:6px;letter-spacing:-.02em}
+.lsub{font-size:var(–font-sm);color:var(–mu);margin-bottom:28px;line-height:1.5}
+.fl{display:block;font-size:var(–font-xs);font-weight:600;color:var(–bo);margin-bottom:6px;letter-spacing:.02em}
+.finp{width:100%;padding:11px 14px;border:1px solid var(–bd);border-radius:8px;font-size:var(–font-base);font-family:‘Inter’,sans-serif;color:var(–bk);background:var(–s);margin-bottom:16px;transition:border-color .15s,box-shadow .15s}
+.finp:focus{outline:none;border-color:var(–tl);box-shadow:0 0 0 3px var(–tlbg)}
 .pw-wrap{position:relative;margin-bottom:16px}
 .pw-wrap .finp{margin-bottom:0;padding-right:44px}
-.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--mu);padding:4px;display:flex;align-items:center}
-.bp{width:100%;padding:12px;background:var(--tl);color:white;border:none;border-radius:8px;font-size:var(--font-base);font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s,transform .1s;letter-spacing:.01em}
-.bp:hover{background:var(--tld);transform:translateY(-1px)}
+.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(–mu);padding:4px;display:flex;align-items:center}
+.bp{width:100%;padding:12px;background:var(–tl);color:white;border:none;border-radius:8px;font-size:var(–font-base);font-weight:600;font-family:‘Inter’,sans-serif;cursor:pointer;transition:background .15s,transform .1s;letter-spacing:.01em}
+.bp:hover{background:var(–tld);transform:translateY(-1px)}
 .bp:disabled{opacity:.6;cursor:default;transform:none}
-.lerr{font-size:var(--font-sm);color:#D32F2F;margin-top:10px;text-align:center}
-.lft{margin-top:28px;padding-top:18px;border-top:1px solid var(--bd);font-size:var(--font-xs);color:var(--mu);text-align:center;line-height:1.5}
+.lerr{font-size:var(–font-sm);color:#D32F2F;margin-top:10px;text-align:center}
+.lft{margin-top:28px;padding-top:18px;border-top:1px solid var(–bd);font-size:var(–font-xs);color:var(–mu);text-align:center;line-height:1.5}
 
 /* ── APP LAYOUT ── */
 .app{display:none;min-height:100vh}
 .app.on{display:flex}
 
 /* ── SIDEBAR ── */
-.sb{width:var(--sb-w);min-height:100vh;background:var(--s);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
-.sb-logo{padding:20px 22px 16px;border-bottom:1px solid var(--bd)}
-.sb-user{padding:13px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:11px}
-.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--tl),var(--tld));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;box-shadow:0 2px 8px rgba(42,171,184,.3)}
-.un{font-size:var(--font-sm);font-weight:600;color:var(--bk);letter-spacing:-.01em}
-.up{font-size:var(--font-tiny);color:var(--mu);margin-top:1px}
+.sb{width:var(–sb-w);min-height:100vh;background:var(–s);border-right:1px solid var(–bd);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
+.sb-logo{padding:20px 22px 16px;border-bottom:1px solid var(–bd)}
+.sb-user{padding:13px 22px;border-bottom:1px solid var(–bd);display:flex;align-items:center;gap:11px}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(–tl),var(–tld));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;box-shadow:0 2px 8px rgba(42,171,184,.3)}
+.un{font-size:var(–font-sm);font-weight:600;color:var(–bk);letter-spacing:-.01em}
+.up{font-size:var(–font-tiny);color:var(–mu);margin-top:1px}
 .sb-nav{padding:16px 10px;flex:1;overflow-y:auto}
-.ns{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);padding:0 12px;margin-bottom:5px;margin-top:16px}
+.ns{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(–mu);padding:0 12px;margin-bottom:5px;margin-top:16px}
 .ns:first-child{margin-top:0}
-.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;font-size:var(--font-sm);color:var(--sf);text-decoration:none;margin-bottom:2px;transition:all .12s;font-weight:500}
-.ni:hover{background:var(--bg);color:var(--bo)}
-.ni.on{background:var(--tlbg);color:var(--tld);font-weight:600}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:7px;cursor:pointer;font-size:var(–font-sm);color:var(–sf);text-decoration:none;margin-bottom:2px;transition:all .12s;font-weight:500}
+.ni:hover{background:var(–bg);color:var(–bo)}
+.ni.on{background:var(–tlbg);color:var(–tld);font-weight:600}
 .ni svg{width:16px;height:16px;opacity:.5;flex-shrink:0;transition:opacity .12s}
 .ni.on svg{opacity:1}
-.sb-bot{padding:16px 22px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.sb-bot{padding:16px 22px;border-top:1px solid var(–bd);display:flex;align-items:center;justify-content:space-between}
 .lang{display:flex;gap:3px}
-.lb{padding:4px 9px;font-size:var(--font-xs);font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--mu);border-radius:5px;transition:all .12s}
-.lb.on{border-color:var(--tlbr);color:var(--tld);background:var(--tlbg)}
+.lb{padding:4px 9px;font-size:var(–font-xs);font-weight:600;font-family:‘Inter’,sans-serif;cursor:pointer;border:1px solid transparent;background:transparent;color:var(–mu);border-radius:5px;transition:all .12s}
+.lb.on{border-color:var(–tlbr);color:var(–tld);background:var(–tlbg)}
 .sb-actions{display:flex;align-items:center;gap:8px}
-.dark-btn{background:none;border:1px solid var(--bd);border-radius:6px;padding:4px 8px;cursor:pointer;color:var(--mu);display:flex;align-items:center;transition:all .12s}
-.dark-btn:hover{border-color:var(--tl);color:var(--tld)}
-.outbtn{font-size:var(--font-xs);color:var(--mu);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Inter',sans-serif;font-weight:500}
-.outbtn:hover{color:var(--sf)}
+.dark-btn{background:none;border:1px solid var(–bd);border-radius:6px;padding:4px 8px;cursor:pointer;color:var(–mu);display:flex;align-items:center;transition:all .12s}
+.dark-btn:hover{border-color:var(–tl);color:var(–tld)}
+.outbtn{font-size:var(–font-xs);color:var(–mu);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:‘Inter’,sans-serif;font-weight:500}
+.outbtn:hover{color:var(–sf)}
 
 /* ── MAIN ── */
-.mn{margin-left:var(--sb-w);flex:1;padding:36px 44px 48px;max-width:calc(100vw - var(--sb-w))}
-.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:22px;border-bottom:1px solid var(--bd)}
-.tb-ey{font-size:var(--font-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:4px;font-weight:600}
-.tb-ti{font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:700;color:var(--bk);letter-spacing:-.03em;line-height:1.1}
-.tb-we{font-size:15px;color:var(--sf);margin-top:5px;font-weight:400}
-.badge-g{display:flex;align-items:center;gap:7px;font-size:var(--font-xs);font-weight:600;color:var(--gn);background:var(--gnbg);border:1px solid var(--gnbr);padding:5px 12px;border-radius:20px;white-space:nowrap}
-.dot{width:6px;height:6px;background:var(--gn);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
+.mn{margin-left:var(–sb-w);flex:1;padding:36px 44px 48px;max-width:calc(100vw - var(–sb-w))}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:22px;border-bottom:1px solid var(–bd)}
+.tb-ey{font-size:var(–font-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(–mu);margin-bottom:4px;font-weight:600}
+.tb-ti{font-family:‘Inter Tight’,sans-serif;font-size:26px;font-weight:700;color:var(–bk);letter-spacing:-.03em;line-height:1.1}
+.tb-we{font-size:15px;color:var(–sf);margin-top:5px;font-weight:400}
+.badge-g{display:flex;align-items:center;gap:7px;font-size:var(–font-xs);font-weight:600;color:var(–gn);background:var(–gnbg);border:1px solid var(–gnbr);padding:5px 12px;border-radius:20px;white-space:nowrap}
+.dot{width:6px;height:6px;background:var(–gn);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* ── METRICS ── */
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 .metrics-2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
-.metric{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:20px 22px 18px;position:relative;transition:box-shadow .2s,transform .2s;overflow:hidden;cursor:default}
+.metric{background:var(–s);border:1px solid var(–bd);border-radius:10px;padding:20px 22px 18px;position:relative;transition:box-shadow .2s,transform .2s;overflow:hidden;cursor:default}
 .metric:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.metric::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px}
 .metric.accent-tl::before{background:linear-gradient(90deg,#2AABB8,#5DCDD8)}
 .metric.accent-gn::before{background:linear-gradient(90deg,#1A7F4B,#34D399)}
 .metric.accent-pu::before{background:linear-gradient(90deg,#7C3AED,#A78BFA)}
 .metric.accent-am::before{background:linear-gradient(90deg,#D97706,#FCD34D)}
 .metric.accent-re::before{background:linear-gradient(90deg,#DC2626,#FB7185)}
 .metric.accent-pk::before{background:linear-gradient(90deg,#E11D48,#FB7185)}
-.ml{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
-.mv{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1;transition:opacity .2s}
-.mv.tl{color:var(--tld)}.mv.gn{color:var(--gn)}.mv.pu{color:var(--pu)}.mv.am{color:var(--am)}.mv.re{color:var(--re)}
-.ms{font-size:var(--font-tiny);color:var(--mu);margin-top:7px;font-weight:500}
-.hide-btn{position:absolute;top:18px;right:16px;background:none;border:none;cursor:pointer;color:var(--mu);padding:2px;display:flex;align-items:center;opacity:.6;transition:opacity .12s}
+.ml{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(–mu);margin-bottom:10px}
+.mv{font-family:‘Inter Tight’,sans-serif;font-size:24px;font-weight:700;color:var(–bk);letter-spacing:-.04em;line-height:1;transition:opacity .2s}
+.mv.tl{color:var(–tld)}.mv.gn{color:var(–gn)}.mv.pu{color:var(–pu)}.mv.am{color:var(–am)}.mv.re{color:var(–re)}
+.ms{font-size:var(–font-tiny);color:var(–mu);margin-top:7px;font-weight:500}
+.hide-btn{position:absolute;top:18px;right:16px;background:none;border:none;cursor:pointer;color:var(–mu);padding:2px;display:flex;align-items:center;opacity:.6;transition:opacity .12s}
 .hide-btn:hover{opacity:1}
 
 /* ── CARD ── */
-.card{background:var(--s);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
-.ch{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--bds)}
-.ct{font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;color:var(--bk)}
-.cm{font-size:var(--font-xs);color:var(--mu);font-weight:500}
+.card{background:var(–s);border:1px solid var(–bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(–bds)}
+.ct{font-family:‘Inter Tight’,sans-serif;font-size:14px;font-weight:700;color:var(–bk)}
+.cm{font-size:var(–font-xs);color:var(–mu);font-weight:500}
 .cb{padding:20px}
 
 /* ── TABLE ── */
 table{width:100%;border-collapse:collapse}
-thead tr{border-bottom:1px solid var(--bd)}
-th{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding:10px 16px;text-align:left;background:var(--s2)}
-td{padding:13px 16px;font-size:var(--font-sm);color:var(--bo);border-bottom:1px solid var(--bds)}
+thead tr{border-bottom:1px solid var(–bd)}
+th{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(–mu);padding:10px 16px;text-align:left;background:var(–s2)}
+td{padding:13px 16px;font-size:var(–font-sm);color:var(–bo);border-bottom:1px solid var(–bds)}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:var(--s2)}
-.tm{font-family:'JetBrains Mono',monospace;font-size:var(--font-sm);color:var(--bk);font-weight:500}
-.tt{font-family:'JetBrains Mono',monospace;font-size:var(--font-sm);color:var(--tld);font-weight:600}
-.td{color:var(--mu)}
-.sb2{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:var(--font-xs);font-weight:600}
-.sp{background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)}
-.spe{background:var(--ambg);color:var(--am);border:1px solid var(--ambr)}
-.sa{background:var(--tlbg);color:var(--tld);border:1px solid var(--tlbr)}
-.empty{text-align:center;padding:48px 20px;color:var(--mu)}
-.et{font-size:14px;font-weight:600;color:var(--sf);margin-bottom:4px}
+tbody tr:hover td{background:var(–s2)}
+.tm{font-family:‘JetBrains Mono’,monospace;font-size:var(–font-sm);color:var(–bk);font-weight:500}
+.tt{font-family:‘JetBrains Mono’,monospace;font-size:var(–font-sm);color:var(–tld);font-weight:600}
+.td{color:var(–mu)}
+.sb2{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:var(–font-xs);font-weight:600}
+.sp{background:var(–gnbg);color:var(–gn);border:1px solid var(–gnbr)}
+.spe{background:var(–ambg);color:var(–am);border:1px solid var(–ambr)}
+.sa{background:var(–tlbg);color:var(–tld);border:1px solid var(–tlbr)}
+.empty{text-align:center;padding:48px 20px;color:var(–mu)}
+.et{font-size:14px;font-weight:600;color:var(–sf);margin-bottom:4px}
 
 /* ── PHASES ── */
-.ph-track{height:5px;background:var(--bd);border-radius:3px;overflow:hidden;margin:14px 0 8px}
+.ph-track{height:5px;background:var(–bd);border-radius:3px;overflow:hidden;margin:14px 0 8px}
 .ph-fill{height:100%;border-radius:3px;transition:width .8s ease}
-.ph-labels{display:flex;justify-content:space-between;font-size:var(--font-tiny);color:var(--mu);margin-bottom:16px;font-weight:600}
+.ph-labels{display:flex;justify-content:space-between;font-size:var(–font-tiny);color:var(–mu);margin-bottom:16px;font-weight:600}
 .ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.pc{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;transition:all .2s}
-.pc.on-tl{background:var(--tlbg);border-color:var(--tlbr)}
-.pc.on-gn{background:var(--gnbg);border-color:var(--gnbr)}
-.pl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:5px}
-.pc.on-tl .pl{color:var(--tld)}.pc.on-gn .pl{color:var(--gn)}
-.pn{font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;color:var(--sf);margin-bottom:4px}
-.pc.on-tl .pn{color:var(--tld)}.pc.on-gn .pn{color:var(--gn)}
-.pd{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mu)}
+.pc{background:var(–bg);border:1px solid var(–bd);border-radius:8px;padding:14px 16px;transition:all .2s}
+.pc.on-tl{background:var(–tlbg);border-color:var(–tlbr)}
+.pc.on-gn{background:var(–gnbg);border-color:var(–gnbr)}
+.pl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(–mu);margin-bottom:5px}
+.pc.on-tl .pl{color:var(–tld)}.pc.on-gn .pl{color:var(–gn)}
+.pn{font-family:‘Inter Tight’,sans-serif;font-size:13px;font-weight:700;color:var(–sf);margin-bottom:4px}
+.pc.on-tl .pn{color:var(–tld)}.pc.on-gn .pn{color:var(–gn)}
+.pd{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–mu)}
 
 /* ── TIMELINE ── */
 .timeline{position:relative;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--bd);border-radius:1px}
+.timeline::before{content:’’;position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(–bd);border-radius:1px}
 .tl-item{position:relative;margin-bottom:20px}
 .tl-item:last-child{margin-bottom:0}
-.tl-dot{position:absolute;left:-24px;top:3px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bd);background:var(--s);transition:all .3s}
-.tl-item.done .tl-dot{background:var(--tl);border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.tl-item.current .tl-dot{background:var(--gn);border-color:var(--gn);box-shadow:0 0 0 3px var(--gnbg)}
-.tl-item.future .tl-dot{background:var(--s2);border-color:var(--mu)}
-.tl-label{font-size:var(--font-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:2px}
-.tl-item.done .tl-label{color:var(--tld)}
-.tl-item.current .tl-label{color:var(--gn)}
-.tl-title{font-size:var(--font-sm);font-weight:600;color:var(--bk);margin-bottom:2px}
-.tl-detail{font-size:var(--font-xs);color:var(--mu)}
-.tl-amount{font-family:'JetBrains Mono',monospace;font-size:var(--font-sm);font-weight:600;color:var(--tld);float:right;margin-top:-18px}
+.tl-dot{position:absolute;left:-24px;top:3px;width:12px;height:12px;border-radius:50%;border:2px solid var(–bd);background:var(–s);transition:all .3s}
+.tl-item.done .tl-dot{background:var(–tl);border-color:var(–tl);box-shadow:0 0 0 3px var(–tlbg)}
+.tl-item.current .tl-dot{background:var(–gn);border-color:var(–gn);box-shadow:0 0 0 3px var(–gnbg)}
+.tl-item.future .tl-dot{background:var(–s2);border-color:var(–mu)}
+.tl-label{font-size:var(–font-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–mu);margin-bottom:2px}
+.tl-item.done .tl-label{color:var(–tld)}
+.tl-item.current .tl-label{color:var(–gn)}
+.tl-title{font-size:var(–font-sm);font-weight:600;color:var(–bk);margin-bottom:2px}
+.tl-detail{font-size:var(–font-xs);color:var(–mu)}
+.tl-amount{font-family:‘JetBrains Mono’,monospace;font-size:var(–font-sm);font-weight:600;color:var(–tld);float:right;margin-top:-18px}
 
 /* ── PAGES ── */
 .pg{display:none}.pg.on{display:block}
 
 /* ── FOOTER ── */
-.foot{display:flex;align-items:center;gap:16px;padding:13px 20px;border:1px solid var(--bd);border-radius:8px;margin-top:12px;background:var(--s);flex-wrap:wrap}
-.fi2{font-size:var(--font-xs);color:var(--mu);display:flex;align-items:center;gap:6px;font-weight:500}
-.fs{width:1px;height:12px;background:var(--bd)}
-.disc{font-size:10px;color:var(--mu);padding:10px 20px;text-align:center;line-height:1.6;margin-top:6px;opacity:.8}
+.foot{display:flex;align-items:center;gap:16px;padding:13px 20px;border:1px solid var(–bd);border-radius:8px;margin-top:12px;background:var(–s);flex-wrap:wrap}
+.fi2{font-size:var(–font-xs);color:var(–mu);display:flex;align-items:center;gap:6px;font-weight:500}
+.fs{width:1px;height:12px;background:var(–bd)}
+.disc{font-size:10px;color:var(–mu);padding:10px 20px;text-align:center;line-height:1.6;margin-top:6px;opacity:.8}
 
 /* ── CHART ── */
 .chart-box{position:relative;height:180px;width:100%}
 .chart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;gap:12px}
 .chart-empty-bars{display:flex;align-items:flex-end;gap:6px;height:70px}
-.chart-empty-bar{width:16px;border-radius:4px 4px 0 0;background:var(--bd);animation:barPulse 1.5s ease-in-out infinite alternate}
+.chart-empty-bar{width:16px;border-radius:4px 4px 0 0;background:var(–bd);animation:barPulse 1.5s ease-in-out infinite alternate}
 @keyframes barPulse{from{opacity:.4}to{opacity:.8}}
 
 /* ── TWO/THREE COL ── */
@@ -189,132 +190,134 @@ tbody tr:hover td{background:var(--s2)}
 .threecol{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
 
 /* ── ANNOUNCE ── */
-.ann{background:var(--tlbg);border:1px solid var(--tlbr);border-left:3px solid var(--tl);border-radius:8px;padding:12px 16px;margin-bottom:12px;animation:slideIn .3s ease}
+.ann{background:var(–tlbg);border:1px solid var(–tlbr);border-left:3px solid var(–tl);border-radius:8px;padding:12px 16px;margin-bottom:12px;animation:slideIn .3s ease}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .ann-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.ann-t{font-size:var(--font-sm);font-weight:700;color:var(--tld)}
-.ann-d{font-size:var(--font-tiny);color:var(--mu);font-weight:600}
-.ann-b{font-size:var(--font-sm);color:var(--bo);line-height:1.6}
+.ann-t{font-size:var(–font-sm);font-weight:700;color:var(–tld)}
+.ann-d{font-size:var(–font-tiny);color:var(–mu);font-weight:600}
+.ann-b{font-size:var(–font-sm);color:var(–bo);line-height:1.6}
 
 /* ── BANK ── */
 .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.bst{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:12px}
-.br2{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bds)}
+.bst{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(–mu);margin-bottom:12px}
+.br2{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(–bds)}
 .br2:last-child{border-bottom:none}
-.blab{font-size:var(--font-xs);color:var(--mu);font-weight:500}
-.bval{font-size:var(--font-sm);font-weight:600;color:var(--bk);font-family:'JetBrains Mono',monospace}
-.cbtn{font-size:var(--font-tiny);padding:3px 8px;border:1px solid var(--bd);border-radius:5px;cursor:pointer;color:var(--mu);background:var(--bg);transition:all .12s;font-family:'Inter',sans-serif;font-weight:600}
-.cbtn:hover{border-color:var(--tl);color:var(--tld)}
-.cbtn.ok{border-color:var(--gnbr);color:var(--gn);background:var(--gnbg)}
+.blab{font-size:var(–font-xs);color:var(–mu);font-weight:500}
+.bval{font-size:var(–font-sm);font-weight:600;color:var(–bk);font-family:‘JetBrains Mono’,monospace}
+.cbtn{font-size:var(–font-tiny);padding:3px 8px;border:1px solid var(–bd);border-radius:5px;cursor:pointer;color:var(–mu);background:var(–bg);transition:all .12s;font-family:‘Inter’,sans-serif;font-weight:600}
+.cbtn:hover{border-color:var(–tl);color:var(–tld)}
+.cbtn.ok{border-color:var(–gnbr);color:var(–gn);background:var(–gnbg)}
 
 /* ── LOCKED ── */
-.locked-box{position:relative;padding:40px;text-align:center;background:var(--s2);border-radius:8px}
-.locked-icon{width:48px;height:48px;border-radius:50%;background:var(--ambg);border:1px solid var(--ambr);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.locked-box{position:relative;padding:40px;text-align:center;background:var(–s2);border-radius:8px}
+.locked-icon{width:48px;height:48px;border-radius:50%;background:var(–ambg);border:1px solid var(–ambr);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
 
 /* ── NEWS ── */
-.ni2{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bds);cursor:pointer;transition:background .1s;border-radius:6px;margin:0 -6px;padding-left:6px;padding-right:6px}
+.ni2{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(–bds);cursor:pointer;transition:background .1s;border-radius:6px;margin:0 -6px;padding-left:6px;padding-right:6px}
 .ni2:last-child{border-bottom:none;padding-bottom:0}
-.ni2:hover{background:var(--s2)}
-.ndot{width:7px;height:7px;border-radius:50%;background:var(--tl);margin-top:5px;flex-shrink:0}
-.ntit{font-size:var(--font-sm);font-weight:600;color:var(--bk);margin-bottom:3px;line-height:1.4}
-.nmet{font-size:var(--font-tiny);color:var(--mu);font-weight:500}
+.ni2:hover{background:var(–s2)}
+.ndot{width:7px;height:7px;border-radius:50%;background:var(–tl);margin-top:5px;flex-shrink:0}
+.ntit{font-size:var(–font-sm);font-weight:600;color:var(–bk);margin-bottom:3px;line-height:1.4}
+.nmet{font-size:var(–font-tiny);color:var(–mu);font-weight:500}
 
 /* ── TICKER ── */
 .ticker{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.tick{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;transition:box-shadow .2s}
+.tick{background:var(–s);border:1px solid var(–bd);border-radius:10px;padding:14px 16px;transition:box-shadow .2s}
 .tick:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
-.tick-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:5px}
-.tick-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--bk);line-height:1}
-.tick-chg{font-size:var(--font-xs);margin-top:4px;font-weight:600}
-.tick-chg.up{color:var(--gn)}.tick-chg.dn{color:var(--re)}.tick-chg.nt{color:var(--mu)}
+.tick-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–mu);margin-bottom:5px}
+.tick-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:600;color:var(–bk);line-height:1}
+.tick-chg{font-size:var(–font-xs);margin-top:4px;font-weight:600}
+.tick-chg.up{color:var(–gn)}.tick-chg.dn{color:var(–re)}.tick-chg.nt{color:var(–mu)}
 
 /* ── FX CALC ── */
 .fx-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.fx-inp{padding:10px 14px;border:1px solid var(--bd);border-radius:8px;font-size:16px;font-family:'JetBrains Mono',monospace;color:var(--bk);background:var(--s);width:160px;transition:border-color .15s}
-.fx-inp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.fx-label{font-size:var(--font-sm);font-weight:600;color:var(--sf)}
-.fx-result{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--tld)}
-.fx-rate{font-size:var(--font-xs);color:var(--mu);margin-top:3px;font-weight:500}
+.fx-inp{padding:10px 14px;border:1px solid var(–bd);border-radius:8px;font-size:16px;font-family:‘JetBrains Mono’,monospace;color:var(–bk);background:var(–s);width:160px;transition:border-color .15s}
+.fx-inp:focus{outline:none;border-color:var(–tl);box-shadow:0 0 0 3px var(–tlbg)}
+.fx-label{font-size:var(–font-sm);font-weight:600;color:var(–sf)}
+.fx-result{font-family:‘JetBrains Mono’,monospace;font-size:22px;font-weight:700;color:var(–tld)}
+.fx-rate{font-size:var(–font-xs);color:var(–mu);margin-top:3px;font-weight:500}
 
 /* ── ALLOCATIONS ── */
 .alloc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
-.alloc-card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:18px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.alloc-card{background:var(–s);border:1px solid var(–bd);border-radius:10px;padding:18px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
 .alloc-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
 .alloc-bar{height:4px;position:absolute;top:0;left:0;right:0}
-.alloc-pct{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
-.alloc-name{font-size:var(--font-sm);font-weight:700;color:var(--bk);margin-bottom:5px}
-.alloc-desc{font-size:var(--font-xs);color:var(--sf);line-height:1.6;margin-bottom:10px}
-.alloc-vs{font-size:var(--font-tiny);color:var(--mu);background:var(--bg);border:1px solid var(--bd);padding:4px 9px;border-radius:5px;display:inline-block;font-weight:600}
+.alloc-pct{font-family:‘JetBrains Mono’,monospace;font-size:28px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
+.alloc-name{font-size:var(–font-sm);font-weight:700;color:var(–bk);margin-bottom:5px}
+.alloc-desc{font-size:var(–font-xs);color:var(–sf);line-height:1.6;margin-bottom:10px}
+.alloc-vs{font-size:var(–font-tiny);color:var(–mu);background:var(–bg);border:1px solid var(–bd);padding:4px 9px;border-radius:5px;display:inline-block;font-weight:600}
 
 /* ── SIMULATOR ── */
 .sim-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.sim-inp{padding:10px 14px;border:1px solid var(--bd);border-radius:8px;font-size:16px;font-family:'JetBrains Mono',monospace;color:var(--bk);background:var(--s);width:180px;transition:border-color .15s}
-.sim-inp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.sim-inp{padding:10px 14px;border:1px solid var(–bd);border-radius:8px;font-size:16px;font-family:‘JetBrains Mono’,monospace;color:var(–bk);background:var(–s);width:180px;transition:border-color .15s}
+.sim-inp:focus{outline:none;border-color:var(–tl);box-shadow:0 0 0 3px var(–tlbg)}
 .sim-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
-.sim-card{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px 16px;text-align:center}
-.sim-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
-.sim-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--tld)}
+.sim-card{background:var(–bg);border:1px solid var(–bd);border-radius:8px;padding:14px 16px;text-align:center}
+.sim-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(–mu);margin-bottom:6px}
+.sim-val{font-family:‘JetBrains Mono’,monospace;font-size:18px;font-weight:700;color:var(–tld)}
 
 /* ── SUPPORT ── */
-.sup-form textarea{width:100%;padding:11px 14px;border:1px solid var(--bd);border-radius:8px;font-size:var(--font-base);font-family:'Inter',sans-serif;color:var(--bk);background:var(--s);resize:vertical;min-height:110px;transition:border-color .15s;margin-bottom:12px}
-.sup-form textarea:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.sup-btn{padding:10px 22px;background:var(--tl);color:white;border:none;border-radius:8px;font-size:var(--font-base);font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
-.sup-btn:hover{background:var(--tld)}
-.sup-success{background:var(--gnbg);border:1px solid var(--gnbr);border-radius:8px;padding:12px 16px;font-size:var(--font-sm);color:var(--gn);font-weight:600;display:none;margin-top:10px}
+.sup-form textarea{width:100%;padding:11px 14px;border:1px solid var(–bd);border-radius:8px;font-size:var(–font-base);font-family:‘Inter’,sans-serif;color:var(–bk);background:var(–s);resize:vertical;min-height:110px;transition:border-color .15s;margin-bottom:12px}
+.sup-form textarea:focus{outline:none;border-color:var(–tl);box-shadow:0 0 0 3px var(–tlbg)}
+.sup-btn{padding:10px 22px;background:var(–tl);color:white;border:none;border-radius:8px;font-size:var(–font-base);font-weight:600;font-family:‘Inter’,sans-serif;cursor:pointer;transition:background .15s}
+.sup-btn:hover{background:var(–tld)}
+.sup-success{background:var(–gnbg);border:1px solid var(–gnbr);border-radius:8px;padding:12px 16px;font-size:var(–font-sm);color:var(–gn);font-weight:600;display:none;margin-top:10px}
 
 /* ── CLIENT INFO ── */
 .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
-.info-row{padding:10px 0;border-bottom:1px solid var(--bds);display:flex;flex-direction:column;gap:3px}
+.info-row{padding:10px 0;border-bottom:1px solid var(–bds);display:flex;flex-direction:column;gap:3px}
 .info-row:last-child{border-bottom:none}
-.info-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
-.info-val{font-size:var(--font-sm);font-weight:600;color:var(--bk)}
+.info-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(–mu)}
+.info-val{font-size:var(–font-sm);font-weight:600;color:var(–bk)}
 
 /* ── PDF BUTTON ── */
-.pdf-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:7px;font-size:var(--font-xs);font-weight:600;color:var(--bo);cursor:pointer;transition:all .12s;font-family:'Inter',sans-serif}
-.pdf-btn:hover{border-color:var(--tl);color:var(--tld);background:var(--tlbg)}
+.pdf-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(–bg);border:1px solid var(–bd);border-radius:7px;font-size:var(–font-xs);font-weight:600;color:var(–bo);cursor:pointer;transition:all .12s;font-family:‘Inter’,sans-serif}
+.pdf-btn:hover{border-color:var(–tl);color:var(–tld);background:var(–tlbg)}
 
 /* ── ACCESS LOG ── */
-.log-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bds)}
+.log-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(–bds)}
 .log-item:last-child{border-bottom:none}
 .log-info{display:flex;align-items:center;gap:10px}
-.log-dot{width:8px;height:8px;border-radius:50%;background:var(--gn);flex-shrink:0}
-.log-date{font-size:var(--font-sm);font-weight:600;color:var(--bk)}
-.log-device{font-size:var(--font-xs);color:var(--mu);font-weight:500}
-.log-badge{font-size:var(--font-tiny);font-weight:700;padding:2px 8px;border-radius:20px;background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)}
+.log-dot{width:8px;height:8px;border-radius:50%;background:var(–gn);flex-shrink:0}
+.log-date{font-size:var(–font-sm);font-weight:600;color:var(–bk)}
+.log-device{font-size:var(–font-xs);color:var(–mu);font-weight:500}
+.log-badge{font-size:var(–font-tiny);font-weight:700;padding:2px 8px;border-radius:20px;background:var(–gnbg);color:var(–gn);border:1px solid var(–gnbr)}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  :root{--font-base:13px;--font-sm:12px}
-  .sb{width:100%!important;min-height:auto!important;height:62px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(--bd)!important}
-  .sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
-  .sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;overflow:hidden!important}
-  .ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:4px 2px!important;border-radius:0!important;font-size:9px!important;margin-bottom:0!important}
-  .ni.on{background:var(--tlbg)!important;border-top:2px solid var(--tl)!important}
-  .ni svg{width:20px!important;height:20px!important}
-  .mn{margin-left:0!important;padding:72px 14px 74px!important;max-width:100%!important}
-  .topbar{flex-direction:column!important;gap:10px!important;margin-bottom:18px!important}
-  .tb-ti{font-size:22px!important}
-  .metrics,.metrics-2{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;margin-bottom:10px!important}
-  .metrics-2 .metric:last-child:nth-child(odd),.metrics .metric:last-child:nth-child(odd){grid-column:1/-1!important}
-  .mv{font-size:20px!important}
-  .ph-grid{grid-template-columns:1fr!important}
-  .twocol,.threecol,.bgrid,.alloc-grid{grid-template-columns:1fr!important}
-  .ticker{grid-template-columns:repeat(2,1fr)!important}
-  .info-grid{grid-template-columns:1fr!important}
-  .sim-result-grid{grid-template-columns:repeat(2,1fr)!important}
-  .foot{flex-direction:column!important;gap:6px!important}
-  .fs,.desk-only{display:none!important}
-  .lc{margin:16px!important;padding:30px 22px!important}
-  .mob-top{display:flex!important}
-  .ch{flex-wrap:wrap;gap:8px}
+:root{–font-base:13px;–font-sm:12px}
+.sb{width:100%!important;min-height:auto!important;height:62px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(–bd)!important}
+.sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
+.sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;overflow:hidden!important}
+.ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:4px 2px!important;border-radius:0!important;font-size:9px!important;margin-bottom:0!important}
+.ni.on{background:var(–tlbg)!important;border-top:2px solid var(–tl)!important}
+.ni svg{width:20px!important;height:20px!important}
+.mn{margin-left:0!important;padding:72px 14px 74px!important;max-width:100%!important}
+.topbar{flex-direction:column!important;gap:10px!important;margin-bottom:18px!important}
+.tb-ti{font-size:22px!important}
+.metrics,.metrics-2{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;margin-bottom:10px!important}
+.metrics-2 .metric:last-child:nth-child(odd),.metrics .metric:last-child:nth-child(odd){grid-column:1/-1!important}
+.mv{font-size:20px!important}
+.ph-grid{grid-template-columns:1fr!important}
+.twocol,.threecol,.bgrid,.alloc-grid{grid-template-columns:1fr!important}
+.ticker{grid-template-columns:repeat(2,1fr)!important}
+.info-grid{grid-template-columns:1fr!important}
+.sim-result-grid{grid-template-columns:repeat(2,1fr)!important}
+.foot{flex-direction:column!important;gap:6px!important}
+.fs,.desk-only{display:none!important}
+.lc{margin:16px!important;padding:30px 22px!important}
+.mob-top{display:flex!important}
+.ch{flex-wrap:wrap;gap:8px}
 }
 @media(min-width:769px){.mob-top{display:none!important}}
-.mob-top{position:fixed;top:0;left:0;right:0;height:58px;background:var(--s);border-bottom:1px solid var(--bd);align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
+.mob-top{position:fixed;top:0;left:0;right:0;height:58px;background:var(–s);border-bottom:1px solid var(–bd);align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
 </style>
+
 </head>
 <body>
 
 <!-- LOGIN -->
+
 <div class="lp" id="LP">
   <div class="lc">
     <div class="logo-c">
@@ -339,6 +342,7 @@ tbody tr:hover td{background:var(--s2)}
 </div>
 
 <!-- APP -->
+
 <div class="app" id="APP">
   <!-- MOBILE TOP -->
   <div class="mob-top" id="MOB">
@@ -356,6 +360,7 @@ tbody tr:hover td{background:var(--s2)}
   </div>
 
   <!-- SIDEBAR -->
+
   <aside class="sb">
     <div class="sb-logo">
       <div style="font-family:'Inter Tight',sans-serif;font-size:30px;font-weight:700;color:var(--gy);line-height:1;letter-spacing:-.02em">GST</div>
@@ -373,259 +378,264 @@ tbody tr:hover td{background:var(--s2)}
       <div class="ns" id="ns2">Mercado</div>
       <a class="ni" onclick="nav('news',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.5A1.5 1.5 0 011.5 1h11A1.5 1.5 0 0114 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 000-1H14v-9a.5.5 0 00-1 0v9H1.497A1.497 1.497 0 012 12.5v-10zm3.5 1a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4z"/></svg><span id="nt4">Notícias</span></a>
       <a class="ni" onclick="nav('alloc',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 2a1 1 0 011 1v1h.5A1.5 1.5 0 0114 5.5v7a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-7A1.5 1.5 0 013.5 4H4V3a1 1 0 012 0v1h4V3a1 1 0 011-1zm1 4H4v6.5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5V6z"/></svg><span id="nt5">Alocações</span></a>
-      <a class="ni" onclick="nav('simulator',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3a1.5 1.5 0 011.5 1.5v3A1.5 1.5 0 0113.5 15h-3A1.5 1.5 0 019 13.5v-3z"/></svg><span id="nt6">Simulador</span></a>
-      <div class="ns" id="ns3">Serviços</div>
-      <a class="ni" onclick="nav('transfer',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"/></svg><span id="nt7">Transferência</span></a>
-      <a class="ni" onclick="nav('support',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.255 5.786a.237.237 0 00.241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 00.25.246h.811a.25.25 0 00.25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg><span id="nt8">Suporte</span></a>
-      <a class="ni" onclick="nav('access',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a2 2 0 012 2v4H6V3a2 2 0 012-2zm3 6V3a3 3 0 00-6 0v4a2 2 0 00-2 2v5a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2z"/></svg><span id="nt9">Acessos</span></a>
-    </nav>
-    <div class="sb-bot">
-      <div class="lang"><button class="lb on" onclick="setLang('pt')">PT</button><button class="lb" onclick="setLang('en')">EN</button></div>
-      <div class="sb-actions">
-        <button class="dark-btn" onclick="toggleDark()" title="Modo escuro">
-          <svg id="dark-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </button>
-        <button class="outbtn" onclick="doLogout()"><svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg><span id="nt10">Sair</span></button>
-      </div>
-    </div>
+
+```
+  <div class="ns" id="ns3">Serviços</div>
+  <a class="ni" onclick="nav('transfer',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"/></svg><span id="nt7">Transferência</span></a>
+  <a class="ni" onclick="nav('support',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.255 5.786a.237.237 0 00.241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 00.25.246h.811a.25.25 0 00.25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg><span id="nt8">Suporte</span></a>
+
+</nav>
+<div class="sb-bot">
+  <div class="lang"><button class="lb on" onclick="setLang('pt')">PT</button><button class="lb" onclick="setLang('en')">EN</button></div>
+  <div class="sb-actions">
+    <button class="dark-btn" onclick="toggleDark()" title="Modo escuro">
+      <svg id="dark-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <button class="outbtn" onclick="doLogout()"><svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg><span id="nt10">Sair</span></button>
+  </div>
+</div>
+```
+
   </aside>
 
   <!-- MAIN -->
+
   <main class="mn">
 
-    <!-- DASHBOARD -->
-    <div class="pg on" id="pg-dashboard">
-      <div class="topbar">
+```
+<!-- DASHBOARD -->
+<div class="pg on" id="pg-dashboard">
+  <div class="topbar">
+    <div>
+      <div class="tb-ey" id="tb-ey">Dashboard · GST Access</div>
+      <div class="tb-ti" id="tb-ti">Visão Geral do Portfólio</div>
+      <div id="tb-we" style="font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:500;color:var(--sf);margin-top:5px"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span id="currency-badge" style="display:none;font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;background:var(--ambg);color:var(--am);border:1px solid var(--ambr)">USD</span>
+      <div class="badge-g"><div class="dot"></div><span id="tb-st">Ativo</span></div>
+    </div>
+  </div>
+  <div id="ann-section"></div>
+  <div class="metrics">
+    <div class="metric accent-tl"><div class="ml" id="m1l">Valor Aportado</div><div class="mv" id="m1v">—</div><div class="ms" id="m1s">—</div><button class="hide-btn" onclick="toggleMetric('m1v','m1s')" title="Ocultar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    <div class="metric accent-gn"><div class="ml" id="m2l">Rendimentos Recebidos</div><div class="mv gn" id="m2v">—</div><div class="ms" id="m2s">—</div><button class="hide-btn" onclick="toggleMetric('m2v','m2s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    <div class="metric accent-am"><div class="ml" id="m3l">Próximo Pagamento</div><div class="mv am" id="m3v">—</div><div class="ms" id="m3s">—</div><button class="hide-btn" onclick="toggleMetric('m3v','m3s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+  </div>
+  <div class="metrics-2">
+    <div class="metric accent-pu"><div class="ml" id="m4l">Retorno Mensal</div><div class="mv pu" id="m4v">—</div><div class="ms" id="m4s">—</div></div>
+    <div class="metric accent-re"><div class="ml" id="m5l">Total Retirado</div><div class="mv re" id="m5v">—</div><div class="ms" id="m5s">—</div><button class="hide-btn" onclick="toggleMetric('m5v','m5s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    <div class="metric accent-tl"><div class="ml" id="m6l">Rentabilidade Acumulada</div><div class="mv tl" id="m6v">—</div><div class="ms" id="m6s">—</div></div>
+  </div>
+  <div class="twocol">
+    <div class="card">
+      <div class="ch"><div class="ct" id="ch-ti">Evolução dos Rendimentos</div><div class="cm" id="ch-me">Últimos pagamentos</div></div>
+      <div class="cb"><div class="chart-box"><canvas id="RC"></canvas></div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct" id="al-ti">Composição da Carteira</div></div>
+      <div class="cb" style="display:flex;align-items:center;justify-content:center;gap:20px">
+        <div style="width:150px;height:150px;flex-shrink:0"><canvas id="DC"></canvas></div>
+        <div style="display:flex;flex-direction:column;gap:9px" id="donut-legend"></div>
+      </div>
+    </div>
+  </div>
+  <!-- TIMELINE -->
+  <div class="card">
+    <div class="ch"><div class="ct" id="tl-ti">Linha do Tempo do Investimento</div><div class="cm" id="tl-cm">—</div></div>
+    <div class="cb"><div class="timeline" id="TL"><div style="color:var(--mu);font-size:13px">Carregando...</div></div></div>
+  </div>
+  <!-- CYCLE -->
+  <div class="card">
+    <div class="ch"><div class="ct" id="cy-ti">Ciclo de Investimento</div><div class="cm" id="cy-cm">—</div></div>
+    <div class="cb">
+      <div class="ph-track"><div class="ph-fill" id="phf" style="width:3%;background:var(--tl)"></div></div>
+      <div class="ph-labels"><span id="ph1">Mês 1–6</span><span id="ph2">Mês 7–18</span><span id="ph3">Mês 19–120</span></div>
+      <div class="ph-grid">
+        <div class="pc on-tl"><div class="pl" id="pc1l">Fase atual</div><div class="pn" id="pc1n">Aceleração</div><div class="pd" id="pc1d">—</div></div>
+        <div class="pc"><div class="pl" id="pc2l">Próxima fase</div><div class="pn" id="pc2n">Devolução</div><div class="pd" id="pc2d">—</div></div>
+        <div class="pc"><div class="pl" id="pc3l">Fase final</div><div class="pn" id="pc3n">Sócio dos Lucros</div><div class="pd" id="pc3d">—</div></div>
+      </div>
+      <div id="cycle-note" style="margin-top:10px;font-size:11px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENTS -->
+<div class="pg" id="pg-payments">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="py-ti">Histórico de Pagamentos</div></div>
+    <button class="pdf-btn" onclick="exportPDF()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="pdf-btn-label">Baixar Extrato PDF</span></button>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct" id="py-ct">Pagamentos Mensais</div><div class="cm" id="py-cm">—</div></div>
+    <div id="PAY" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
+  </div>
+</div>
+
+<!-- DOCUMENTS -->
+<div class="pg" id="pg-documents">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="dc-ti">Documentos</div></div></div>
+  <div class="card" id="client-info-card" style="display:none">
+    <div class="ch"><div class="ct" id="dc-ci">Informações do Titular</div></div>
+    <div class="cb"><div class="info-grid" id="client-info-grid"></div></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct" id="dc-ct">Contratos e Relatórios</div></div>
+    <div id="DOC" style="overflow-x:auto"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
+  </div>
+</div>
+
+<!-- NEWS -->
+<div class="pg" id="pg-news">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="nw-ti">Notícias & Mercado</div></div></div>
+  <div class="ticker">
+    <div class="tick"><div class="tick-name">USD/BRL</div><div class="tick-val" id="fx-rate-display">—</div><div class="tick-chg nt" id="fx-chg">Carregando...</div></div>
+    <div class="tick"><div class="tick-name">IBOVESPA</div><div class="tick-val">~131k</div><div class="tick-chg up">Bolsa de SP</div></div>
+    <div class="tick"><div class="tick-name">S&P 500</div><div class="tick-val">~5,600</div><div class="tick-chg up">Bolsa de NY</div></div>
+    <div class="tick"><div class="tick-name">CDI (BR)</div><div class="tick-val">~13.6%</div><div class="tick-chg nt">a.a.</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="ch"><div class="ct" id="fx-ti">Calculadora USD / BRL</div></div>
+    <div class="cb">
+      <div class="fx-row">
+        <span class="fx-label">USD $</span>
+        <input class="fx-inp" type="number" id="fx-usd" value="1000" oninput="calcFX()">
+        <span class="fx-label">=</span>
+        <div><div class="fx-result" id="fx-brl">—</div><div class="fx-rate" id="fx-rate-note">—</div></div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bds)">
+        <div class="fx-row">
+          <span class="fx-label">BRL R$</span>
+          <input class="fx-inp" type="number" id="fx-brl-inp" value="5000" oninput="calcFXrev()">
+          <span class="fx-label">=</span>
+          <div><div class="fx-result" id="fx-usd-out">—</div><div class="fx-rate" id="fx-rate-note2">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="twocol">
+    <div class="card"><div class="ch"><div class="ct" id="nw-us">Mercado Americano</div><div class="cm">Principais portais</div></div><div class="cb" id="NUS"></div></div>
+    <div class="card"><div class="ch"><div class="ct" id="nw-br">Mercado Brasileiro</div><div class="cm">Principais portais</div></div><div class="cb" id="NBR"></div></div>
+  </div>
+</div>
+
+<!-- ALLOCATIONS -->
+<div class="pg" id="pg-alloc">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="al2-ti">Alocações do Fundo</div></div></div>
+  <div class="alloc-grid" id="alloc-grid"></div>
+  <div style="background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px 18px;font-size:11px;color:var(--mu);line-height:1.7;margin-bottom:16px" id="fdic-disc"></div>
+
+  <!-- SIMULATOR embedded in alloc page -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="ch">
+      <div class="ct" id="sim-ct">Simulador de Crescimento</div>
+      <!-- Toggle buttons -->
+      <div style="display:flex;gap:4px">
+        <button id="sim-mode-simple" onclick="setSimMode('simple')" style="padding:4px 12px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid var(--tl);background:var(--tl);color:white;cursor:pointer;font-family:Inter,sans-serif;transition:all .15s">Saques Mensais</button>
+        <button id="sim-mode-compound" onclick="setSimMode('compound')" style="padding:4px 12px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);cursor:pointer;font-family:Inter,sans-serif;transition:all .15s">Juros Compostos</button>
+      </div>
+    </div>
+    <div class="cb">
+      <div class="sim-row">
         <div>
-          <div class="tb-ey" id="tb-ey">Dashboard · GST Access</div>
-          <div class="tb-ti" id="tb-ti">Visão Geral do Portfólio</div>
-          <div id="tb-we" style="font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:500;color:var(--sf);margin-top:5px"></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span id="currency-badge" style="display:none;font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;background:var(--ambg);color:var(--am);border:1px solid var(--ambr)">USD</span>
-          <div class="badge-g"><div class="dot"></div><span id="tb-st">Ativo</span></div>
-        </div>
-      </div>
-      <div id="ann-section"></div>
-      <div class="metrics">
-        <div class="metric accent-tl"><div class="ml" id="m1l">Valor Aportado</div><div class="mv" id="m1v">—</div><div class="ms" id="m1s">—</div><button class="hide-btn" onclick="toggleMetric('m1v','m1s')" title="Ocultar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-        <div class="metric accent-gn"><div class="ml" id="m2l">Rendimentos Recebidos</div><div class="mv gn" id="m2v">—</div><div class="ms" id="m2s">—</div><button class="hide-btn" onclick="toggleMetric('m2v','m2s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-        <div class="metric accent-am"><div class="ml" id="m3l">Próximo Pagamento</div><div class="mv am" id="m3v">—</div><div class="ms" id="m3s">—</div><button class="hide-btn" onclick="toggleMetric('m3v','m3s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-      </div>
-      <div class="metrics-2">
-        <div class="metric accent-pu"><div class="ml" id="m4l">Retorno Mensal</div><div class="mv pu" id="m4v">—</div><div class="ms" id="m4s">—</div></div>
-        <div class="metric accent-re"><div class="ml" id="m5l">Total Retirado</div><div class="mv re" id="m5v">—</div><div class="ms" id="m5s">—</div><button class="hide-btn" onclick="toggleMetric('m5v','m5s')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-        <div class="metric accent-tl"><div class="ml" id="m6l">Rentabilidade Acumulada</div><div class="mv tl" id="m6v">—</div><div class="ms" id="m6s">—</div></div>
-      </div>
-      <div class="twocol">
-        <div class="card">
-          <div class="ch"><div class="ct" id="ch-ti">Evolução dos Rendimentos</div><div class="cm" id="ch-me">Últimos pagamentos</div></div>
-          <div class="cb"><div class="chart-box"><canvas id="RC"></canvas></div></div>
-        </div>
-        <div class="card">
-          <div class="ch"><div class="ct" id="al-ti">Composição da Carteira</div></div>
-          <div class="cb" style="display:flex;align-items:center;justify-content:center;gap:20px">
-            <div style="width:150px;height:150px;flex-shrink:0"><canvas id="DC"></canvas></div>
-            <div style="display:flex;flex-direction:column;gap:9px" id="donut-legend"></div>
-          </div>
-        </div>
-      </div>
-      <!-- TIMELINE -->
-      <div class="card">
-        <div class="ch"><div class="ct" id="tl-ti">Linha do Tempo do Investimento</div><div class="cm" id="tl-cm">—</div></div>
-        <div class="cb"><div class="timeline" id="TL"><div style="color:var(--mu);font-size:13px">Carregando...</div></div></div>
-      </div>
-      <!-- CYCLE -->
-      <div class="card">
-        <div class="ch"><div class="ct" id="cy-ti">Ciclo de Investimento</div><div class="cm" id="cy-cm">—</div></div>
-        <div class="cb">
-          <div class="ph-track"><div class="ph-fill" id="phf" style="width:3%;background:var(--tl)"></div></div>
-          <div class="ph-labels"><span id="ph1">Mês 1–6</span><span id="ph2">Mês 7–18</span><span id="ph3">Mês 19–120</span></div>
-          <div class="ph-grid">
-            <div class="pc on-tl"><div class="pl" id="pc1l">Fase atual</div><div class="pn" id="pc1n">Aceleração</div><div class="pd" id="pc1d">—</div></div>
-            <div class="pc"><div class="pl" id="pc2l">Próxima fase</div><div class="pn" id="pc2n">Devolução</div><div class="pd" id="pc2d">—</div></div>
-            <div class="pc"><div class="pl" id="pc3l">Fase final</div><div class="pn" id="pc3n">Sócio dos Lucros</div><div class="pd" id="pc3d">—</div></div>
-          </div>
-          <div id="cycle-note" style="margin-top:10px;font-size:11px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 12px;display:none"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAYMENTS -->
-    <div class="pg" id="pg-payments">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="py-ti">Histórico de Pagamentos</div></div>
-        <button class="pdf-btn" onclick="exportPDF()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span id="pdf-btn-label">Baixar Extrato PDF</span></button>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="py-ct">Pagamentos Mensais</div><div class="cm" id="py-cm">—</div></div>
-        <div id="PAY" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
-      </div>
-    </div>
-
-    <!-- DOCUMENTS -->
-    <div class="pg" id="pg-documents">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="dc-ti">Documentos</div></div></div>
-      <div class="card" id="client-info-card" style="display:none">
-        <div class="ch"><div class="ct" id="dc-ci">Informações do Titular</div></div>
-        <div class="cb"><div class="info-grid" id="client-info-grid"></div></div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="dc-ct">Contratos e Relatórios</div></div>
-        <div id="DOC" style="overflow-x:auto"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
-      </div>
-    </div>
-
-    <!-- NEWS -->
-    <div class="pg" id="pg-news">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="nw-ti">Notícias & Mercado</div></div></div>
-      <div class="ticker">
-        <div class="tick"><div class="tick-name">USD/BRL</div><div class="tick-val" id="fx-rate-display">—</div><div class="tick-chg nt" id="fx-chg">Carregando...</div></div>
-        <div class="tick"><div class="tick-name">IBOVESPA</div><div class="tick-val">~131k</div><div class="tick-chg up">Bolsa de SP</div></div>
-        <div class="tick"><div class="tick-name">S&P 500</div><div class="tick-val">~5,600</div><div class="tick-chg up">Bolsa de NY</div></div>
-        <div class="tick"><div class="tick-name">CDI (BR)</div><div class="tick-val">~13.6%</div><div class="tick-chg nt">a.a.</div></div>
-      </div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="ch"><div class="ct" id="fx-ti">Calculadora USD / BRL</div></div>
-        <div class="cb">
-          <div class="fx-row">
-            <span class="fx-label">USD $</span>
-            <input class="fx-inp" type="number" id="fx-usd" value="1000" oninput="calcFX()">
-            <span class="fx-label">=</span>
-            <div><div class="fx-result" id="fx-brl">—</div><div class="fx-rate" id="fx-rate-note">—</div></div>
-          </div>
-          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bds)">
-            <div class="fx-row">
-              <span class="fx-label">BRL R$</span>
-              <input class="fx-inp" type="number" id="fx-brl-inp" value="5000" oninput="calcFXrev()">
-              <span class="fx-label">=</span>
-              <div><div class="fx-result" id="fx-usd-out">—</div><div class="fx-rate" id="fx-rate-note2">—</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="twocol">
-        <div class="card"><div class="ch"><div class="ct" id="nw-us">Mercado Americano</div><div class="cm">Principais portais</div></div><div class="cb" id="NUS"></div></div>
-        <div class="card"><div class="ch"><div class="ct" id="nw-br">Mercado Brasileiro</div><div class="cm">Principais portais</div></div><div class="cb" id="NBR"></div></div>
-      </div>
-    </div>
-
-    <!-- ALLOCATIONS -->
-    <div class="pg" id="pg-alloc">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="al2-ti">Alocações do Fundo</div></div></div>
-      <div class="alloc-grid" id="alloc-grid"></div>
-      <div style="background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px 18px;font-size:11px;color:var(--mu);line-height:1.7;margin-bottom:16px" id="fdic-disc"></div>
-    </div>
-
-    <!-- SIMULATOR -->
-    <div class="pg" id="pg-simulator">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="sim-ti">Simulador de Crescimento</div></div></div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="sim-ct">Simule seu investimento</div></div>
-        <div class="cb">
-          <div class="sim-row">
-            <div>
-              <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l1">Valor inicial</div>
-              <input class="sim-inp" type="number" id="sim-capital" value="50000" oninput="runSim()">
-            </div>
-            <div>
-              <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l2">Taxa mensal (%)</div>
-              <input class="sim-inp" type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="width:120px">
-            </div>
-            <div>
-              <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l3">Período (meses)</div>
-              <input class="sim-inp" type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="width:120px">
-            </div>
-          </div>
-          <div class="sim-result-grid" id="sim-results"></div>
-          <div style="margin-top:20px"><div class="chart-box"><canvas id="SC"></canvas></div></div>
-        </div>
-      </div>
-      <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--am);font-weight:500;line-height:1.6" id="sim-disc">Esta simulação é meramente ilustrativa e não constitui garantia de rentabilidade futura.</div>
-    </div>
-
-    <!-- TRANSFER -->
-    <div class="pg" id="pg-transfer">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="tr-ti">Dados para Transferência</div></div></div>
-      <div class="bgrid">
-        <div class="card">
-          <div class="ch"><div class="ct">🇺🇸 Wire Transfer</div></div>
-          <div class="cb"><div class="bst">Beneficiary — A Consultar</div><div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--am);font-weight:600">Os dados bancários para transferência em USD estão sendo finalizados. Entre em contato pelo suporte.</div></div>
-        </div>
-        <div class="card">
-          <div class="ch"><div class="ct">🇧🇷 PIX / TED</div></div>
-          <div class="cb"><div class="bst">Dados Bancários — A Consultar</div><div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--am);font-weight:600">Os dados bancários para transferência em BRL estão sendo finalizados. Entre em contato pelo suporte.</div></div>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="ch"><div class="ct" id="tr-req-ti">Solicitar Transferência</div><div class="cm" id="tr-req-cm">Indisponível</div></div>
-        <div class="cb">
-          <div class="locked-box">
-            <div class="locked-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-            <div style="font-size:14px;font-weight:700;color:var(--bk);margin-bottom:5px" id="tr-locked-msg">Indisponível para cotas novas</div>
-            <div style="font-size:12px;color:var(--mu)" id="tr-locked-sub">Solicitações de transferência ficam disponíveis após o período de carência conforme contrato.</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="cb" style="display:flex;align-items:flex-start;gap:14px">
-          <div style="width:36px;height:36px;border-radius:8px;background:var(--ambg);border:1px solid var(--ambr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-          <div><div style="font-size:13px;font-weight:700;color:var(--bk);margin-bottom:4px" id="tr-nt">Importante</div><div style="font-size:13px;color:var(--bo);line-height:1.6" id="tr-nb">Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.<br>Dúvidas: <a href="mailto:signup@jp-assetmanagement.com" style="color:inherit;text-decoration:none">signup@jp-assetmanagement.com</a></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUPPORT -->
-    <div class="pg" id="pg-support">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="su-ti">Suporte</div></div></div>
-      <div class="twocol">
-        <div class="card">
-          <div class="ch"><div class="ct" id="su-ct">Enviar Mensagem</div></div>
-          <div class="cb sup-form">
-            <label class="fl" id="su-lb1">Assunto</label>
-            <input class="finp" type="text" id="su-sub" placeholder="Ex: Dúvida sobre pagamento" style="margin-bottom:16px">
-            <label class="fl" id="su-lb2">Mensagem</label>
-            <textarea id="su-msg" placeholder="Descreva sua dúvida ou solicitação..."></textarea>
-            <button class="sup-btn" onclick="sendSupport()" id="su-btn">Enviar mensagem</button>
-            <div class="sup-success" id="su-ok">Mensagem enviada! Nossa equipe retornará em até 24 horas úteis.</div>
-          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l1">Valor inicial</div>
+          <input class="sim-inp" type="number" id="sim-capital" value="50000" oninput="runSim()">
         </div>
         <div>
-          <div class="card" style="margin-bottom:14px">
-            <div class="ch"><div class="ct" id="su-ct2">Contato Direto</div></div>
-            <div class="cb">
-              <div class="br2"><span class="blab">E-mail</span><span style="font-size:12px;color:var(--bk);font-weight:600">signup@jp-assetmanagement.com</span></div>
-              <div class="br2"><span class="blab">Endereço</span><span style="font-size:12px;color:var(--bk);font-weight:500">200 E Robinson St, Orlando FL 32801</span></div>
-              <div class="br2" style="border:none"><span class="blab" id="su-resp">Tempo de resposta</span><span style="font-size:12px;color:var(--gn);font-weight:700">Até 24 horas úteis</span></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="ch"><div class="ct" id="su-ct3">Horário de Atendimento</div></div>
-            <div class="cb">
-              <div class="br2"><span class="blab">Segunda a Sexta</span><span style="font-size:12px;color:var(--bk);font-weight:600">9h – 18h (EST)</span></div>
-              <div class="br2" style="border:none"><span class="blab">Sábado e Domingo</span><span style="font-size:12px;color:var(--mu)">Fechado</span></div>
-            </div>
-          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l2">Taxa mensal (%)</div>
+          <input class="sim-inp" type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="width:120px">
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px" id="sim-l3">Período (meses)</div>
+          <input class="sim-inp" type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="width:120px">
+        </div>
+      </div>
+      <div id="sim-mode-note" style="font-size:11px;color:var(--tld);font-weight:600;margin-bottom:12px;padding:6px 10px;background:var(--tlbg);border-radius:6px;border:1px solid var(--tlbr)"></div>
+      <div class="sim-result-grid" id="sim-results"></div>
+      <div style="margin-top:20px"><div class="chart-box"><canvas id="SC"></canvas></div></div>
+    </div>
+  </div>
+  <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--am);font-weight:500;line-height:1.6;margin-bottom:14px" id="sim-disc">Esta simulação é meramente ilustrativa e não constitui garantia de rentabilidade futura.</div>
+</div>
+
+<!-- TRANSFER -->
+<div class="pg" id="pg-transfer">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="tr-ti">Dados para Transferência</div></div></div>
+  <div class="bgrid">
+    <div class="card">
+      <div class="ch"><div class="ct">🇺🇸 Wire Transfer</div></div>
+      <div class="cb"><div class="bst">Beneficiary — A Consultar</div><div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--am);font-weight:600">Os dados bancários para transferência em USD estão sendo finalizados. Entre em contato pelo suporte.</div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ct">🇧🇷 PIX / TED</div></div>
+      <div class="cb"><div class="bst">Dados Bancários — A Consultar</div><div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:7px;padding:12px 14px;font-size:13px;color:var(--am);font-weight:600">Os dados bancários para transferência em BRL estão sendo finalizados. Entre em contato pelo suporte.</div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="ch"><div class="ct" id="tr-req-ti">Solicitar Transferência</div><div class="cm" id="tr-req-cm">Indisponível</div></div>
+    <div class="cb">
+      <div class="locked-box">
+        <div class="locked-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div style="font-size:14px;font-weight:700;color:var(--bk);margin-bottom:5px" id="tr-locked-msg">Indisponível para cotas novas</div>
+        <div style="font-size:12px;color:var(--mu)" id="tr-locked-sub">Solicitações de transferência ficam disponíveis após o período de carência conforme contrato.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="cb" style="display:flex;align-items:flex-start;gap:14px">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--ambg);border:1px solid var(--ambr);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div><div style="font-size:13px;font-weight:700;color:var(--bk);margin-bottom:4px" id="tr-nt">Importante</div><div style="font-size:13px;color:var(--bo);line-height:1.6" id="tr-nb">Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.<br>Dúvidas: <a href="mailto:signup@jp-assetmanagement.com" style="color:inherit;text-decoration:none">signup@jp-assetmanagement.com</a></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPORT -->
+<div class="pg" id="pg-support">
+  <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="su-ti">Suporte</div></div></div>
+  <div class="twocol">
+    <div class="card">
+      <div class="ch"><div class="ct" id="su-ct">Enviar Mensagem</div></div>
+      <div class="cb sup-form">
+        <label class="fl" id="su-lb1">Assunto</label>
+        <input class="finp" type="text" id="su-sub" placeholder="Ex: Dúvida sobre pagamento" style="margin-bottom:16px">
+        <label class="fl" id="su-lb2">Mensagem</label>
+        <textarea id="su-msg" placeholder="Descreva sua dúvida ou solicitação..."></textarea>
+        <button class="sup-btn" onclick="sendSupport()" id="su-btn">Enviar mensagem</button>
+        <div class="sup-success" id="su-ok">Mensagem enviada! Nossa equipe retornará em até 24 horas úteis.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div class="ct" id="su-ct2">Contato Direto</div></div>
+        <div class="cb">
+          <div class="br2"><span class="blab">E-mail</span><span style="font-size:12px;color:var(--bk);font-weight:600">signup@jp-assetmanagement.com</span></div>
+          <div class="br2"><span class="blab">Endereço</span><span style="font-size:12px;color:var(--bk);font-weight:500">200 E Robinson St, Orlando FL 32801</span></div>
+          <div class="br2" style="border:none"><span class="blab" id="su-resp">Tempo de resposta</span><span style="font-size:12px;color:var(--gn);font-weight:700">Até 24 horas úteis</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="su-ct3">Horário de Atendimento</div></div>
+        <div class="cb">
+          <div class="br2"><span class="blab">Segunda a Sexta</span><span style="font-size:12px;color:var(--bk);font-weight:600">9h – 18h (EST)</span></div>
+          <div class="br2" style="border:none"><span class="blab">Sábado e Domingo</span><span style="font-size:12px;color:var(--mu)">Fechado</span></div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ACCESS LOG -->
-    <div class="pg" id="pg-access">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="ac-ti">Histórico de Acessos</div></div></div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="ac-ct">Seus últimos acessos</div><div class="cm" id="ac-cm">—</div></div>
-        <div class="cb" id="ACCESS-LOG"><div style="color:var(--mu);font-size:13px">Carregando...</div></div>
-      </div>
-    </div>
 
-    <div class="foot">
-      <div class="fi2"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span id="fo1">Acesso individual e confidencial</span></div>
-      <div class="fs desk-only"></div>
-      <div class="fi2 desk-only">GST Partners Corp · EIN 38-4273898</div>
-      <div class="fs desk-only"></div>
-      <div class="fi2 desk-only">signup@jp-assetmanagement.com</div>
-    </div>
-    <div class="disc" id="disc">As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.</div>
+
+<div class="foot">
+  <div class="fi2"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span id="fo1">Acesso individual e confidencial</span></div>
+  <div class="fs desk-only"></div>
+  <div class="fi2 desk-only">GST Partners Corp · EIN 38-4273898</div>
+  <div class="fs desk-only"></div>
+  <div class="fi2 desk-only">signup@jp-assetmanagement.com</div>
+</div>
+<div class="disc" id="disc">As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.</div>
+```
+
   </main>
 </div>
 
@@ -639,7 +649,7 @@ let CU=null,INV=null,PAYS=[],DOCS=[],lang='pt',lineChart=null,donutChart=null,si
 // ── TRANSLATIONS ──
 const T={
   pt:{lt:'Bem-vindo',ls:'Entre com seu e-mail e senha para acessar o portal.',ll1:'E-mail',ll2:'Senha',LBT:'Entrar',
-    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações',nt6:'Simulador',ns3:'Serviços',nt7:'Transferência',nt8:'Suporte',nt9:'Acessos',nt10:'Sair',
+    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações',ns3:'Serviços',nt7:'Transferência',nt8:'Suporte',nt10:'Sair',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Visão Geral do Portfólio','tb-st':'Ativo',
     m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
     'tl-ti':'Linha do Tempo do Investimento',
@@ -668,7 +678,7 @@ const T={
     disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
   },
   en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
-    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Allocations',nt6:'Simulator',ns3:'Services',nt7:'Transfer',nt8:'Support',nt9:'Access Log',nt10:'Sign out',
+    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Allocations',ns3:'Services',nt7:'Transfer',nt8:'Support',nt10:'Sign out',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Portfolio Overview','tb-st':'Active',
     m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
     'tl-ti':'Investment Timeline',
@@ -988,6 +998,22 @@ function renderAlloc(){
 }
 
 // ── SIMULATOR ──
+let simMode = 'simple'
+function setSimMode(mode){
+  simMode = mode
+  const btnS = document.getElementById('sim-mode-simple')
+  const btnC = document.getElementById('sim-mode-compound')
+  if(btnS && btnC){
+    if(mode==='simple'){
+      btnS.style.background='var(--tl)';btnS.style.color='white';btnS.style.borderColor='var(--tl)'
+      btnC.style.background='var(--bg)';btnC.style.color='var(--mu)';btnC.style.borderColor='var(--bd)'
+    } else {
+      btnC.style.background='var(--tl)';btnC.style.color='white';btnC.style.borderColor='var(--tl)'
+      btnS.style.background='var(--bg)';btnS.style.color='var(--mu)';btnS.style.borderColor='var(--bd)'
+    }
+  }
+  runSim()
+}
 function runSim(){
   const capEl=document.getElementById('sim-capital');const rateEl=document.getElementById('sim-rate');const monEl=document.getElementById('sim-months')
   if(!capEl||!rateEl||!monEl)return
@@ -997,9 +1023,23 @@ function runSim(){
   const moeda=window.INV_CURRENCY||'USD';const sym=moeda==='BRL'?'R$':'$'
   const loc=moeda==='BRL'?'pt-BR':'en-US'
   const fmt=v=>sym+' '+Math.round(v).toLocaleString(loc)
-  let totalReturn=0, monthlyArr=[]
-  for(let i=0;i<months;i++){const r=capital*rate;totalReturn+=r;monthlyArr.push(r)}
-  const totalVal=capital+totalReturn
+  // Mode note
+  const noteEl=document.getElementById('sim-mode-note')
+  if(noteEl){
+    if(simMode==='simple')
+      noteEl.textContent=lang==='pt'?'Modo: Saque mensal dos rendimentos — capital permanece intacto':'Mode: Monthly withdrawal of returns — capital remains intact'
+    else
+      noteEl.textContent=lang==='pt'?'Modo: Juros compostos — rendimentos reinvestidos mensalmente':'Mode: Compound interest — returns reinvested monthly'
+  }
+  let totalReturn=0, monthlyArr=[], runningCapital=capital
+  for(let i=0;i<months;i++){
+    if(simMode==='simple'){
+      const r=capital*rate; totalReturn+=r; monthlyArr.push(r)
+    } else {
+      const r=runningCapital*rate; runningCapital+=r; totalReturn+=r; monthlyArr.push(r)
+    }
+  }
+  const totalVal=simMode==='simple'?capital+totalReturn:runningCapital
   const pct=(totalReturn/capital*100).toFixed(1)
   const resEl=document.getElementById('sim-results');if(!resEl)return
   resEl.innerHTML=[
@@ -1184,8 +1224,8 @@ function nav(page,el){
   if(page==='dashboard')setTimeout(function(){renderChart(PAYS);renderDonut();renderTimeline(PAYS)},80)
   if(page==='alloc')setTimeout(function(){renderAlloc()},50)
   if(page==='news')setTimeout(function(){renderNews();calcFX()},50)
-  if(page==='simulator')setTimeout(function(){runSim()},80)
-  if(page==='access')renderAccessLog()
+
+
 }
 
 // ── COPY ──
@@ -1198,5 +1238,6 @@ window.addEventListener('load',async function(){
   if(session){CU=session.user;await loadApp()}
 })
 </script>
+
 </body>
 </html>
