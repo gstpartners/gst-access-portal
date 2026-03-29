@@ -750,14 +750,26 @@ async function loadApp(){
   const email=CU.email
   const {data:inv}=await db.from('Investidor').select('*').eq('E-mail',email).single()
   if(inv){INV=inv;renderInv(inv)}
-  const {data:pays,error:epay}=await db.from('Pagamentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
-  if(epay)console.error('Pagamentos error:',epay)
-  PAYS=pays||[]
-  renderPay(PAYS);renderChart(PAYS)
-  const {data:docs,error:edoc}=await db.from('Documentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
-  if(edoc)console.error('Documentos error:',edoc)
-  DOCS=docs||[]
-  renderDoc(DOCS)
+  // Load payments
+  var payResult=await db.from('Pagamentos').select('*').eq('E-mail',email)
+  if(payResult.error){
+    console.error('Pagamentos error:',JSON.stringify(payResult.error))
+    var payEl=document.getElementById('PAY')
+    if(payEl)payEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+payResult.error.message+'</div>'
+  } else {
+    PAYS=(payResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+    renderPay(PAYS);renderChart(PAYS)
+  }
+  // Load documents
+  var docResult=await db.from('Documentos').select('*').eq('E-mail',email)
+  if(docResult.error){
+    console.error('Documentos error:',JSON.stringify(docResult.error))
+    var docEl=document.getElementById('DOC')
+    if(docEl)docEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+docResult.error.message+'</div>'
+  } else {
+    DOCS=(docResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+    renderDoc(DOCS)
+  }
   loadAnn();renderNews();renderAlloc();fetchFX();setTimeout(function(){renderDonut()},100)
 }
 
@@ -844,6 +856,9 @@ function renderPay(pays){
   const mob=window.innerWidth<=768
   if(!pays||!pays.length){
     el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
+    ;['m2v','m3v','m5v','m6v'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
+    ;['m2s','m3s','m5s','m6s'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
+    return
     cm.textContent='0'
     ;['m2v','m3v','m5v','m6v'].forEach(id=>document.getElementById(id).textContent='—')
     ;['m2s','m3s','m5s','m6s'].forEach(id=>document.getElementById(id).textContent='—')
@@ -1134,7 +1149,9 @@ function runSim(){
   for(var i=0;i<mon;i++){var r=simMode==='simple'?cap*rate:run*rate;if(simMode==='compound')run+=r;tot+=r;arr.push(Math.round(simMode==='simple'?tot:run-cap))}
   var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
   var res=document.getElementById('sim-results');if(!res)return
-  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px;text-align:center"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:600;color:'+c[2]+'">'+c[1]+'</div></div>'}).join('')
+  var isMob=window.innerWidth<=768
+  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:3px;white-space:nowrap">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:14px;font-weight:600;color:'+c[2]+';white-space:nowrap">'+c[1]+'</div></div>'}).join('')
+  res.style.gridTemplateColumns=isMob?'1fr 1fr':'repeat(4,1fr)'
   var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
   if(simChart)simChart.destroy()
   var labels=arr.map(function(_,i){return'M'+(i+1)})
