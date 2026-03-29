@@ -898,7 +898,8 @@ function renderPay(pays){
       const rentMob = p['Rentabilidade %'] ? Number(p['Rentabilidade %']).toFixed(2)+'%' : null; h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
       h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th2')+'</div><div class="tt" style="font-size:16px">'+fmt(p['Rendimento Pago (USD)'])+'</div></div>'
       h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th4')+'</div><div class="tm" style="font-size:16px">'+fmt(p['Total do Mês (USD)'])+'</div></div>'
-      (rentMob ? h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:JetBrains Mono,monospace;font-size:14px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>' : ''); h+='</div></div>'
+      if(rentMob)h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>'
+      h+='</div></div>'
     })
     el.innerHTML=h
   }else{
