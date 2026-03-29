@@ -663,7 +663,7 @@ const T={
     td1:'Tipo',td2:'Referência',td3:'Arquivo',
     ep:'Nenhum pagamento registrado ainda.',ed:'Nenhum documento disponível ainda.',
     dl:'Abrir',paid:'Pago',pending:'Pendente',p1:'Fase 1 · Aceleração',nodata:'Sem dados ainda.',
-    welcome:'Bem-vindo de volta,',disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
+    welcome:'Bem-vindo,',disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
   },
   en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
     ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Alloc. & Sim.',ns3:'Services',nt6:'Transfer',nt7:'Support',nt8:'Sign out',
@@ -687,7 +687,7 @@ const T={
     td1:'Type',td2:'Reference',td3:'File',
     ep:'No payments registered yet.',ed:'No documents available yet.',
     dl:'Open',paid:'Paid',pending:'Pending',p1:'Phase 1 · Acceleration',nodata:'No data yet.',
-    welcome:'Welcome back,',disc:'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor.'
+    welcome:'Welcome,',disc:'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor.'
   }
 }
 function t(k){return T[lang][k]||k}
@@ -771,7 +771,8 @@ function renderInv(inv){
   document.getElementById('UP').textContent=(inv['Plano']||'')+' · '+(inv['Status']||'')
   document.getElementById('MUN').textContent=first
   document.getElementById('MPL').textContent=inv['Plano']||''
-  document.getElementById('tb-we').textContent=t('welcome')+' '+first+'.'
+  var weEl=document.getElementById('tb-we')
+  if(weEl)weEl.innerHTML='<span style=font-size:13px;font-weight:400;color:var(--sf)>'+t('welcome')+'</span> <span style=font-size:15px;font-weight:700;color:var(--tld)>'+first+'</span>'
   // Detect currency from investor record
   const moeda = inv['Moeda'] || 'USD'
   window.INV_CURRENCY = moeda
@@ -980,7 +981,7 @@ async function fetchFX(){
     calcFX();calcFXrev()
   }
   try{
-    var res=await fetch('https://open.er-api.com/v6/latest/USD')
+    var res=await fetch('https://open.er-api.com/v6/latest/USD',{mode:'cors'})
     var d=await res.json()
     if(d.rates&&d.rates.BRL){setRate(d.rates.BRL);return}
   }catch(e){}
@@ -1133,7 +1134,7 @@ function runSim(){
   for(var i=0;i<mon;i++){var r=simMode==='simple'?cap*rate:run*rate;if(simMode==='compound')run+=r;tot+=r;arr.push(Math.round(simMode==='simple'?tot:run-cap))}
   var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
   var res=document.getElementById('sim-results');if(!res)return
-  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px;text-align:center"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:500;color:'+c[2]+'">'+c[1]+'</div></div>'}).join('')
+  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px;text-align:center"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:600;color:'+c[2]+'">'+c[1]+'</div></div>'}).join('')
   var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
   if(simChart)simChart.destroy()
   var labels=arr.map(function(_,i){return'M'+(i+1)})
