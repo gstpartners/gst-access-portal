@@ -109,7 +109,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--bo);min-hei
 .metric.accent-re::before{background:linear-gradient(90deg,#DC2626,#FB7185)}
 .metric.accent-pk::before{background:linear-gradient(90deg,#E11D48,#FB7185)}
 .ml{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(–mu);margin-bottom:10px}
-.mv{font-family:‘Inter Tight’,sans-serif;font-size:24px;font-weight:700;color:var(–bk);letter-spacing:-.04em;line-height:1;transition:opacity .2s}
+.mv{font-family:‘JetBrains Mono’,monospace;font-size:22px;font-weight:500;color:var(–bk);letter-spacing:-.02em;line-height:1;transition:opacity .2s}
 .mv.tl{color:var(–tld)}.mv.gn{color:var(–gn)}.mv.pu{color:var(–pu)}.mv.am{color:var(–am)}.mv.re{color:var(–re)}
 .ms{font-size:var(–font-tiny);color:var(–mu);margin-top:7px;font-weight:500}
 .hide-btn{position:absolute;top:18px;right:16px;background:none;border:none;cursor:pointer;color:var(–mu);padding:2px;display:flex;align-items:center;opacity:.6;transition:opacity .12s}
@@ -225,7 +225,7 @@ tbody tr:hover td{background:var(–s2)}
 .tick{background:var(–s);border:1px solid var(–bd);border-radius:10px;padding:14px 16px;transition:box-shadow .2s}
 .tick:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
 .tick-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–mu);margin-bottom:5px}
-.tick-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:600;color:var(–bk);line-height:1}
+.tick-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:500;color:var(–bk);line-height:1}
 .tick-chg{font-size:var(–font-xs);margin-top:4px;font-weight:600}
 .tick-chg.up{color:var(–gn)}.tick-chg.dn{color:var(–re)}.tick-chg.nt{color:var(–mu)}
 
@@ -242,7 +242,7 @@ tbody tr:hover td{background:var(–s2)}
 .alloc-card{background:var(–s);border:1px solid var(–bd);border-radius:10px;padding:18px;position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
 .alloc-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
 .alloc-bar{height:4px;position:absolute;top:0;left:0;right:0}
-.alloc-pct{font-family:‘JetBrains Mono’,monospace;font-size:28px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
+.alloc-pct{font-family:‘JetBrains Mono’,monospace;font-size:26px;font-weight:500;margin-bottom:6px;letter-spacing:-.02em}
 .alloc-name{font-size:var(–font-sm);font-weight:700;color:var(–bk);margin-bottom:5px}
 .alloc-desc{font-size:var(–font-xs);color:var(–sf);line-height:1.6;margin-bottom:10px}
 .alloc-vs{font-size:var(–font-tiny);color:var(–mu);background:var(–bg);border:1px solid var(–bd);padding:4px 9px;border-radius:5px;display:inline-block;font-weight:600}
@@ -254,7 +254,7 @@ tbody tr:hover td{background:var(–s2)}
 .sim-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .sim-card{background:var(–bg);border:1px solid var(–bd);border-radius:8px;padding:14px 16px;text-align:center}
 .sim-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(–mu);margin-bottom:6px}
-.sim-val{font-family:‘JetBrains Mono’,monospace;font-size:18px;font-weight:700;color:var(–tld)}
+.sim-val{font-family:‘JetBrains Mono’,monospace;font-size:18px;font-weight:500;color:var(–tld)}
 
 /* ── SUPPORT ── */
 .sup-form textarea{width:100%;padding:11px 14px;border:1px solid var(–bd);border-radius:8px;font-size:var(–font-base);font-family:‘Inter’,sans-serif;color:var(–bk);background:var(–s);resize:vertical;min-height:110px;transition:border-color .15s;margin-bottom:12px}
@@ -649,7 +649,7 @@ let CU=null,INV=null,PAYS=[],DOCS=[],lang='pt',lineChart=null,donutChart=null,si
 // ── TRANSLATIONS ──
 const T={
   pt:{lt:'Bem-vindo',ls:'Entre com seu e-mail e senha para acessar o portal.',ll1:'E-mail',ll2:'Senha',LBT:'Entrar',
-    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações',ns3:'Serviços',nt7:'Transferência',nt8:'Suporte',nt10:'Sair',
+    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações & Simulador',ns3:'Serviços',nt7:'Transferência',nt8:'Suporte',nt10:'Sair',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Visão Geral do Portfólio','tb-st':'Ativo',
     m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
     'tl-ti':'Linha do Tempo do Investimento',
@@ -678,7 +678,7 @@ const T={
     disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
   },
   en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
-    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Allocations',ns3:'Services',nt7:'Transfer',nt8:'Support',nt10:'Sign out',
+    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Allocations & Simulator',ns3:'Services',nt7:'Transfer',nt8:'Support',nt10:'Sign out',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Portfolio Overview','tb-st':'Active',
     m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
     'tl-ti':'Investment Timeline',
