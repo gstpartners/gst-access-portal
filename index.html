@@ -856,12 +856,9 @@ function renderPay(pays){
   const mob=window.innerWidth<=768
   if(!pays||!pays.length){
     el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
+    if(cm)cm.textContent='0'
     ;['m2v','m3v','m5v','m6v'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
     ;['m2s','m3s','m5s','m6s'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
-    return
-    cm.textContent='0'
-    ;['m2v','m3v','m5v','m6v'].forEach(id=>document.getElementById(id).textContent='—')
-    ;['m2s','m3s','m5s','m6s'].forEach(id=>document.getElementById(id).textContent='—')
     return
   }
   cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
