@@ -250,7 +250,7 @@ tbody tr:hover td{background:var(--s2)}
   <div class="lc">
     <div class="logo-c">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" style="height:56px;width:auto;display:block;margin:0 auto 8px">
-  <text x="10" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2">GST</text>
+  <text x="100" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2" text-anchor="middle">GST</text>
   <rect x="10" y="80" width="180" height="36" fill="#2AABB8" rx="1"/>
   <text x="100" y="105" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="white" text-anchor="middle" letter-spacing="4">PARTNERS</text>
 </svg>
@@ -281,7 +281,7 @@ tbody tr:hover td{background:var(--s2)}
   <div class="mob-top" id="MOB">
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" style="height:28px;width:auto;display:block">
-  <text x="10" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2">GST</text>
+  <text x="100" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2" text-anchor="middle">GST</text>
   <rect x="10" y="80" width="180" height="36" fill="#2AABB8" rx="1"/>
   <text x="100" y="105" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="white" text-anchor="middle" letter-spacing="4">PARTNERS</text>
 </svg>
@@ -297,7 +297,7 @@ tbody tr:hover td{background:var(--s2)}
   <aside class="sb">
     <div class="sb-logo">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" style="height:36px;width:auto;display:block">
-  <text x="10" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2">GST</text>
+  <text x="100" y="72" font-family="Arial,sans-serif" font-weight="900" font-size="72" fill="#707070" letter-spacing="-2" text-anchor="middle">GST</text>
   <rect x="10" y="80" width="180" height="36" fill="#2AABB8" rx="1"/>
   <text x="100" y="105" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="white" text-anchor="middle" letter-spacing="4">PARTNERS</text>
 </svg>
@@ -520,7 +520,7 @@ tbody tr:hover td{background:var(--s2)}
 
   <div class="alloc-grid" id="alloc-grid"></div>
 
-  <div class="card" style="margin-bottom:14px">
+  <div class="card" style="margin-top:24px;margin-bottom:14px">
     <div class="ch" style="flex-wrap:wrap;gap:8px">
       <div class="ct">Simulador de Crescimento</div>
       <div style="display:flex;gap:4px">
@@ -750,10 +750,12 @@ async function loadApp(){
   const email=CU.email
   const {data:inv}=await db.from('Investidor').select('*').eq('E-mail',email).single()
   if(inv){INV=inv;renderInv(inv)}
-  const {data:pays}=await db.from('Pagamentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
+  const {data:pays,error:epay}=await db.from('Pagamentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
+  if(epay)console.error('Pagamentos error:',epay)
   PAYS=pays||[]
   renderPay(PAYS);renderChart(PAYS)
-  const {data:docs}=await db.from('Documentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
+  const {data:docs,error:edoc}=await db.from('Documentos').select('*').eq('E-mail',email).order('Mês de Referência',{ascending:false})
+  if(edoc)console.error('Documentos error:',edoc)
   DOCS=docs||[]
   renderDoc(DOCS)
   loadAnn();renderNews();renderAlloc();fetchFX();setTimeout(function(){renderDonut()},100)
@@ -769,9 +771,7 @@ function renderInv(inv){
   document.getElementById('UP').textContent=(inv['Plano']||'')+' · '+(inv['Status']||'')
   document.getElementById('MUN').textContent=first
   document.getElementById('MPL').textContent=inv['Plano']||''
-  var _d=inv['Data Inicio']?new Date(inv['Data Inicio']):null
-  var _s=_d?_d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'long',year:'numeric'}):''
-  document.getElementById('tb-we').textContent=(t('welcome')+' '+first+'.'+(lang==='pt'?' · Cliente desde ':' · Client since ')+_s)
+  document.getElementById('tb-we').textContent=t('welcome')+' '+first+'.'
   // Detect currency from investor record
   const moeda = inv['Moeda'] || 'USD'
   window.INV_CURRENCY = moeda
@@ -841,7 +841,7 @@ function renderPay(pays){
   const currLocale = moeda === 'BRL' ? 'pt-BR' : 'en-US'
   const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
   const mob=window.innerWidth<=768
-  if(!pays.length){
+  if(!pays||!pays.length){
     el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
     cm.textContent='0'
     ;['m2v','m3v','m5v','m6v'].forEach(id=>document.getElementById(id).textContent='—')
@@ -903,7 +903,7 @@ function renderPay(pays){
 // ── RENDER DOCUMENTS ──
 function renderDoc(docs){
   const el=document.getElementById('DOC')
-  if(!docs.length){el.innerHTML='<div class="empty"><div class="et">'+t('ed')+'</div></div>';return}
+  if(!docs||!docs.length){el.innerHTML='<div class="empty"><div class="et">'+t('ed')+'</div></div>';return}
   let rows=''
   docs.forEach(function(d){
     const link=d['Link do Arquivo']
@@ -973,17 +973,23 @@ function renderAlloc(){
 
 // ── FX ──
 async function fetchFX(){
+  function setRate(r){
+    FX_RATE=r
+    var el=document.getElementById('fx-rate-display');if(el)el.textContent='R$ '+r.toFixed(2)
+    var chg=document.getElementById('fx-chg');if(chg)chg.textContent=lang==='pt'?'Taxa atual':'Current rate'
+    calcFX();calcFXrev()
+  }
   try{
-    const res=await fetch('https://open.er-api.com/v6/latest/USD')
-    const data=await res.json()
-    if(data.rates&&data.rates.BRL){
-      FX_RATE=data.rates.BRL
-      document.getElementById('fx-rate-display').textContent='R$ '+FX_RATE.toFixed(2)
-      document.getElementById('fx-chg').textContent=lang==='pt'?'Taxa atual':'Current rate'
-      document.getElementById('fx-chg').className='tick-chg'
-    }
-  }catch(e){document.getElementById('fx-rate-display').textContent='R$ '+FX_RATE.toFixed(2)}
-  calcFX()
+    var res=await fetch('https://open.er-api.com/v6/latest/USD')
+    var d=await res.json()
+    if(d.rates&&d.rates.BRL){setRate(d.rates.BRL);return}
+  }catch(e){}
+  try{
+    var r2=await fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    var d2=await r2.json()
+    if(d2.rates&&d2.rates.BRL){setRate(d2.rates.BRL);return}
+  }catch(e2){}
+  setRate(FX_RATE)
 }
 function calcFX(){
   const usdEl=document.getElementById('fx-usd'); if(!usdEl)return
@@ -1127,7 +1133,7 @@ function runSim(){
   for(var i=0;i<mon;i++){var r=simMode==='simple'?cap*rate:run*rate;if(simMode==='compound')run+=r;tot+=r;arr.push(Math.round(simMode==='simple'?tot:run-cap))}
   var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
   var res=document.getElementById('sim-results');if(!res)return
-  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px;text-align:center"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:16px;font-weight:500;color:'+c[2]+'">'+c[1]+'</div></div>'}).join('')
+  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:10px 12px;text-align:center"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:500;color:'+c[2]+'">'+c[1]+'</div></div>'}).join('')
   var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
   if(simChart)simChart.destroy()
   var labels=arr.map(function(_,i){return'M'+(i+1)})
