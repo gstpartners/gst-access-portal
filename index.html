@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal GST</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232AABB8'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EGST%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -83,7 +83,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--bo);min-hei
 .metric.accent-am{border-top:none}
 .metric.accent-re{border-top:none}
 .ml{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
-.mv{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1;transition:opacity .2s}
+.mv{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1;transition:opacity .2s}
 .mv.tl{color:var(--tld)}
 .mv.gn{color:var(--gn)}
 .mv.pu{color:var(--pu)}
@@ -104,8 +104,8 @@ th{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;c
 td{padding:12px 14px;font-size:12px;color:var(--bo);border-bottom:1px solid var(--bds)}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:var(--s2)}
-.tm{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--bk)}
-.tt{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tld);font-weight:500}
+.tm{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--bk)}
+.tt{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--tld);font-weight:500}
 .td{color:var(--mu)}
 .sb2{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
 .sp{background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)}
@@ -131,7 +131,7 @@ tbody tr:hover td{background:var(--s2)}
 .pn{font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:var(--sf);margin-bottom:3px}
 .pc.on-tl .pn{color:var(--tld)}
 .pc.on-gn .pn{color:var(--gn)}
-.pd{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mu)}
+.pd{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--mu)}
 /* PAGES */
 .pg{display:none}
 .pg.on{display:block}
@@ -158,7 +158,7 @@ tbody tr:hover td{background:var(--s2)}
 .br2{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bds)}
 .br2:last-child{border-bottom:none}
 .blab{font-size:11px;color:var(--mu)}
-.bval{font-size:12px;font-weight:500;color:var(--bk);font-family:'JetBrains Mono',monospace}
+.bval{font-size:12px;font-weight:500;color:var(--bk);font-family:'Space Grotesk',sans-serif}
 .cbtn{font-size:10px;padding:2px 7px;border:1px solid var(--bd);border-radius:4px;cursor:pointer;color:var(--mu);background:var(--bg);transition:all .12s;font-family:'Inter',sans-serif}
 .cbtn:hover{border-color:var(--tl);color:var(--tld)}
 .cbtn.ok{border-color:var(--gnbr);color:var(--gn);background:var(--gnbg)}
@@ -176,22 +176,22 @@ tbody tr:hover td{background:var(--s2)}
 .ticker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .tick{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 14px}
 .tick-name{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:4px}
-.tick-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--bk);line-height:1}
+.tick-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:500;color:var(--bk);line-height:1}
 .tick-chg{font-size:11px;margin-top:3px;font-weight:500}
 .tick-chg.up{color:var(--gn)}
 .tick-chg.dn{color:var(--re)}
 /* FX CALCULATOR */
 .fx-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.fx-inp{padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'JetBrains Mono',monospace;color:var(--bk);background:var(--s);width:140px;transition:border-color .15s}
+.fx-inp{padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:140px;transition:border-color .15s}
 .fx-inp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
 .fx-label{font-size:12px;font-weight:500;color:var(--sf)}
-.fx-result{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--tld)}
+.fx-result{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;color:var(--tld)}
 .fx-rate{font-size:11px;color:var(--mu);margin-top:4px}
 /* ALLOCATIONS */
 .alloc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .alloc-card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:16px;position:relative;overflow:hidden}
 .alloc-bar{height:3px;border-radius:0 0 0 0;position:absolute;top:0;left:0;right:0}
-.alloc-pct{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--bk);margin-bottom:6px}
+.alloc-pct{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--bk);margin-bottom:6px}
 .alloc-name{font-size:12px;font-weight:600;color:var(--bk);margin-bottom:4px}
 .alloc-desc{font-size:11px;color:var(--sf);line-height:1.5;margin-bottom:8px}
 .alloc-vs{font-size:10px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);padding:4px 8px;border-radius:4px;display:inline-block}
@@ -523,9 +523,9 @@ tbody tr:hover td{background:var(--s2)}
         </div>
         <div class="cb">
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px">
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Valor inicial</div><input type="number" id="sim-capital" value="50000" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:JetBrains Mono,monospace;color:var(--bk);background:var(--s);width:150px"></div>
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Taxa mensal (%)</div><input type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:JetBrains Mono,monospace;color:var(--bk);background:var(--s);width:100px"></div>
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Período (meses)</div><input type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:JetBrains Mono,monospace;color:var(--bk);background:var(--s);width:100px"></div>
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Valor inicial</div><input type="number" id="sim-capital" value="50000" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:150px"></div>
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Taxa mensal (%)</div><input type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Período (meses)</div><input type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
           </div>
           <div id="sim-note" style="font-size:11px;color:var(--tld);font-weight:600;margin-bottom:10px;padding:5px 10px;background:var(--tlbg);border-radius:5px;border:1px solid var(--tlbr)"></div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px" id="sim-results"></div>
@@ -638,7 +638,7 @@ const T={
   pt:{lt:'Bem-vindo',ls:'Entre com seu e-mail e senha para acessar o portal.',ll1:'E-mail',ll2:'Senha',LBT:'Entrar',
     ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações & Sim.',ns3:'Serviços',nt6:'Transferência',nt7:'Suporte',nt8:'Sair',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Visão Geral do Portfólio','tb-st':'Ativo',
-    m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
+    m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Médio Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
     'cy-ti':'Ciclo de Investimento',ph1:'Mês 1–6',ph2:'Mês 7–18',ph3:'Mês 19–120',
     pc1l:'Fase atual',pc1n:'Aceleração',pc2l:'Próxima fase',pc2n:'Devolução',pc3l:'Fase final',pc3n:'Sócio dos Lucros',
     'ch-ti':'Evolução dos Rendimentos','ch-me':'Últimos pagamentos','al-ti':'Composição da Carteira',
@@ -662,7 +662,7 @@ const T={
   en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
     ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Alloc. & Sim.',ns3:'Services',nt6:'Transfer',nt7:'Support',nt8:'Sign out',
     'tb-ey':'Dashboard · GST Access','tb-ti':'Portfolio Overview','tb-st':'Active',
-    m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
+    m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Avg. Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
     'cy-ti':'Investment Cycle',ph1:'Month 1–6',ph2:'Month 7–18',ph3:'Month 19–120',
     pc1l:'Current phase',pc1n:'Acceleration',pc2l:'Next phase',pc2n:'Repayment',pc3l:'Final phase',pc3n:'Profit Partner',
     'ch-ti':'Returns Over Time','ch-me':'Latest payments','al-ti':'Portfolio Composition',
@@ -791,9 +791,9 @@ function renderInv(inv){
   // Show currency badge
   const badge = document.getElementById('currency-badge')
   if(badge){ badge.textContent = moeda; badge.style.display = 'inline-flex' }
-  const rates={'Tier 1':'3%','Tier 2':'4%','Tier 3':'5%'}
-  document.getElementById('m4v').textContent=rates[inv['Plano']]||'—'
-  document.getElementById('m4s').textContent=t('p1')
+  // m4 will be updated by renderPay with actual average
+  document.getElementById('m4v').textContent='—'
+  document.getElementById('m4s').textContent='—'
   const pd={'Tier 1':['3% / mês','2% / mês · mês 19','1% / mês · até mês 120'],'Tier 2':['4% / mês','3% / mês · mês 13','1.5% / mês · até mês 120'],'Tier 3':['5% / mês','4% / mês · mês 7','2% / mês · até mês 120']}
   const p=pd[inv['Plano']]||['—','—','—']
   document.getElementById('pc1d').textContent=p[0]
@@ -840,6 +840,12 @@ function renderClientInfo(inv){
 }
 
 // ── RENDER PAYMENTS ──
+function fmtMes(dateStr){
+  if(!dateStr)return '—'
+  var d=new Date(dateStr+'T12:00:00')
+  var s=d.toLocaleDateString('pt-BR',{month:'short',year:'numeric'}).replace(' de ','/')
+  return s.charAt(0).toUpperCase()+s.slice(1)
+}
 function renderPay(pays){
   const el=document.getElementById('PAY')
   const cm=document.getElementById('py-cm')
@@ -858,6 +864,12 @@ function renderPay(pays){
   cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
   const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase();return s==='pago'||s==='paid'})
   const totalRet=paid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
+  // Calculate average monthly return from Rentabilidade %
+  const rents=paid.filter(p=>p['Rentabilidade %']).map(p=>Number(p['Rentabilidade %']))
+  const avgRent=rents.length?( rents.reduce((a,b)=>a+b,0)/rents.length):null
+  const m4v=document.getElementById('m4v');const m4s=document.getElementById('m4s')
+  if(m4v){m4v.textContent=avgRent?avgRent.toFixed(2)+'%':'—'}
+  if(m4s){m4s.textContent=avgRent?(lang==='pt'?'média dos últimos '+rents.length+' pagamentos':'avg of last '+rents.length+' payments'):'—'}
   const totalWith=paid.reduce((s,p)=>s+(Number(p['Amortização (USD)'])||0),0)
   const fmt2=n=>currSymbol+Number(n).toLocaleString(currLocale,{minimumFractionDigits:0})
   document.getElementById('m2v').textContent=fmt2(totalRet)
@@ -888,11 +900,11 @@ function renderPay(pays){
       const isPaid=s==='pago'||s==='paid'
       const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
       h+='<div style="padding:14px 16px;border-bottom:1px solid var(--bds)">'
-      h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:12px;color:var(--mu)">'+( p['Mês de Referência']||'—')+'</span>'+badge+'</div>'
+      h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:12px;color:var(--mu)">'+fmtMes(p['Mês de Referência'])+'</span>'+badge+'</div>'
       const rentMob = p['Rentabilidade %'] ? Number(p['Rentabilidade %']).toFixed(2)+'%' : null; h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
       h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th2')+'</div><div class="tt" style="font-size:16px">'+fmt(p['Rendimento Pago (USD)'])+'</div></div>'
       h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th4')+'</div><div class="tm" style="font-size:16px">'+fmt(p['Total do Mês (USD)'])+'</div></div>'
-      if(rentMob)h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>'
+      if(rentMob)h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:13px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>'
       h+='</div></div>'
     })
     el.innerHTML=h
@@ -902,7 +914,7 @@ function renderPay(pays){
       const s=(p['Status']||'').toLowerCase()
       const isPaid=s==='pago'||s==='paid'
       const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
-      const rent = p['Rentabilidade %'] ? '<span style="font-family:JetBrains Mono,monospace;font-weight:600;color:var(--tld)">'+Number(p['Rentabilidade %']).toFixed(2)+'%</span>' : '<span class="td">—</span>'; rows+='<tr><td>'+(p['Mês de Referência']||'—')+'</td><td class="tt">'+fmt(p['Rendimento Pago (USD)'])+'</td><td class="tm">'+(p['Amortização (USD)']?fmt(p['Amortização (USD)']):'<span class="td">—</span>')+'</td><td class="tm">'+fmt(p['Total do Mês (USD)'])+'</td><td>'+rent+'</td><td>'+badge+'</td></tr>'
+      const rent = p['Rentabilidade %'] ? '<span style="font-family:Space Grotesk,sans-serif;font-weight:600;color:var(--tld)">'+Number(p['Rentabilidade %']).toFixed(2)+'%</span>' : '<span class="td">—</span>'; rows+='<tr><td>'+fmtMes(p['Mês de Referência'])+'</td><td class="tt">'+fmt(p['Rendimento Pago (USD)'])+'</td><td class="tm">'+(p['Amortização (USD)']?fmt(p['Amortização (USD)']):'<span class="td">—</span>')+'</td><td class="tm">'+fmt(p['Total do Mês (USD)'])+'</td><td>'+rent+'</td><td>'+badge+'</td></tr>'
     })
     el.innerHTML='<table><thead><tr><th>'+t('th1')+'</th><th>'+t('th2')+'</th><th>'+t('th3')+'</th><th>'+t('th4')+'</th><th>'+t('th6')+'</th><th>'+t('th5')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
   }
@@ -1142,7 +1154,7 @@ function runSim(){
   var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
   var res=document.getElementById('sim-results');if(!res)return
   var isMob=window.innerWidth<=768
-  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:3px;white-space:nowrap">'+c[0]+'</div><div style="font-family:JetBrains Mono,monospace;font-size:14px;font-weight:600;color:'+c[2]+';white-space:nowrap">'+c[1]+'</div></div>'}).join('')
+  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:3px;white-space:nowrap">'+c[0]+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:14px;font-weight:600;color:'+c[2]+';white-space:nowrap">'+c[1]+'</div></div>'}).join('')
   res.style.gridTemplateColumns=isMob?'1fr 1fr':'repeat(4,1fr)'
   var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
   if(simChart)simChart.destroy()
