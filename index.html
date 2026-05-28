@@ -1,383 +1,315 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GST Partners — Gestão de Capital</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232AABB8'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EGST%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --teal:#2AABB8;--teal-d:#1D8F9B;--teal-l:#1D8F9B;
-  --dark:#0C0F14;--dark-2:#F4F4F2;--dark-3:#EAEAE7;
-  --light:#FFFFFF;--light-2:#F7F6F2;
-  --gray:#6B6B6B;--gray-l:#4A4A4A;
-  --white:#FFFFFF;
-  --gold:#C9A96E;
-  --text:#1A1A1A;--text-sub:#5A5A5A;
-}
 html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--light);color:var(--dark);overflow-x:hidden;cursor:default}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1A1A1A;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-nav.scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(0,0,0,.08);padding:16px 48px;border-bottom:1px solid rgba(255,255,255,.06)}
-.nav-logo svg{height:32px;width:auto}
-.nav-links{display:flex;align-items:center;gap:36px}
-.nav-links a{font-size:13px;font-weight:500;color:var(--gray);text-decoration:none;letter-spacing:.04em;transition:color .2s}
-.nav-links a:hover{color:var(--dark)}
-.nav-cta{padding:10px 22px;background:var(--teal);color:white;border:none;border-radius:4px;font-size:13px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .2s;letter-spacing:.02em}
-.nav-cta:hover{background:var(--teal-d);transform:translateY(-1px)}
+/* COLORS */
+:root{--teal:#2AABB8;--teal-d:#1D8F9B;--gray:#6B6B6B;--light:#F7F6F2;--border:#E8E8E4}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;background:#FFFFFF}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(42,171,184,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(42,171,184,.06) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
-.hero-glow{position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(ellipse,rgba(42,171,184,.08) 0%,transparent 70%);pointer-events:none}
-.hero-glow-2{position:absolute;bottom:-10%;left:-5%;width:500px;height:500px;background:radial-gradient(ellipse,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:900px}
-.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px;opacity:0;animation:fadeUp .8s .2s forwards}
-.hero-eyebrow-line{width:32px;height:1px;background:var(--teal)}
-.hero-eyebrow span{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
-.hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(44px,6vw,80px);font-weight:400;line-height:1.0;letter-spacing:-.02em;color:var(--dark);margin-bottom:16px;opacity:0;animation:fadeUp .8s .35s forwards}
-.hero-title em{font-style:normal;color:var(--teal-d);font-weight:800}
-.hero-title strong{font-weight:700}
-.hero-sub{font-size:clamp(15px,1.8vw,17px);color:var(--text-sub);line-height:1.8;max-width:480px;margin-bottom:48px;font-weight:300;letter-spacing:.01em;opacity:0;animation:fadeUp .8s .5s forwards}
-.hero-actions{display:flex;align-items:center;gap:20px;opacity:0;animation:fadeUp .8s .65s forwards}
-.btn-primary{padding:14px 32px;background:var(--teal);color:white;border:none;border-radius:4px;font-size:14px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .25s;letter-spacing:.02em;display:inline-flex;align-items:center;gap:8px}
-.btn-primary:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 12px 32px rgba(42,171,184,.3)}
-.btn-primary svg{transition:transform .2s}
-.btn-primary:hover svg{transform:translateX(3px)}
-.btn-secondary{font-size:14px;color:var(--text-sub);text-decoration:none;letter-spacing:.02em;transition:color .2s;display:flex;align-items:center;gap:6px}
-.btn-secondary:hover{color:var(--dark)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+nav.scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:16px 48px;border-bottom:1px solid var(--border)}
+.nav-logo svg{height:30px;width:auto;display:block}
+.nav-center{display:flex;gap:32px}
+.nav-center a{font-size:13px;font-weight:500;color:var(--gray);text-decoration:none;transition:color .2s}
+.nav-center a:hover{color:#1A1A1A}
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang-toggle{display:flex;gap:2px;background:#F0F0EE;border-radius:6px;padding:3px}
+.lang-btn{padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;background:transparent;color:#999;transition:all .15s}
+.lang-btn.active{background:#fff;color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.nav-login{padding:9px 20px;background:#1A1A1A;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .2s}
+.nav-login:hover{background:#333}
 
-/* ── STATS BAR ── */
-.stats-bar{position:relative;z-index:1;margin-top:80px;padding-top:48px;border-top:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:repeat(2,1fr);gap:0;opacity:0;animation:fadeUp .8s .8s forwards}
-.stat{padding:0 40px 0 0;border-right:1px solid rgba(0,0,0,.08)}
-.stat:last-child{border-right:none;padding-right:0}
-.stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--dark);line-height:1;margin-bottom:8px;letter-spacing:-.02em}
-.stat-num span{color:var(--teal)}
-.stat-label{font-size:12.5px;font-weight:400;color:var(--text-sub);letter-spacing:.04em;line-height:1.5;letter-spacing:.08em;text-transform:uppercase}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;background:#fff}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(42,171,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(42,171,184,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 70% 70% at 60% 40%,black 20%,transparent 100%);pointer-events:none}
+.hero-glow{position:absolute;top:-10%;right:0%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(42,171,184,.07) 0%,transparent 65%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:820px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;opacity:0;animation:up .7s .1s forwards}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.hero-tag span{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+h1{font-size:clamp(42px,6vw,82px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#1A1A1A;margin-bottom:20px;opacity:0;animation:up .7s .2s forwards}
+h1 .accent{color:var(--teal-d)}
+.hero-sub{font-size:clamp(15px,1.6vw,18px);color:var(--gray);line-height:1.75;max-width:460px;margin-bottom:44px;font-weight:400;opacity:0;animation:up .7s .35s forwards}
+.hero-actions{display:flex;align-items:center;gap:18px;opacity:0;animation:up .7s .45s forwards}
+.btn-dark{padding:13px 28px;background:#1A1A1A;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-dark:hover{background:#333;transform:translateY(-1px)}
+.btn-link{font-size:14px;color:var(--gray);text-decoration:none;font-weight:500;display:flex;align-items:center;gap:6px;transition:color .2s}
+.btn-link:hover{color:#1A1A1A}
 
-/* ── SECTION BASE ── */
-section{padding:100px 48px}
-.section-label{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.section-label-line{width:24px;height:1px;background:var(--teal)}
-.section-label span{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(36px,4.5vw,58px);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--dark);margin-bottom:16px}
-.section-title em{font-style:normal;color:var(--teal-d)}
-.section-sub{font-size:15.5px;color:var(--text-sub);line-height:1.8;max-width:460px;font-weight:300;letter-spacing:.01em}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(2,auto);gap:0 64px;margin-top:72px;padding-top:48px;border-top:1px solid var(--border);opacity:0;animation:up .7s .55s forwards;width:fit-content}
+.stat-num{font-size:clamp(40px,5vw,58px);font-weight:800;color:#1A1A1A;line-height:1;letter-spacing:-.03em}
+.stat-num .unit{color:var(--teal)}
+.stat-lbl{font-size:12px;font-weight:500;color:var(--gray);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
 
-/* ── ABOUT ── */
-.about{background:#F7F6F2;overflow:hidden}
-.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
-.about-visual{position:relative}
-.about-card{background:#FFFFFF;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:32px;position:relative;overflow:hidden}
-.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent)}
-.about-card-year{font-family:'Plus Jakarta Sans',sans-serif;font-size:64px;font-weight:800;color:rgba(42,171,184,.2);line-height:1;margin-bottom:8px}
-.about-card-label{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
-.about-card-text{font-size:13.5px;color:var(--text-sub);line-height:1.75;letter-spacing:.01em;line-height:1.7}
-.about-card-2{margin-top:16px;background:rgba(42,171,184,.06);border:1px solid rgba(42,171,184,.2);border-radius:12px;padding:24px;display:flex;align-items:center;gap:16px}
-.about-card-2-icon{width:40px;height:40px;border-radius:8px;background:rgba(42,171,184,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.about-card-2-text{font-size:13px;color:var(--text-sub);line-height:1.5}
-.about-card-2-text strong{color:var(--dark);display:block;margin-bottom:2px}
+/* SECTIONS */
+section{padding:96px 48px}
+.section-tag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-tag-line{width:20px;height:2px;background:var(--teal);border-radius:1px}
+.section-tag span{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+h2{font-size:clamp(32px,4vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#1A1A1A;margin-bottom:14px}
+h2 .accent{color:var(--teal-d)}
+.section-sub{font-size:16px;color:var(--gray);line-height:1.75;max-width:460px;font-weight:400}
 
-/* ── STRATEGY ── */
-.strategy{background:#FFFFFF}
-.strategy-inner{max-width:1200px;margin:0 auto}
-.strategy-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:64px;align-items:end}
-.strategy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,0,0,.06);border-radius:12px;overflow:hidden}
-.strategy-card{background:#FFFFFF;padding:40px 32px;position:relative;transition:background .3s}
-.strategy-card:hover{background:#F7F6F2}
-.strategy-card-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;color:rgba(0,0,0,.2);margin-bottom:24px;letter-spacing:.1em}
-.strategy-card-icon{width:48px;height:48px;border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:center}
-.strategy-card-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--dark);margin-bottom:12px;line-height:1.2}
-.strategy-card-text{font-size:13.5px;color:var(--text-sub);line-height:1.75;letter-spacing:.01em;line-height:1.7}
-.strategy-card-tag{display:inline-block;margin-top:20px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:.06em}
+/* ABOUT */
+.about-wrap{background:var(--light)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto}
+.about-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:32px;margin-top:0}
+.about-year{font-size:60px;font-weight:800;color:rgba(42,171,184,.15);line-height:1;margin-bottom:6px;letter-spacing:-.03em}
+.about-card-lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.about-card-txt{font-size:13.5px;color:var(--gray);line-height:1.7}
 
-/* ── PERFORMANCE ── */
-.performance{background:#F7F6F2}
-.performance-inner{max-width:1200px;margin:0 auto}
-.perf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(0,0,0,.06);border-radius:12px;overflow:hidden;margin-top:56px}
-.perf-card{background:#FFFFFF;padding:40px 48px}
-.perf-card-label{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-sub);margin-bottom:12px}
-.perf-card-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:var(--dark);line-height:1;margin-bottom:6px;letter-spacing:-.02em}
-.perf-card-val span{color:var(--teal)}
-.perf-card-sub{font-size:12.5px;color:var(--text-sub);line-height:1.5;letter-spacing:.01em;margin-top:4px}
+/* STRATEGY */
+.strategy-wrap{background:#fff}
+.strategy-header{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px;max-width:1100px;margin-left:auto;margin-right:auto}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.07);border-radius:10px;overflow:hidden;max-width:1100px;margin:0 auto}
+.s-card{background:#fff;padding:36px 28px;transition:background .2s}
+.s-card:hover{background:#FAFAF9}
+.s-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.s-title{font-size:17px;font-weight:700;color:#1A1A1A;margin-bottom:10px;letter-spacing:-.01em}
+.s-text{font-size:13px;color:var(--gray);line-height:1.75}
 
-/* ── SECURITY ── */
-.security{background:#FFFFFF}
-.security-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.security-badges{display:flex;flex-direction:column;gap:16px}
-.sec-badge{display:flex;align-items:flex-start;gap:16px;padding:24px;background:#F7F6F2;border:1px solid rgba(0,0,0,.06);border-radius:10px;transition:border-color .2s}
-.sec-badge:hover{border-color:rgba(42,171,184,.3)}
-.sec-badge-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-badge-title{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:4px}
-.sec-badge-text{font-size:13px;color:var(--text-sub);line-height:1.7;letter-spacing:.01em;line-height:1.5}
+/* PERFORMANCE */
+.perf-wrap{background:var(--light)}
+.perf-inner{max-width:1100px;margin:0 auto}
+.perf-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,0,0,.07);border-radius:10px;overflow:hidden;margin-top:48px;max-width:560px}
+.p-card{background:#fff;padding:40px 48px}
+.p-label{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.p-val{font-size:40px;font-weight:800;color:#1A1A1A;line-height:1;letter-spacing:-.03em;margin-bottom:6px}
+.p-val .unit{color:var(--teal)}
+.p-sub{font-size:12px;color:var(--gray);font-weight:500}
 
-/* ── CTA ── */
-.cta-section{background:#F7F6F2;text-align:center;padding:120px 48px}
-.cta-inner{max-width:600px;margin:0 auto}
-.cta-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--dark);margin-bottom:20px}
-.cta-title em{font-style:normal;color:var(--teal-d)}
-.cta-sub{font-size:16px;color:var(--text-sub);line-height:1.7;margin-bottom:40px;font-weight:300}
+/* SECURITY */
+.sec-wrap{background:#fff}
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px;margin:0 auto}
+.sec-badges{display:flex;flex-direction:column;gap:12px}
+.sec-badge{display:flex;gap:14px;padding:20px;background:var(--light);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}
+.sec-badge:hover{border-color:var(--teal)}
+.sec-icon{width:40px;height:40px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:14px;font-weight:700;color:#1A1A1A;margin-bottom:3px}
+.sec-text{font-size:12.5px;color:var(--gray);line-height:1.6}
 
-/* ── FOOTER ── */
-footer{background:#FFFFFF;padding:40px 48px;border-top:1px solid rgba(0,0,0,.08)}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.footer-text{font-size:12px;color:var(--text-sub);line-height:1.6}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-size:12px;color:var(--text-sub);text-decoration:none;transition:color .2s}
+/* CTA */
+.cta-wrap{background:var(--light);text-align:center}
+.cta-inner{max-width:540px;margin:0 auto}
+.cta-inner h2{margin-bottom:16px}
+.cta-sub{font-size:16px;color:var(--gray);line-height:1.7;margin-bottom:36px}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#fff;padding:32px 48px;border-top:1px solid var(--border)}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.footer-txt{font-size:12px;color:var(--gray)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:12px;color:var(--gray);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--teal-d)}
 
-/* ── SCROLL REVEAL ── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:none}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.on{opacity:1;transform:none}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 
-/* ── MOBILE ── */
+/* MOBILE */
 @media(max-width:768px){
-  nav{padding:20px 24px}
-  nav.scrolled{padding:14px 24px}
-  .nav-links{display:none}
-  .hero{padding:100px 24px 60px}
-  .stats-bar{grid-template-columns:1fr;gap:28px;margin-top:48px}
-  .stat{border-right:none;padding-right:0;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:28px}
-  .stat:last-child{border-bottom:none;padding-bottom:0}
-  section{padding:72px 24px}
-  .about-inner,.security-inner{grid-template-columns:1fr;gap:40px}
-  .strategy-header{grid-template-columns:1fr;gap:20px}
-  .strategy-grid{grid-template-columns:1fr}
-  .perf-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-inner{flex-direction:column;gap:16px;text-align:center}
-  .cta-section{padding:80px 24px}
+  nav{padding:18px 20px}
+  nav.scrolled{padding:14px 20px}
+  .nav-center{display:none}
+  .hero{padding:96px 20px 60px}
+  section{padding:64px 20px}
+  .about-grid,.sec-grid{grid-template-columns:1fr;gap:32px}
+  .strategy-header{grid-template-columns:1fr;gap:16px;margin-bottom:32px}
+  .cards-grid{grid-template-columns:1fr}
+  .perf-cards{grid-template-columns:1fr;max-width:100%}
+  .stats{gap:0 40px}
+  .footer-inner{flex-direction:column;gap:12px;text-align:center}
+  .footer-links{justify-content:center}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
+<nav id="nav">
   <div class="nav-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90">
+    <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
       <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
       <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
       <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
     </svg>
   </div>
-  <div class="nav-links">
-    <a href="#strategy" id="nav-strategy" id="nav-strategy">Estratégia</a>
-    <a href="#performance" id="nav-performance">Resultados</a>
-    <a href="#security" id="nav-security">Segurança</a>
+  <div class="nav-center">
+    <a href="#about" id="n-about">Sobre</a>
+    <a href="#strategy" id="n-strategy">Estratégia</a>
+    <a href="#performance" id="n-perf">Resultados</a>
+    <a href="#security" id="n-sec">Segurança</a>
   </div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <div style="display:flex;gap:2px;background:#F4F4F2;border-radius:6px;padding:3px">
-      <button onclick="setLang('pt')" id="btn-pt" style="padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,.1)">PT</button>
-      <button onclick="setLang('en')" id="btn-en" style="padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;background:transparent;color:#6B6B6B">EN</button>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
     </div>
-    <a href="/login" class="nav-cta" id="nav-login">Login</a>
+    <a href="https://gstpartners.us" class="nav-login" id="n-login">Login</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow-2"></div>
-  </div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
   <div class="hero-content">
-
-    <h1 class="hero-title" id="hero-title">Onde capital<br>e estratégia<br><strong>se encontram.</strong></h1>
-    <p class="hero-sub" id="hero-sub">Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.</p>
+    <div class="hero-tag"><div class="hero-tag-dot"></div><span>GST Partners Corp · Orlando, Florida</span></div>
+    <h1 id="h-title">Onde capital e<br><span class="accent">estratégia</span><br>se encontram.</h1>
+    <p class="hero-sub" id="h-sub">Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.</p>
     <div class="hero-actions">
-      <a href="/login" class="btn-primary" id="cta-btn">
-        Login
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#strategy" class="btn-secondary">
-        Conhecer o fundo
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      </a>
+      <a href="https://gstpartners.us" class="btn-dark" id="h-btn1">Login <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#about" class="btn-link" id="h-btn2">Conhecer o fundo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
     </div>
-    <div class="stats-bar">
-      <div class="stat">
-        <div class="stat-num">$7<span>M+</span></div>
-        <div class="stat-label" id="stat1-label">Capital sob gestão</div>
+    <div class="stats">
+      <div>
+        <div class="stat-num">$7<span class="unit">M+</span></div>
+        <div class="stat-lbl" id="s1-lbl">Capital sob gestão</div>
       </div>
-
-      <div class="stat">
-        <div class="stat-num">20<span>25</span></div>
-        <div class="stat-label" id="stat2-label">Fundo ativo desde 2020</div>
+      <div>
+        <div class="stat-num">5<span class="unit">+</span></div>
+        <div class="stat-lbl" id="s2-lbl">Anos de operação</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-text reveal">
-      <div class="section-label"><div class="section-label-line"></div><span id="about-label">Sobre o fundo</span></div>
-      <h2 class="section-title" id="about-title">Gestão privada.<br>Resultado real.</h2>
-      <p class="section-sub" id="about-sub">A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.</p>
-      <p style="font-size:14px;color:var(--text-sub);line-height:1.7;margin-top:20px;font-weight:300" id="about-p2">Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso. </p>
+<section class="about-wrap" id="about">
+  <div class="about-grid reveal">
+    <div>
+      <div class="section-tag"><div class="section-tag-line"></div><span id="a-tag">Sobre o fundo</span></div>
+      <h2 id="a-title">Gestão privada.<br><span class="accent">Resultado real.</span></h2>
+      <p class="section-sub" id="a-sub">A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.</p>
+      <p style="font-size:14px;color:var(--gray);line-height:1.75;margin-top:18px" id="a-p2">Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso.</p>
     </div>
-    <div class="about-visual reveal">
+    <div>
       <div class="about-card">
-        <div class="about-card-year">2020</div>
-        <div class="about-card-label" id="about-card-label">Fundação do fundo</div>
-        <div class="about-card-text" id="about-card-text">Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.</div>
+        <div class="about-year">2020</div>
+        <div class="about-card-lbl" id="a-card-lbl">Fundação do fundo</div>
+        <div class="about-card-txt" id="a-card-txt">Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.</div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- STRATEGY -->
-<section class="strategy" id="strategy">
-  <div class="strategy-inner">
+<section class="strategy-wrap" id="strategy">
+  <div style="max-width:1100px;margin:0 auto">
     <div class="strategy-header reveal">
       <div>
-        <div class="section-label"><div class="section-label-line"></div><span>Estratégia</span></div>
-        <h2 class="section-title" id="strategy-title">Diversificação<br>inteligente.</h2>
+        <div class="section-tag"><div class="section-tag-line"></div><span id="st-tag">Estratégia</span></div>
+        <h2 id="st-title">Diversificação<br><span class="accent">inteligente.</span></h2>
       </div>
-      <p class="section-sub" id="strategy-sub">Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.</p>
+      <p class="section-sub" id="st-sub">Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.</p>
     </div>
-    <div class="strategy-grid reveal" style="grid-template-columns:repeat(3,1fr)">
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(42,171,184,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2M12 12v4M8 12v4"/></svg>
-        </div>
-        <div class="strategy-card-title">Renda Fixa</div>
-        <div class="strategy-card-text">Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.</div>
+    <div class="cards-grid reveal">
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(42,171,184,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2M12 12v4M8 12v4"/></svg></div>
+        <div class="s-title" id="sc1-t">Renda Fixa</div>
+        <div class="s-text" id="sc1-x">Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.</div>
       </div>
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(201,169,110,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="strategy-card-title">Fundo Imobiliário</div>
-        <div class="strategy-card-text">Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.</div>
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(201,169,110,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="s-title" id="sc2-t">Fundo Imobiliário</div>
+        <div class="s-text" id="sc2-x">Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.</div>
       </div>
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(93,205,216,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
-        <div class="strategy-card-title">Private Credit</div>
-        <div class="strategy-card-text">Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.</div>
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(93,205,216,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="s-title" id="sc3-t">Private Credit</div>
+        <div class="s-text" id="sc3-x">Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.</div>
       </div>
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(26,127,75,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div class="strategy-card-title">Equity Estruturado</div>
-        <div class="strategy-card-text">Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.</div>
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(26,127,75,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="s-title" id="sc4-t">Equity Estruturado</div>
+        <div class="s-text" id="sc4-x">Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.</div>
       </div>
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(124,58,237,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <div class="strategy-card-title">Reserva de Liquidez</div>
-        <div class="strategy-card-text">Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.</div>
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(124,58,237,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="s-title" id="sc5-t">Reserva de Liquidez</div>
+        <div class="s-text" id="sc5-x">Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.</div>
       </div>
-      <div class="strategy-card">
-        <div class="strategy-card-icon" style="background:rgba(42,171,184,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="strategy-card-title">Carteira Personalizada</div>
-        <div class="strategy-card-text">Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil e objetivos.</div>
+      <div class="s-card">
+        <div class="s-icon" style="background:rgba(42,171,184,.08)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="s-title" id="sc6-t">Carteira Personalizada</div>
+        <div class="s-text" id="sc6-x">Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PERFORMANCE -->
-<section class="performance" id="performance">
-  <div class="performance-inner">
+<section class="perf-wrap" id="performance">
+  <div class="perf-inner">
     <div class="reveal">
-      <div class="section-label"><div class="section-label-line"></div><span id="perf-label">Resultados</span></div>
-      <h2 class="section-title" id="perf-title">Números que<br>falam por si.</h2>
+      <div class="section-tag"><div class="section-tag-line"></div><span id="p-tag">Resultados</span></div>
+      <h2 id="p-title">Números que<br><span class="accent">falam por si.</span></h2>
     </div>
-    <div class="perf-grid reveal">
-      <div class="perf-card">
-        <div class="perf-card-label" id="perf1-label">Capital sob gestão</div>
-        <div class="perf-card-val">$7<span>M+</span></div>
-        <div class="perf-card-sub" id="perf1-sub">Em ativos americanos</div>
+    <div class="perf-cards reveal">
+      <div class="p-card">
+        <div class="p-label" id="p1-lbl">Capital sob gestão</div>
+        <div class="p-val">$7<span class="unit">M+</span></div>
+        <div class="p-sub" id="p1-sub">Em ativos americanos</div>
       </div>
-
-      <div class="perf-card">
-        <div class="perf-card-label" id="perf2-label">Anos de operação</div>
-        <div class="perf-card-val">5<span>+</span></div>
-        <div class="perf-card-sub" id="perf2-sub">Desde 2020</div>
+      <div class="p-card">
+        <div class="p-label" id="p2-lbl">Anos de operação</div>
+        <div class="p-val">5<span class="unit">+</span></div>
+        <div class="p-sub" id="p2-sub">Desde 2020</div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- SECURITY -->
-<section class="security" id="security">
-  <div class="security-inner">
-    <div class="reveal">
-      <div class="section-label"><div class="section-label-line"></div><span id="sec-label">Segurança</span></div>
-      <h2 class="section-title" id="sec-title">Estrutura sólida.<br>Proteção real.</h2>
-      <p class="section-sub" id="sec-sub">Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.</p>
+<section class="sec-wrap" id="security">
+  <div class="sec-grid reveal">
+    <div>
+      <div class="section-tag"><div class="section-tag-line"></div><span id="se-tag">Segurança</span></div>
+      <h2 id="se-title">Estrutura sólida.<br><span class="accent">Proteção real.</span></h2>
+      <p class="section-sub" id="se-sub">Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.</p>
     </div>
-    <div class="security-badges reveal">
+    <div class="sec-badges">
       <div class="sec-badge">
-        <div class="sec-badge-icon" style="background:rgba(42,171,184,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div>
-          <div class="sec-badge-title">Proteção FDIC</div>
-          <div class="sec-badge-text">Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.</div>
-        </div>
+        <div class="sec-icon" style="background:rgba(42,171,184,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="sec-title" id="sb1-t">Proteção FDIC</div><div class="sec-text" id="sb1-x">Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.</div></div>
       </div>
       <div class="sec-badge">
-        <div class="sec-badge-icon" style="background:rgba(201,169,110,.08)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        </div>
-        <div>
-          <div class="sec-badge-title">Empresa Registrada</div>
-          <div class="sec-badge-text">GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.</div>
-        </div>
+        <div class="sec-icon" style="background:rgba(201,169,110,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div><div class="sec-title" id="sb2-t">Empresa Registrada</div><div class="sec-text" id="sb2-x">GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.</div></div>
       </div>
       <div class="sec-badge">
-        <div class="sec-badge-icon" style="background:rgba(93,205,216,.08)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div>
-          <div class="sec-badge-title">Contrato Digital</div>
-          <div class="sec-badge-text">Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal do investidor.</div>
-        </div>
+        <div class="sec-icon" style="background:rgba(93,205,216,.08)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="sec-title" id="sb3-t">Contrato Digital</div><div class="sec-text" id="sb3-x">Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal.</div></div>
       </div>
       <div class="sec-badge">
-        <div class="sec-badge-icon" style="background:rgba(42,171,184,.1)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div>
-          <div class="sec-badge-title">Portal Exclusivo</div>
-          <div class="sec-badge-text">Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.</div>
-        </div>
+        <div class="sec-icon" style="background:rgba(26,127,75,.08)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div><div class="sec-title" id="sb4-t">Portal Exclusivo</div><div class="sec-text" id="sb4-x">Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-wrap">
   <div class="cta-inner reveal">
-    <h2 class="cta-title" id="cta-title">Pronto para<br>investir melhor?</h2>
+    <h2 id="cta-h">Pronto para<br><span class="accent">investir melhor?</span></h2>
     <p class="cta-sub" id="cta-sub">Acesse seu portal ou entre em contato para saber mais sobre como participar.</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">
-      <a href="/login" class="btn-primary" id="cta-btn">
-        Login
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="mailto:contact@gstpartners.us" class="btn-secondary">contact@gstpartners.us</a>
+    <div class="cta-actions">
+      <a href="https://gstpartners.us" class="btn-dark" id="cta-btn">Login <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="mailto:contact@gstpartners.us" class="btn-link">contact@gstpartners.us</a>
     </div>
   </div>
 </section>
@@ -385,201 +317,96 @@ footer{background:#FFFFFF;padding:40px 48px;border-top:1px solid rgba(0,0,0,.08)
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-text">
-      <span id="footer-copy">© 2025 GST Partners Corp · EIN 38-4273898 · Orlando, FL 32801</span><br>
-      As alocações em renda fixa são protegidas pelo FDIC em até US$ 3.000.000 por depositante.
-    </div>
+    <div class="footer-txt">© 2025 GST Partners Corp · EIN 38-4273898 · Orlando, FL 32801</div>
     <div class="footer-links">
       <a href="mailto:contact@gstpartners.us">Contato</a>
-      <a href="/login">Portal do Investidor</a>
+      <a href="https://gstpartners.us">Portal do Investidor</a>
     </div>
   </div>
 </footer>
 
 <script>
 // Nav scroll
-window.addEventListener('scroll', function(){
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>40)
 })
 
-// Scroll reveal
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target) }
-  })
-}, {threshold:0.1, rootMargin:'0px 0px -40px 0px'})
-document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el) })
+// Reveal on scroll
+var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'})
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)})
 
-// ── TRANSLATIONS ──
-var LANG = 'pt'
-var TX = {
-  pt: {
-    'nav-about': 'Sobre', 'nav-strategy': 'Estratégia', 'nav-performance': 'Resultados', 'nav-security': 'Segurança',
-    'nav-login': 'Login',
-    'hero-eyebrow': '',
-    'hero-title': 'Onde capital e<br><span style="color:var(--teal-d)">estratégia</span><br>se encontram.',
-    'hero-sub': 'Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.',
-    'hero-btn1': 'Login', 'hero-btn2': 'Conhecer o fundo',
-    'stat1-label': 'Capital sob gestão', 'stat2-label': 'Fundo ativo desde 2020',
-    'about-label': 'Sobre o fundo',
-    'about-title': 'Gestão privada.<br>Resultado real.',
-    'about-sub': 'A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.',
-    'about-p2': 'Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso.',
-    'about-card-label': 'Fundação do fundo',
-    'about-card-text': 'Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.',
-    'strategy-label': 'Estratégia',
-    'strategy-title': 'Diversificação<br>inteligente.',
-    'strategy-sub': 'Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.',
-    'perf-label': 'Resultados',
-    'perf-title': 'Números que<br>falam por si.',
-    'perf1-label': 'Capital sob gestão', 'perf1-sub': 'Em ativos americanos',
-    'perf2-label': 'Anos de operação', 'perf2-sub': 'Desde 2020',
-    'sec-label': 'Segurança',
-    'sec-title': 'Estrutura sólida.<br>Proteção real.',
-    'sec-sub': 'Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.',
-    'cta-title': 'Pronto para<br>investir melhor?',
-    'cta-sub': 'Acesse seu portal ou entre em contato para saber mais sobre como participar.',
-    'cta-btn': 'Login',
-    'footer-copy': '© 2025 GST Partners Corp · EIN 38-4273898 · Orlando, FL 32801',
+// Language
+var TX={
+  pt:{
+    'n-about':'Sobre','n-strategy':'Estratégia','n-perf':'Resultados','n-sec':'Segurança','n-login':'Login',
+    'h-title':'Onde capital e<br><span class="accent">estratégia</span><br>se encontram.',
+    'h-sub':'Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.',
+    'h-btn1':'Login','h-btn2':'Conhecer o fundo',
+    's1-lbl':'Capital sob gestão','s2-lbl':'Anos de operação',
+    'a-tag':'Sobre o fundo','a-title':'Gestão privada.<br><span class="accent">Resultado real.</span>',
+    'a-sub':'A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.',
+    'a-p2':'Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso.',
+    'a-card-lbl':'Fundação do fundo','a-card-txt':'Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.',
+    'st-tag':'Estratégia','st-title':'Diversificação<br><span class="accent">inteligente.</span>',
+    'st-sub':'Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.',
+    'sc1-t':'Renda Fixa','sc1-x':'Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.',
+    'sc2-t':'Fundo Imobiliário','sc2-x':'Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.',
+    'sc3-t':'Private Credit','sc3-x':'Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.',
+    'sc4-t':'Equity Estruturado','sc4-x':'Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.',
+    'sc5-t':'Reserva de Liquidez','sc5-x':'Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.',
+    'sc6-t':'Carteira Personalizada','sc6-x':'Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil.',
+    'p-tag':'Resultados','p-title':'Números que<br><span class="accent">falam por si.</span>',
+    'p1-lbl':'Capital sob gestão','p1-sub':'Em ativos americanos','p2-lbl':'Anos de operação','p2-sub':'Desde 2020',
+    'se-tag':'Segurança','se-title':'Estrutura sólida.<br><span class="accent">Proteção real.</span>',
+    'se-sub':'Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.',
+    'sb1-t':'Proteção FDIC','sb1-x':'Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.',
+    'sb2-t':'Empresa Registrada','sb2-x':'GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.',
+    'sb3-t':'Contrato Digital','sb3-x':'Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal.',
+    'sb4-t':'Portal Exclusivo','sb4-x':'Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.',
+    'cta-h':'Pronto para<br><span class="accent">investir melhor?</span>','cta-sub':'Acesse seu portal ou entre em contato para saber mais sobre como participar.','cta-btn':'Login',
   },
-  en: {
-    'nav-about': 'About', 'nav-strategy': 'Strategy', 'nav-performance': 'Results', 'nav-security': 'Security',
-    'nav-login': 'Login',
-    'hero-title': 'Where capital and<br><span style="color:var(--teal-d)">strategy</span><br>meet.',
-    'hero-sub': 'Private capital management in the American market.<br>Consistent returns, solid structure,<br>exclusive access.',
-    'hero-btn1': 'Login', 'hero-btn2': 'Learn more',
-    'stat1-label': 'Assets under management', 'stat2-label': 'Fund active since 2020',
-    'about-label': 'About the fund',
-    'about-title': 'Private management.<br>Real results.',
-    'about-sub': 'GST Partners was born from the conviction that Brazilian investors deserve real access to the American market — with structure, transparency and management that treats every capital with the seriousness it deserves.',
-    'about-p2': 'Based in Orlando, Florida, we have operated since 2020 with a close, personalized management model. Each investor is unique — and portfolio composition reflects that.',
-    'about-card-label': 'Fund founded',
-    'about-card-text': 'We started operations in Orlando, Florida, focused on structured investments in the American market for Brazilian investors.',
-    'strategy-label': 'Strategy',
-    'strategy-title': 'Intelligent<br>diversification.',
-    'strategy-sub': 'Allocation across different American asset classes, selected with rigorous risk and return criteria and adapted to market conditions.',
-    'perf-label': 'Results',
-    'perf-title': 'Numbers that<br>speak for themselves.',
-    'perf1-label': 'Assets under management', 'perf1-sub': 'In American assets',
-    'perf2-label': 'Years of operation', 'perf2-sub': 'Since 2020',
-    'sec-label': 'Security',
-    'sec-title': 'Solid structure.<br>Real protection.',
-    'sec-sub': 'We operate with full legal compliance and American regulatory framework, ensuring security and transparency for every investor.',
-    'cta-title': 'Ready to<br>invest better?',
-    'cta-sub': 'Access your portal or get in touch to learn more about joining the fund.',
-    'cta-btn': 'Login',
-    'footer-copy': '© 2025 GST Partners Corp · EIN 38-4273898 · Orlando, FL 32801',
+  en:{
+    'n-about':'About','n-strategy':'Strategy','n-perf':'Results','n-sec':'Security','n-login':'Login',
+    'h-title':'Where capital and<br><span class="accent">strategy</span><br>meet.',
+    'h-sub':'Private capital management in the American market.<br>Consistent returns, solid structure,<br>exclusive access.',
+    'h-btn1':'Login','h-btn2':'Learn more',
+    's1-lbl':'Assets under management','s2-lbl':'Years of operation',
+    'a-tag':'About the fund','a-title':'Private management.<br><span class="accent">Real results.</span>',
+    'a-sub':'GST Partners was born from the conviction that Brazilian investors deserve real access to the American market — with structure, transparency and management that treats every capital with the seriousness it deserves.',
+    'a-p2':'Based in Orlando, Florida, we have operated since 2020 with a close, personalized management model. Each investor is unique — and portfolio composition reflects that.',
+    'a-card-lbl':'Fund founded','a-card-txt':'We started operations in Orlando, Florida, focused on structured investments in the American market for Brazilian investors.',
+    'st-tag':'Strategy','st-title':'Intelligent<br><span class="accent">diversification.</span>',
+    'st-sub':'Allocation across different American asset classes, selected with rigorous risk and return criteria and adapted to market conditions.',
+    'sc1-t':'Fixed Income','sc1-x':'US Treasury bonds and FDIC-insured bank deposits. Stability and capital preservation with government protection.',
+    'sc2-t':'Real Estate Fund','sc2-x':'Exposure to the American real estate market through structured funds, focused on high-appreciation regions with consistent demand.',
+    'sc3-t':'Private Credit','sc3-x':'Private credit for American companies with real guarantees and rigorous prior analysis. One of the fund\'s main sources of return.',
+    'sc4-t':'Structured Equity','sc4-x':'S&P 500 positions with a hedging strategy. Exposure to American stock market growth with risk management.',
+    'sc5-t':'Liquidity Reserve','sc5-x':'Allocation in American money market ensuring operational liquidity, monthly payments and market opportunity capture.',
+    'sc6-t':'Custom Portfolio','sc6-x':'Each investor can, together with our team, build their own strategy combining the asset classes that best suit their profile.',
+    'p-tag':'Results','p-title':'Numbers that<br><span class="accent">speak for themselves.</span>',
+    'p1-lbl':'Assets under management','p1-sub':'In American assets','p2-lbl':'Years of operation','p2-sub':'Since 2020',
+    'se-tag':'Security','se-title':'Solid structure.<br><span class="accent">Real protection.</span>',
+    'se-sub':'We operate with full legal compliance and American regulatory framework, ensuring security and transparency for every investor.',
+    'sb1-t':'FDIC Protection','sb1-x':'Fixed income deposits protected by the US federal government up to $3,000,000 per depositor, per institution.',
+    'sb2-t':'Registered Company','sb2-x':'GST Partners Corp registered in the State of Florida, USA — EIN 38-4273898.<br>100% regulated operation under American laws.',
+    'sb3-t':'Digital Contract','sb3-x':'Each investor signs a legally binding contract, available for consultation at any time in the investor portal.',
+    'sb4-t':'Exclusive Portal','sb4-x':'Each investor accesses their portfolio in real time — returns, history, documents and statements, 24 hours a day.',
+    'cta-h':'Ready to<br><span class="accent">invest better?</span>','cta-sub':'Access your portal or get in touch to learn more about joining the fund.','cta-btn':'Login',
   }
 }
 
-// Strategy cards translations
-var STRATEGY_TX = {
-  pt: [
-    {title:'Renda Fixa', text:'Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.'},
-    {title:'Fundo Imobiliário', text:'Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.'},
-    {title:'Private Credit', text:'Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.'},
-    {title:'Equity Estruturado', text:'Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.'},
-    {title:'Reserva de Liquidez', text:'Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.'},
-    {title:'Carteira Personalizada', text:'Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil e objetivos.'},
-  ],
-  en: [
-    {title:'Fixed Income', text:'US Treasury bonds and FDIC-insured bank deposits. Stability and capital preservation with government protection.'},
-    {title:'Real Estate Fund', text:'Exposure to the American real estate market through structured funds, focused on high-appreciation regions with consistent demand.'},
-    {title:'Private Credit', text:'Private credit for American companies with real guarantees and rigorous prior analysis. One of the fund's main sources of return.'},
-    {title:'Structured Equity', text:'Positions in S&P 500 companies with a hedging strategy. Exposure to American stock market growth with risk management.'},
-    {title:'Liquidity Reserve', text:'Allocation in American money market ensuring operational liquidity, monthly payments and market opportunity capture.'},
-    {title:'Custom Portfolio', text:'Each investor can, together with our team, build their own strategy combining the asset classes that best suit their profile and objectives.'},
-  ]
-}
-
-// Security badges translations
-var SEC_TX = {
-  pt: [
-    {title:'Proteção FDIC', text:'Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.'},
-    {title:'Empresa Registrada', text:'GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.'},
-    {title:'Contrato Digital', text:'Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal do investidor.'},
-    {title:'Portal Exclusivo', text:'Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.'},
-  ],
-  en: [
-    {title:'FDIC Protection', text:'Fixed income deposits protected by the US federal government up to $3,000,000 per depositor, per institution.'},
-    {title:'Registered Company', text:'GST Partners Corp registered in the State of Florida, USA — EIN 38-4273898.<br>100% regulated operation under American laws.'},
-    {title:'Digital Contract', text:'Each investor signs a legally binding contract, available for consultation at any time in the investor portal.'},
-    {title:'Exclusive Portal', text:'Each investor accesses their portfolio in real time — returns, history, documents and statements, 24 hours a day.'},
-  ]
-}
-
-function setLang(l) {
-  LANG = l
-  // Update buttons
-  var btnPt = document.getElementById('btn-pt')
-  var btnEn = document.getElementById('btn-en')
-  if(btnPt && btnEn) {
-    if(l==='pt'){
-      btnPt.style.cssText='padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;background:#fff;color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,.1)'
-      btnEn.style.cssText='padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;background:transparent;color:#6B6B6B'
-    } else {
-      btnEn.style.cssText='padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;background:#fff;color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,.1)'
-      btnPt.style.cssText='padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;background:transparent;color:#6B6B6B'
-    }
-  }
-  var t = TX[l]
-  // Update all translatable elements
+function setLang(l){
+  document.documentElement.lang=l
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')})
+  document.querySelector('.lang-btn[onclick="setLang(\''+l+'\')"]').classList.add('active')
+  var t=TX[l]
   Object.keys(t).forEach(function(id){
-    var el = document.getElementById(id)
-    if(el) el.innerHTML = t[id]
+    var el=document.getElementById(id)
+    if(el)el.innerHTML=t[id]
   })
-  // Update strategy cards
-  var cards = document.querySelectorAll('.strategy-card')
-  var stx = STRATEGY_TX[l]
-  cards.forEach(function(card, i){
-    if(stx[i]){
-      var title = card.querySelector('.strategy-card-title')
-      var text = card.querySelector('.strategy-card-text')
-      if(title) title.textContent = stx[i].title
-      if(text) text.textContent = stx[i].text
-    }
-  })
-  // Update security badges
-  var badges = document.querySelectorAll('.sec-badge')
-  var sxt = SEC_TX[l]
-  badges.forEach(function(badge, i){
-    if(sxt[i]){
-      var title = badge.querySelector('.sec-badge-title')
-      var text = badge.querySelector('.sec-badge-text')
-      if(title) title.textContent = sxt[i].title
-      if(text) text.innerHTML = sxt[i].text
-    }
-  })
-  // Update nav links
-  var navLinks = document.querySelectorAll('.nav-links a')
-  var navKeys = ['nav-about','nav-strategy','nav-performance','nav-security']
-  navLinks.forEach(function(a, i){ if(navKeys[i] && t[navKeys[i]]) a.textContent = t[navKeys[i]] })
-  // Update html lang
-  document.documentElement.lang = l
 }
-
-// Smooth counter animation on stats
-function animateCounter(el, target, suffix, duration){
-  var start = 0, startTime = null
-  function step(ts){
-    if(!startTime) startTime = ts
-    var progress = Math.min((ts - startTime) / duration, 1)
-    var ease = 1 - Math.pow(1 - progress, 3)
-    el.innerHTML = Math.floor(ease * target) + suffix
-    if(progress < 1) requestAnimationFrame(step)
-  }
-  requestAnimationFrame(step)
-}
-var statsObserver = new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting){
-    statsObserver.disconnect()
-    setTimeout(function(){
-      document.querySelector('.stats-bar .stat:nth-child(1) .stat-num').innerHTML = '$7<span>M+</span>'
-    }, 200)
-  }
-}, {threshold:0.5})
-var statsBar = document.querySelector('.stats-bar')
-if(statsBar) statsObserver.observe(statsBar)
 </script>
 </body>
 </html>
