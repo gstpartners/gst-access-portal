@@ -3,410 +3,1177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GST Partners — Gestão de Capital</title>
+<title>Portal GST</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232AABB8'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EGST%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+:root{--bg:#F4F4F2;--s:#fff;--s2:#F9F9F8;--bd:#E2E2DE;--bds:#EAEAE7;--tl:#2AABB8;--tld:#1D8F9B;--tlbg:#EDF8FA;--tlbr:#B8E5EA;--gy:#767676;--bk:#1A1A1A;--bo:#3D3D3D;--mu:#ABABAB;--sf:#888;--gn:#1A7F4B;--gnbg:#EBF7F1;--gnbr:#C2E8D4;--am:#D97706;--ambg:#FFF8E7;--ambr:#F0D080;--pu:#7C3AED;--pubg:#F5F3FF;--pubr:#DDD6FE;--re:#DC2626;--rebg:#FEF2F2;--rebr:#FECACA}
+[data-theme="dark"]{--bg:#111318;--s:#1C1F2A;--s2:#222535;--bd:#2E3147;--bds:#262940;--bk:#EDEDF0;--bo:#C5C5CC;--mu:#5A5B6E;--sf:#8888A0;--gy:#8888A0;--tlbg:rgba(42,171,184,.1);--tlbr:rgba(42,171,184,.22);--gnbg:rgba(26,127,75,.1);--gnbr:rgba(26,127,75,.22);--ambg:rgba(217,119,6,.1);--ambr:rgba(217,119,6,.22);--pubg:rgba(124,58,237,.1);--pubr:rgba(124,58,237,.22);--rebg:rgba(220,38,38,.1);--rebr:rgba(220,38,38,.22)}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1A1A1A;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* COLORS */
-:root{--teal:#2AABB8;--teal-d:#1D8F9B;--gray:#6B6B6B;--light:#F7F6F2;--border:#E8E8E4}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
-nav.scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:16px 48px;border-bottom:1px solid var(--border)}
-.nav-logo svg{height:30px;width:auto;display:block}
-.nav-center{display:flex;gap:32px}
-.nav-center a{font-size:13px;font-weight:500;color:var(--gray);text-decoration:none;transition:color .2s}
-.nav-center a:hover{color:#1A1A1A}
-.nav-right{display:flex;align-items:center;gap:12px}
-.lang-toggle{display:flex;gap:2px;background:#F0F0EE;border-radius:6px;padding:3px}
-.lang-btn{padding:4px 10px;font-size:12px;font-weight:600;border:none;border-radius:4px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;background:transparent;color:#999;transition:all .15s}
-.lang-btn.active{background:#fff;color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.nav-login{padding:9px 20px;background:#1A1A1A;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;transition:all .2s}
-.nav-login:hover{background:#333}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;background:#fff}
-.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(42,171,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(42,171,184,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 70% 70% at 60% 40%,black 20%,transparent 100%);pointer-events:none}
-.hero-glow{position:absolute;top:-10%;right:0%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(42,171,184,.07) 0%,transparent 65%);pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:820px}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;opacity:0;animation:up .7s .1s forwards}
-.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
-.hero-tag span{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
-h1{font-size:clamp(42px,6vw,82px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#1A1A1A;margin-bottom:20px;opacity:0;animation:up .7s .2s forwards}
-h1 .accent{color:var(--teal-d)}
-.hero-sub{font-size:clamp(15px,1.6vw,18px);color:var(--gray);line-height:1.75;max-width:460px;margin-bottom:44px;font-weight:400;opacity:0;animation:up .7s .35s forwards}
-.hero-actions{display:flex;align-items:center;gap:18px;opacity:0;animation:up .7s .45s forwards}
-.btn-dark{padding:13px 28px;background:#1A1A1A;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
-.btn-dark:hover{background:#333;transform:translateY(-1px)}
-.btn-link{font-size:14px;color:var(--gray);text-decoration:none;font-weight:500;display:flex;align-items:center;gap:6px;transition:color .2s}
-.btn-link:hover{color:#1A1A1A}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(2,auto);gap:0 64px;margin-top:72px;padding-top:48px;border-top:1px solid var(--border);opacity:0;animation:up .7s .55s forwards;width:fit-content}
-.stat-num{font-size:clamp(40px,5vw,58px);font-weight:800;color:#1A1A1A;line-height:1;letter-spacing:-.03em}
-.stat-num .unit{color:var(--teal)}
-.stat-lbl{font-size:12px;font-weight:500;color:var(--gray);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
-
-/* SECTIONS */
-section{padding:96px 48px}
-.section-tag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.section-tag-line{width:20px;height:2px;background:var(--teal);border-radius:1px}
-.section-tag span{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
-h2{font-size:clamp(32px,4vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:#1A1A1A;margin-bottom:14px}
-h2 .accent{color:var(--teal-d)}
-.section-sub{font-size:16px;color:var(--gray);line-height:1.75;max-width:460px;font-weight:400}
-
-/* ABOUT */
-.about-wrap{background:var(--light)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto}
-.about-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:32px;margin-top:0}
-.about-year{font-size:60px;font-weight:800;color:rgba(42,171,184,.15);line-height:1;margin-bottom:6px;letter-spacing:-.03em}
-.about-card-lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-.about-card-txt{font-size:13.5px;color:var(--gray);line-height:1.7}
-
-/* STRATEGY */
-.strategy-wrap{background:#fff}
-.strategy-header{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px;max-width:1100px;margin-left:auto;margin-right:auto}
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.07);border-radius:10px;overflow:hidden;max-width:1100px;margin:0 auto}
-.s-card{background:#fff;padding:36px 28px;transition:background .2s}
-.s-card:hover{background:#FAFAF9}
-.s-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.s-title{font-size:17px;font-weight:700;color:#1A1A1A;margin-bottom:10px;letter-spacing:-.01em}
-.s-text{font-size:13px;color:var(--gray);line-height:1.75}
-
-/* PERFORMANCE */
-.perf-wrap{background:var(--light)}
-.perf-inner{max-width:1100px;margin:0 auto}
-.perf-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,0,0,.07);border-radius:10px;overflow:hidden;margin-top:48px;max-width:560px}
-.p-card{background:#fff;padding:40px 48px}
-.p-label{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
-.p-val{font-size:40px;font-weight:800;color:#1A1A1A;line-height:1;letter-spacing:-.03em;margin-bottom:6px}
-.p-val .unit{color:var(--teal)}
-.p-sub{font-size:12px;color:var(--gray);font-weight:500}
-
-/* SECURITY */
-.sec-wrap{background:#fff}
-.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px;margin:0 auto}
-.sec-badges{display:flex;flex-direction:column;gap:12px}
-.sec-badge{display:flex;gap:14px;padding:20px;background:var(--light);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}
-.sec-badge:hover{border-color:var(--teal)}
-.sec-icon{width:40px;height:40px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-title{font-size:14px;font-weight:700;color:#1A1A1A;margin-bottom:3px}
-.sec-text{font-size:12.5px;color:var(--gray);line-height:1.6}
-
-/* CTA */
-.cta-wrap{background:var(--light);text-align:center}
-.cta-inner{max-width:540px;margin:0 auto}
-.cta-inner h2{margin-bottom:16px}
-.cta-sub{font-size:16px;color:var(--gray);line-height:1.7;margin-bottom:36px}
-.cta-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--bo);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:13px}
+.lp{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.lc{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:40px;width:100%;max-width:380px}
+.logo-c{text-align:center;margin-bottom:28px}
+.lgst{font-family:'Inter Tight',sans-serif;font-size:28px;font-weight:700;color:var(--gy);line-height:1}
+.lpill{display:inline-block;background:var(--tl);padding:3px 12px;margin-top:4px}
+.lpill span{font-size:8px;font-weight:700;letter-spacing:.2em;color:white;text-transform:uppercase}
+.ltit{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:600;color:var(--bk);margin-bottom:6px;letter-spacing:-.02em}
+.lsub{font-size:12px;color:var(--mu);margin-bottom:24px}
+.fl{display:block;font-size:11px;font-weight:500;color:var(--bo);margin-bottom:5px}
+.finp{width:100%;padding:9px 12px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;color:var(--bk);background:var(--s);margin-bottom:14px;transition:border-color .15s}
+.finp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.pw-wrap{position:relative;margin-bottom:14px}
+.pw-wrap .finp{margin-bottom:0;padding-right:40px}
+.eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--mu);padding:4px;display:flex;align-items:center}
+.eye-btn:hover{color:var(--sf)}
+.bp{width:100%;padding:10px;background:var(--tl);color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
+.bp:hover{background:var(--tld)}
+.bp:disabled{opacity:.6;cursor:default}
+.lerr{font-size:12px;color:#D32F2F;margin-top:10px;text-align:center}
+.lft{margin-top:24px;padding-top:16px;border-top:1px solid var(--bd);font-size:11px;color:var(--mu);text-align:center}
+.app{display:none;min-height:100vh}
+.app.on{display:flex}
+/* SIDEBAR */
+.sb{width:232px;min-height:100vh;background:var(--s);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
+.sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--bd)}
+.sb-user{padding:11px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.av{width:28px;height:28px;border-radius:50%;background:var(--tlbg);border:1px solid var(--tlbr);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--tld);flex-shrink:0}
+.un{font-size:12px;font-weight:500;color:var(--bk)}
+.up{font-size:10px;color:var(--mu);margin-top:1px}
+.sb-nav{padding:14px 10px;flex:1;overflow-y:auto}
+.ns{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);padding:0 10px;margin-bottom:4px;margin-top:14px}
+.ns:first-child{margin-top:0}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:5px;cursor:pointer;font-size:12.5px;color:var(--sf);text-decoration:none;margin-bottom:1px;transition:all .12s}
+.ni:hover{background:var(--bg);color:var(--bo)}
+.ni.on{background:var(--tlbg);color:var(--tld);font-weight:500}
+.ni.on::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--tl);flex-shrink:0}
+.ni svg{width:15px;height:15px;opacity:.4;flex-shrink:0}
+.ni.on svg{opacity:1}
+.sb-bot{padding:14px 20px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.lang{display:flex;gap:2px}
+.lb{padding:3px 8px;font-size:11px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--mu);border-radius:3px;transition:all .12s}
+.lb.on{border-color:var(--tlbr);color:var(--tld);background:var(--tlbg)}
+.outbtn{font-size:11px;color:var(--mu);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Inter',sans-serif}
+.outbtn:hover{color:var(--sf)}
+/* MAIN */
+.mn{margin-left:232px;flex:1;padding:36px 44px 40px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.tb-ey{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px}
+.tb-ti{font-family:'Inter Tight',sans-serif;font-size:24px;font-weight:600;color:var(--bk);letter-spacing:-.03em;line-height:1.1}
+.tb-we{font-size:13px;color:var(--sf);margin-top:4px}
+.badge-g{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:500;color:var(--gn);background:var(--gnbg);border:1px solid var(--gnbr);padding:4px 11px;border-radius:20px;white-space:nowrap}
+.dot{width:6px;height:6px;background:var(--gn);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.metrics-2{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.metric{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:18px 20px 16px;position:relative;transition:box-shadow .15s;overflow:hidden}
+.metric:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-1px)}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.metric.accent-tl::before{background:linear-gradient(90deg,#2AABB8,#5DCDD8)}
+.metric.accent-gn::before{background:linear-gradient(90deg,#1A7F4B,#34D399)}
+.metric.accent-pu::before{background:linear-gradient(90deg,#7C3AED,#A78BFA)}
+.metric.accent-am::before{background:linear-gradient(90deg,#D97706,#FCD34D)}
+.metric.accent-re::before{background:linear-gradient(90deg,#E11D48,#FB7185)}
+.metric.accent-tl{border-top:none}
+.metric.accent-gn{border-top:none}
+.metric.accent-pu{border-top:none}
+.metric.accent-am{border-top:none}
+.metric.accent-re{border-top:none}
+.ml{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
+.mv{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1;transition:opacity .2s}
+.mv.tl{color:var(--tld)}
+.mv.gn{color:var(--gn)}
+.mv.pu{color:var(--pu)}
+.mv.am{color:var(--am)}.mv.re{color:var(--re)}
+.ms{font-size:11px;color:var(--mu);margin-top:6px}
+.hide-btn{position:absolute;top:16px;right:14px;background:none;border:none;cursor:pointer;color:var(--mu);padding:2px;display:flex;align-items:center;transition:color .12s}
+.hide-btn:hover{color:var(--sf)}
+/* CARD */
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--bds)}
+.ct{font-family:'Inter Tight',sans-serif;font-size:13.5px;font-weight:600;color:var(--bk)}
+.cm{font-size:11px;color:var(--mu)}
+.cb{padding:18px 20px}
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+thead tr{border-bottom:1px solid var(--bd)}
+th{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding:9px 14px;text-align:left;background:var(--s2)}
+td{padding:12px 14px;font-size:12px;color:var(--bo);border-bottom:1px solid var(--bds)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--s2)}
+.tm{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--bk)}
+.tt{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--tld);font-weight:500}
+.td{color:var(--mu)}
+.sb2{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.sp{background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)}
+.spe{background:var(--ambg);color:var(--am);border:1px solid var(--ambr)}
+.sa{background:var(--tlbg);color:var(--tld);border:1px solid var(--tlbr)}
+.empty{text-align:center;padding:40px 20px;color:var(--mu)}
+.et{font-size:13px;font-weight:500;color:var(--sf);margin-bottom:4px}
+/* EMPTY CHART */
+.chart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;gap:10px}
+.chart-empty-bars{display:flex;align-items:flex-end;gap:5px;height:60px}
+.chart-empty-bar{width:14px;border-radius:3px 3px 0 0;background:var(--bd)}
+/* PHASES */
+.ph-track{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin:14px 0 8px}
+.ph-fill{height:100%;border-radius:2px;transition:width .6s ease}
+.ph-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--mu);margin-bottom:14px}
+.ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pc{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:12px 14px}
+.pc.on-tl{background:var(--tlbg);border-color:var(--tlbr)}
+.pc.on-gn{background:var(--gnbg);border-color:var(--gnbr)}
+.pl{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:4px}
+.pc.on-tl .pl{color:var(--tld)}
+.pc.on-gn .pl{color:var(--gn)}
+.pn{font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:var(--sf);margin-bottom:3px}
+.pc.on-tl .pn{color:var(--tld)}
+.pc.on-gn .pn{color:var(--gn)}
+.pd{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--mu)}
+/* PAGES */
+.pg{display:none}
+.pg.on{display:block}
 /* FOOTER */
-footer{background:#fff;padding:32px 48px;border-top:1px solid var(--border)}
-.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.footer-txt{font-size:12px;color:var(--gray)}
-.footer-links{display:flex;gap:20px}
-.footer-links a{font-size:12px;color:var(--gray);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--teal-d)}
-
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.reveal.on{opacity:1;transform:none}
-
-/* ANIMATIONS */
-@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-
+.foot{display:flex;align-items:center;gap:16px;padding:12px 18px;border:1px solid var(--bd);border-radius:6px;margin-top:10px;background:var(--s);flex-wrap:wrap}
+.fi2{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:6px}
+.fs{width:1px;height:12px;background:var(--bd)}
+/* DISCLAIMER */
+.disc{font-size:10px;color:var(--mu);padding:10px 18px;text-align:center;line-height:1.5;margin-top:6px}
+/* CHART */
+.chart-box{position:relative;height:170px;width:100%}
+/* TWO COL */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.threecol{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+/* ANNOUNCE */
+.ann{background:var(--tlbg);border:1px solid var(--tlbr);border-left:3px solid var(--tl);border-radius:6px;padding:11px 14px;margin-bottom:10px}
+.ann-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.ann-t{font-size:12px;font-weight:600;color:var(--tld)}
+.ann-d{font-size:10px;color:var(--mu)}
+.ann-b{font-size:12px;color:var(--bo);line-height:1.5}
+/* BANK */
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.bst{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
+.br2{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bds)}
+.br2:last-child{border-bottom:none}
+.blab{font-size:11px;color:var(--mu)}
+.bval{font-size:12px;font-weight:500;color:var(--bk);font-family:'Space Grotesk',sans-serif}
+.cbtn{font-size:10px;padding:2px 7px;border:1px solid var(--bd);border-radius:4px;cursor:pointer;color:var(--mu);background:var(--bg);transition:all .12s;font-family:'Inter',sans-serif}
+.cbtn:hover{border-color:var(--tl);color:var(--tld)}
+.cbtn.ok{border-color:var(--gnbr);color:var(--gn);background:var(--gnbg)}
+/* LOCKED */
+.locked-overlay{position:relative}
+.locked-overlay::after{content:'Em breve';position:absolute;inset:0;background:rgba(244,244,242,.85);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;border-radius:8px}
+/* NEWS */
+.ni2{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--bds);cursor:pointer;transition:background .1s}
+.ni2:last-child{border-bottom:none;padding-bottom:0}
+.ni2:hover{background:var(--s2)}
+.ndot{width:6px;height:6px;border-radius:50%;background:var(--tl);margin-top:5px;flex-shrink:0}
+.ntit{font-size:12px;font-weight:500;color:var(--bk);margin-bottom:3px;line-height:1.4}
+.nmet{font-size:10px;color:var(--mu)}
+/* MARKET TICKER */
+.ticker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.tick{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 14px}
+.tick-name{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:4px}
+.tick-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:500;color:var(--bk);line-height:1}
+.tick-chg{font-size:11px;margin-top:3px;font-weight:500}
+.tick-chg.up{color:var(--gn)}
+.tick-chg.dn{color:var(--re)}
+/* FX CALCULATOR */
+.fx-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fx-inp{padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:140px;transition:border-color .15s}
+.fx-inp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.fx-label{font-size:12px;font-weight:500;color:var(--sf)}
+.fx-result{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;color:var(--tld)}
+.fx-rate{font-size:11px;color:var(--mu);margin-top:4px}
+/* ALLOCATIONS */
+.alloc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.alloc-card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:16px;position:relative;overflow:hidden}
+.alloc-bar{height:3px;border-radius:0 0 0 0;position:absolute;top:0;left:0;right:0}
+.alloc-pct{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--bk);margin-bottom:6px}
+.alloc-name{font-size:12px;font-weight:600;color:var(--bk);margin-bottom:4px}
+.alloc-desc{font-size:11px;color:var(--sf);line-height:1.5;margin-bottom:8px}
+.alloc-vs{font-size:10px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);padding:4px 8px;border-radius:4px;display:inline-block}
+/* SUPPORT */
+.sup-form textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;color:var(--bk);background:var(--s);resize:vertical;min-height:100px;transition:border-color .15s;margin-bottom:10px}
+.sup-form textarea:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.sup-btn{padding:9px 20px;background:var(--tl);color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
+.sup-btn:hover{background:var(--tld)}
+.sup-success{background:var(--gnbg);border:1px solid var(--gnbr);border-radius:6px;padding:12px 16px;font-size:12px;color:var(--gn);font-weight:500;display:none}
+/* CLIENT INFO */
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
+.info-row{padding:8px 0;border-bottom:1px solid var(--bds);display:flex;flex-direction:column;gap:2px}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.info-val{font-size:12px;font-weight:500;color:var(--bk)}
 /* MOBILE */
 @media(max-width:768px){
-  nav{padding:18px 20px}
-  nav.scrolled{padding:14px 20px}
-  .nav-center{display:none}
-  .hero{padding:96px 20px 60px}
-  section{padding:64px 20px}
-  .about-grid,.sec-grid{grid-template-columns:1fr;gap:32px}
-  .strategy-header{grid-template-columns:1fr;gap:16px;margin-bottom:32px}
-  .cards-grid{grid-template-columns:1fr}
-  .perf-cards{grid-template-columns:1fr;max-width:100%}
-  .stats{gap:0 40px}
-  .footer-inner{flex-direction:column;gap:12px;text-align:center}
-  .footer-links{justify-content:center}
+  .sb{width:100%!important;min-height:auto!important;height:60px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(--bd)!important}
+  .sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
+  .sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;overflow:hidden!important}
+  .ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:4px 2px!important;border-radius:0!important;font-size:9px!important;margin-bottom:0!important}
+  .ni.on{background:var(--tlbg)!important;border-top:2px solid var(--tl)!important}
+  .ni svg{width:18px!important;height:18px!important;opacity:.5!important}
+  .ni.on svg{opacity:1!important}
+  .mn{margin-left:0!important;padding:72px 14px 72px!important}
+  .topbar{flex-direction:column!important;gap:8px!important;margin-bottom:16px!important}
+  .tb-ti{font-size:20px!important}
+  .metrics{grid-template-columns:repeat(2,1fr)!important;gap:8px!important;margin-bottom:8px!important}
+  .metrics-2{grid-template-columns:repeat(2,1fr)!important;gap:8px!important;margin-bottom:8px!important}
+  .metrics-2 .metric:last-child:nth-child(odd){grid-column:1/-1!important}
+  .metrics .metric:last-child:nth-child(odd){grid-column:1/-1!important}
+  .mv{font-size:18px!important}
+  .ph-grid{grid-template-columns:1fr!important}
+  .twocol{grid-template-columns:1fr!important}
+  .threecol{grid-template-columns:1fr!important}
+  .bgrid{grid-template-columns:1fr!important}
+  .alloc-grid{grid-template-columns:1fr!important}
+  .ticker{grid-template-columns:repeat(2,1fr)!important}
+  .info-grid{grid-template-columns:1fr!important}
+  .foot{flex-direction:column!important;gap:6px!important}
+  .fs,.desk-only{display:none!important}
+  .lc{margin:16px!important;padding:28px 20px!important}
+  .mob-top{display:flex!important}
+  .tr-note-mob br{display:block!important}
 }
+@media(min-width:769px){.mob-top{display:none!important}}
+.mob-top{position:fixed;top:0;left:0;right:0;height:56px;background:var(--s);border-bottom:1px solid var(--bd);align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="nav-logo">
-    <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
-      <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
-      <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
-      <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
-    </svg>
-  </div>
-  <div class="nav-center">
-    <a href="#about" id="n-about">Sobre</a>
-    <a href="#strategy" id="n-strategy">Estratégia</a>
-    <a href="#performance" id="n-perf">Resultados</a>
-    <a href="#security" id="n-sec">Segurança</a>
-  </div>
-  <div class="nav-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+<!-- LOGIN -->
+<div class="lp" id="LP">
+  <div class="lc">
+    <div class="logo-c">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:60px;width:auto;display:block;margin:0 auto 12px">
+  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
+  <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
+  <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
+</svg>
     </div>
-    <a href="https://gstpartners.us" class="nav-login" id="n-login">Login</a>
+    <div class="ltit" id="lt">Bem-vindo</div>
+    <div class="lsub" id="ls">Entre com seu e-mail e senha para acessar o portal.</div>
+    <label class="fl" id="ll1">E-mail</label>
+    <input class="finp" type="email" id="EM" placeholder="seu@email.com">
+    <label class="fl" id="ll2">Senha</label>
+    <div class="pw-wrap">
+      <input class="finp" type="password" id="PW" placeholder="••••••••">
+      <button class="eye-btn" onclick="togglePw()" type="button">
+        <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <button class="bp" id="LB" onclick="doLogin()"><span id="LBT">Entrar</span></button>
+    <div class="lerr" id="LE"></div>
+    <div class="lft">Acesso restrito · GST Partners Corp · Orlando, FL</div>
   </div>
-</nav>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-tag"><div class="hero-tag-dot"></div><span>GST Partners Corp · Orlando, Florida</span></div>
-    <h1 id="h-title">Onde capital e<br><span class="accent">estratégia</span><br>se encontram.</h1>
-    <p class="hero-sub" id="h-sub">Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.</p>
-    <div class="hero-actions">
-      <a href="https://gstpartners.us" class="btn-dark" id="h-btn1">Login <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#about" class="btn-link" id="h-btn2">Conhecer o fundo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-    </div>
-    <div class="stats">
-      <div>
-        <div class="stat-num">$7<span class="unit">M+</span></div>
-        <div class="stat-lbl" id="s1-lbl">Capital sob gestão</div>
-      </div>
-      <div>
-        <div class="stat-num">5<span class="unit">+</span></div>
-        <div class="stat-lbl" id="s2-lbl">Anos de operação</div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- APP -->
+<div class="app" id="APP">
 
-<!-- ABOUT -->
-<section class="about-wrap" id="about">
-  <div class="about-grid reveal">
+  <!-- MOBILE TOP -->
+  <div class="mob-top" id="MOB">
     <div>
-      <div class="section-tag"><div class="section-tag-line"></div><span id="a-tag">Sobre o fundo</span></div>
-      <h2 id="a-title">Gestão privada.<br><span class="accent">Resultado real.</span></h2>
-      <p class="section-sub" id="a-sub">A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.</p>
-      <p style="font-size:14px;color:var(--gray);line-height:1.75;margin-top:18px" id="a-p2">Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso.</p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:30px;width:auto;display:block">
+  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
+  <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
+  <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
+</svg>
     </div>
-    <div>
-      <div class="about-card">
-        <div class="about-year">2020</div>
-        <div class="about-card-lbl" id="a-card-lbl">Fundação do fundo</div>
-        <div class="about-card-txt" id="a-card-txt">Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.</div>
-      </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="text-align:right"><div id="MUN" style="font-size:12px;font-weight:500;color:var(--bk)">—</div><div id="MPL" style="font-size:10px;color:var(--mu)">—</div></div>
+      <div id="MAV" class="av" style="width:32px;height:32px;font-size:11px">--</div>
     </div>
   </div>
-</section>
 
-<!-- STRATEGY -->
-<section class="strategy-wrap" id="strategy">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="strategy-header reveal">
-      <div>
-        <div class="section-tag"><div class="section-tag-line"></div><span id="st-tag">Estratégia</span></div>
-        <h2 id="st-title">Diversificação<br><span class="accent">inteligente.</span></h2>
-      </div>
-      <p class="section-sub" id="st-sub">Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.</p>
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:38px;width:auto;display:block">
+  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
+  <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
+  <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
+</svg>
     </div>
-    <div class="cards-grid reveal">
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(42,171,184,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2M12 12v4M8 12v4"/></svg></div>
-        <div class="s-title" id="sc1-t">Renda Fixa</div>
-        <div class="s-text" id="sc1-x">Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.</div>
-      </div>
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(201,169,110,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <div class="s-title" id="sc2-t">Fundo Imobiliário</div>
-        <div class="s-text" id="sc2-x">Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.</div>
-      </div>
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(93,205,216,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div class="s-title" id="sc3-t">Private Credit</div>
-        <div class="s-text" id="sc3-x">Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.</div>
-      </div>
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(26,127,75,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="s-title" id="sc4-t">Equity Estruturado</div>
-        <div class="s-text" id="sc4-x">Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.</div>
-      </div>
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(124,58,237,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-        <div class="s-title" id="sc5-t">Reserva de Liquidez</div>
-        <div class="s-text" id="sc5-x">Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.</div>
-      </div>
-      <div class="s-card">
-        <div class="s-icon" style="background:rgba(42,171,184,.08)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <div class="s-title" id="sc6-t">Carteira Personalizada</div>
-        <div class="s-text" id="sc6-x">Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil.</div>
-      </div>
+    <div class="sb-user">
+      <div class="av" id="AV">--</div>
+      <div><div class="un" id="UN">—</div><div class="up" id="UP">—</div></div>
     </div>
-  </div>
-</section>
+    <nav class="sb-nav">
+      <div class="ns" id="ns1">Visão Geral</div>
+      <a class="ni on" onclick="nav('dashboard',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.354 1.146a.5.5 0 00-.708 0l-6 6A.5.5 0 002 7.5v7a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-4h2v4a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-7a.5.5 0 00-.146-.354L13 5.793V2.5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v1.293z"/></svg><span id="nt1">Dashboard</span></a>
+      <a class="ni" onclick="nav('payments',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v1h14V4a1 1 0 00-1-1H2zm13 4H1v5a1 1 0 001 1h12a1 1 0 001-1V7z"/></svg><span id="nt2">Pagamentos</span></a>
+      <a class="ni" onclick="nav('documents',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 0h5.293A1 1 0 0110 .293L13.707 4a1 1 0 01.293.707V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2zm5.5 1.5v2a1 1 0 001 1h2L9.5 1.5z"/></svg><span id="nt3">Documentos</span></a>
+      <div class="ns" id="ns2">Mercado</div>
+      <a class="ni" onclick="nav('news',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.5A1.5 1.5 0 011.5 1h11A1.5 1.5 0 0114 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 000-1H14v-9a.5.5 0 00-1 0v9H1.497A1.497 1.497 0 012 12.5v-10zm3.5 1a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4z"/></svg><span id="nt4">Notícias</span></a>
+      <a class="ni" onclick="nav('alloc',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 2a1 1 0 011 1v1h.5A1.5 1.5 0 0114 5.5v7a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-7A1.5 1.5 0 013.5 4H4V3a1 1 0 012 0v1h4V3a1 1 0 011-1zm1 4H4v6.5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5V6z"/></svg><span id="nt5">Alocações</span></a>
+      <div class="ns" id="ns3">Serviços</div>
+      <a class="ni" onclick="nav('transfer',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"/></svg><span id="nt6">Transferência</span></a>
+      <a class="ni" onclick="nav('support',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg><span id="nt7">Suporte</span></a>
+    </nav>
+    <div class="sb-bot">
+      <div class="lang"><button class="lb on" onclick="setLang('pt')">PT</button><button class="lb" onclick="setLang('en')">EN</button></div>
+      <button onclick="toggleDark()" style="background:none;border:1px solid var(--bd);border-radius:5px;padding:3px 7px;cursor:pointer;color:var(--mu);display:flex;align-items:center">
+        <svg id="dark-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="outbtn" onclick="doLogout()"><svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg><span id="nt8">Sair</span></button>
+    </div>
+  </aside>
 
-<!-- PERFORMANCE -->
-<section class="perf-wrap" id="performance">
-  <div class="perf-inner">
-    <div class="reveal">
-      <div class="section-tag"><div class="section-tag-line"></div><span id="p-tag">Resultados</span></div>
-      <h2 id="p-title">Números que<br><span class="accent">falam por si.</span></h2>
-    </div>
-    <div class="perf-cards reveal">
-      <div class="p-card">
-        <div class="p-label" id="p1-lbl">Capital sob gestão</div>
-        <div class="p-val">$7<span class="unit">M+</span></div>
-        <div class="p-sub" id="p1-sub">Em ativos americanos</div>
-      </div>
-      <div class="p-card">
-        <div class="p-label" id="p2-lbl">Anos de operação</div>
-        <div class="p-val">5<span class="unit">+</span></div>
-        <div class="p-sub" id="p2-sub">Desde 2020</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- MAIN -->
+  <main class="mn">
 
-<!-- SECURITY -->
-<section class="sec-wrap" id="security">
-  <div class="sec-grid reveal">
-    <div>
-      <div class="section-tag"><div class="section-tag-line"></div><span id="se-tag">Segurança</span></div>
-      <h2 id="se-title">Estrutura sólida.<br><span class="accent">Proteção real.</span></h2>
-      <p class="section-sub" id="se-sub">Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.</p>
-    </div>
-    <div class="sec-badges">
-      <div class="sec-badge">
-        <div class="sec-icon" style="background:rgba(42,171,184,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div><div class="sec-title" id="sb1-t">Proteção FDIC</div><div class="sec-text" id="sb1-x">Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.</div></div>
+    <!-- DASHBOARD -->
+    <div class="pg on" id="pg-dashboard">
+      <div class="topbar">
+        <div>
+          <div class="tb-ey" id="tb-ey">Dashboard · GST Access</div>
+          <div class="tb-ti" id="tb-ti">Visão Geral do Portfólio</div>
+          <div id="tb-we" style="font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:600;color:var(--sf);margin-top:5px;letter-spacing:-.02em"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span id="currency-badge" style="display:none;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--ambg);color:var(--am);border:1px solid var(--ambr)">USD</span>
+          <div class="badge-g"><div class="dot"></div><span id="tb-st">Ativo</span></div>
+        </div>
       </div>
-      <div class="sec-badge">
-        <div class="sec-icon" style="background:rgba(201,169,110,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-        <div><div class="sec-title" id="sb2-t">Empresa Registrada</div><div class="sec-text" id="sb2-x">GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.</div></div>
-      </div>
-      <div class="sec-badge">
-        <div class="sec-icon" style="background:rgba(93,205,216,.08)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5DCDD8" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <div><div class="sec-title" id="sb3-t">Contrato Digital</div><div class="sec-text" id="sb3-x">Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal.</div></div>
-      </div>
-      <div class="sec-badge">
-        <div class="sec-icon" style="background:rgba(26,127,75,.08)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div><div class="sec-title" id="sb4-t">Portal Exclusivo</div><div class="sec-text" id="sb4-x">Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- CTA -->
-<section class="cta-wrap">
-  <div class="cta-inner reveal">
-    <h2 id="cta-h">Pronto para<br><span class="accent">investir melhor?</span></h2>
-    <p class="cta-sub" id="cta-sub">Acesse seu portal ou entre em contato para saber mais sobre como participar.</p>
-    <div class="cta-actions">
-      <a href="https://gstpartners.us" class="btn-dark" id="cta-btn">Login <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="mailto:contact@gstpartners.us" class="btn-link">contact@gstpartners.us</a>
-    </div>
-  </div>
-</section>
+      <div id="ann-section"></div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-txt">© 2025 GST Partners Corp · EIN 38-4273898 · Orlando, FL 32801</div>
-    <div class="footer-links">
-      <a href="mailto:contact@gstpartners.us">Contato</a>
-      <a href="https://gstpartners.us">Portal do Investidor</a>
+      <!-- Metrics row 1 -->
+      <div class="metrics">
+        <div class="metric accent-tl">
+          <div class="ml" id="m1l">Valor Aportado</div>
+          <div class="mv" id="m1v">—</div>
+          <div class="ms" id="m1s">—</div>
+          <button class="hide-btn" onclick="toggleMetric('m1v','m1s')" title="Ocultar">
+            <svg id="eye1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="metric accent-gn">
+          <div class="ml" id="m2l">Rendimentos Recebidos</div>
+          <div class="mv gn" id="m2v">—</div>
+          <div class="ms" id="m2s">—</div>
+          <button class="hide-btn" onclick="toggleMetric('m2v','m2s')" title="Ocultar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="metric accent-am">
+          <div class="ml" id="m3l">Próximo Pagamento</div>
+          <div class="mv am" id="m3v">—</div>
+          <div class="ms" id="m3s">—</div>
+          <button class="hide-btn" onclick="toggleMetric('m3v','m3s')" title="Ocultar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Metrics row 2 -->
+      <div class="metrics-2">
+        <div class="metric accent-pu">
+          <div class="ml" id="m4l">Retorno Mensal</div>
+          <div class="mv pu" id="m4v">—</div>
+          <div class="ms" id="m4s">—</div>
+        </div>
+        <div class="metric accent-re">
+          <div class="ml" id="m5l">Total Retirado</div>
+          <div class="mv re" id="m5v">—</div>
+          <div class="ms" id="m5s">—</div>
+          <button class="hide-btn" onclick="toggleMetric('m5v','m5s')" title="Ocultar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="metric accent-tl">
+          <div class="ml" id="m6l">Rentabilidade Acumulada</div>
+          <div class="mv tl" id="m6v">—</div>
+          <div class="ms" id="m6s">—</div>
+        </div>
+      </div>
+
+      <!-- Chart + Donut -->
+      <div class="twocol">
+        <div class="card">
+          <div class="ch"><div class="ct" id="ch-ti">Evolução dos Rendimentos</div><div class="cm" id="ch-me">Últimos pagamentos</div></div>
+          <div class="cb"><div class="chart-box"><canvas id="RC"></canvas></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct" id="al-ti">Composição da Carteira</div></div>
+          <div class="cb" style="display:flex;align-items:center;justify-content:center"><div style="width:160px;height:160px"><canvas id="DC"></canvas></div>
+          <div style="margin-left:16px">
+            <div style="display:flex;flex-direction:column;gap:8px" id="donut-legend"></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Cycle -->
+      <div class="card">
+        <div class="ch"><div class="ct" id="cy-ti">Ciclo de Investimento</div><div class="cm" id="cy-cm">—</div></div>
+        <div class="cb">
+          <div class="ph-track"><div class="ph-fill" id="phf" style="width:3%;background:var(--tl)"></div></div>
+          <div class="ph-labels"><span id="ph1">Mês 1–6</span><span id="ph2">Mês 7–18</span><span id="ph3">Mês 19–120</span></div>
+          <div class="ph-grid">
+            <div class="pc on-tl"><div class="pl" id="pc1l">Fase atual</div><div class="pn" id="pc1n">Aceleração</div><div class="pd" id="pc1d">—</div></div>
+            <div class="pc"><div class="pl" id="pc2l">Próxima fase</div><div class="pn" id="pc2n">Devolução</div><div class="pd" id="pc2d">—</div></div>
+            <div class="pc"><div class="pl" id="pc3l">Fase final</div><div class="pn" id="pc3n">Sócio dos Lucros</div><div class="pd" id="pc3d">—</div></div>
+          </div>
+          <div id="cycle-note" style="margin-top:10px;font-size:11px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);border-radius:5px;padding:8px 12px;display:none"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+
+    <!-- PAYMENTS -->
+    <div class="pg" id="pg-payments">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="py-ti">Histórico de Pagamentos</div></div></div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="py-ct">Pagamentos Mensais</div><div class="cm" id="py-cm">—</div></div>
+        <div id="PAY" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="pg" id="pg-documents">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="dc-ti">Documentos</div></div></div>
+      <div class="card" id="client-info-card" style="display:none">
+        <div class="ch"><div class="ct" id="dc-ci">Informações do Titular</div></div>
+        <div class="cb">
+          <div class="info-grid" id="client-info-grid"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" id="dc-ct">Contratos e Relatórios</div></div>
+        <div id="DOC" style="overflow-x:auto"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="pg" id="pg-news">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="nw-ti">Notícias & Mercado</div></div></div>
+
+      <!-- Market Tickers -->
+      <div class="ticker">
+        <div class="tick">
+          <div class="tick-name">USD/BRL</div>
+          <div class="tick-val" id="fx-rate-display">—</div>
+          <div class="tick-chg" id="fx-chg">Carregando...</div>
+        </div>
+        <div class="tick">
+          <div class="tick-name">IBOVESPA</div>
+          <div class="tick-val">~131k</div>
+          <div class="tick-chg up">Bolsa de SP</div>
+        </div>
+        <div class="tick">
+          <div class="tick-name">S&P 500</div>
+          <div class="tick-val">~5,600</div>
+          <div class="tick-chg up">Bolsa de NY</div>
+        </div>
+        <div class="tick">
+          <div class="tick-name">CDI (BR)</div>
+          <div class="tick-val">~13.6%</div>
+          <div class="tick-chg" style="color:var(--mu)">a.a.</div>
+        </div>
+      </div>
+
+      <!-- FX Calculator -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div class="ct" id="fx-ti">Calculadora USD / BRL</div></div>
+        <div class="cb">
+          <div class="fx-row">
+            <span class="fx-label">USD $</span>
+            <input class="fx-inp" type="number" id="fx-usd" value="1000" oninput="calcFX()">
+            <span class="fx-label">=</span>
+            <div><div class="fx-result" id="fx-brl">—</div><div class="fx-rate" id="fx-rate-note">—</div></div>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bds)">
+            <div class="fx-row">
+              <span class="fx-label">BRL R$</span>
+              <input class="fx-inp" type="number" id="fx-brl-inp" value="5000" oninput="calcFXrev()">
+              <span class="fx-label">=</span>
+              <div><div class="fx-result" id="fx-usd-out">—</div><div class="fx-rate" id="fx-rate-note2">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="twocol">
+        <div class="card">
+          <div class="ch"><div class="ct" id="nw-us">Mercado Americano</div><div class="cm" id="nw-us-s">Principais portais</div></div>
+          <div class="cb" id="NUS"></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct" id="nw-br">Mercado Brasileiro</div><div class="cm" id="nw-br-s">Principais portais</div></div>
+          <div class="cb" id="NBR"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALLOCATIONS -->
+    <div class="pg" id="pg-alloc">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="al2-ti">Alocações do Fundo</div></div></div>
+
+      <div class="alloc-grid" id="alloc-grid"></div>
+
+      <div class="card" style="margin-top:24px;margin-bottom:14px">
+        <div class="ch" style="flex-wrap:wrap;gap:8px">
+          <div class="ct">Simulador de Crescimento</div>
+          <div style="display:flex;gap:4px">
+            <button id="sim-btn-s" onclick="setSimMode('simple')" style="padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--tl);background:var(--tl);color:white;cursor:pointer;font-family:Inter,sans-serif">Saques Mensais</button>
+            <button id="sim-btn-c" onclick="setSimMode('compound')" style="padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);cursor:pointer;font-family:Inter,sans-serif">Juros Compostos</button>
+          </div>
+        </div>
+        <div class="cb">
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px">
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Valor inicial</div><input type="number" id="sim-capital" value="50000" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:150px"></div>
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Taxa mensal (%)</div><input type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
+            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Período (meses)</div><input type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
+          </div>
+          <div id="sim-note" style="font-size:11px;color:var(--tld);font-weight:600;margin-bottom:10px;padding:5px 10px;background:var(--tlbg);border-radius:5px;border:1px solid var(--tlbr)"></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px" id="sim-results"></div>
+          <div style="position:relative;height:150px"><canvas id="SC"></canvas></div>
+        </div>
+      </div>
+      <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:6px;padding:10px 14px;font-size:11px;color:var(--am);font-weight:500;line-height:1.6;margin-bottom:14px">Esta simulação é meramente ilustrativa e não constitui garantia de rentabilidade futura.</div>
+    </div>
+
+    <!-- TRANSFER -->
+    <div class="pg" id="pg-transfer">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="tr-ti">Dados para Transferência</div></div></div>
+      <div class="bgrid">
+        <div class="card">
+          <div class="ch"><div class="ct">🇺🇸 Wire Transfer</div></div>
+          <div class="cb">
+            <div class="bst">Beneficiary</div>
+            <div class="br2"><span class="blab">Account Name</span><span class="bval">GST Partners Corp</span></div>
+            <div class="br2"><span class="blab">Bank Name</span><span class="bval">Bank of America</span></div>
+            <div class="br2" style="border:none"><span class="blab">Account / Routing</span><span style="font-size:12px;color:var(--am);font-weight:600">A Consultar</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">🇧🇷 PIX / TED</div></div>
+          <div class="cb">
+            <div class="bst">Dados Bancários — A Consultar</div>
+            <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--am);font-weight:500">Os dados bancários para transferência em BRL estão sendo finalizados. Entre em contato pelo suporte para informações.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solicitar Transferência - LOCKED -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="ch"><div class="ct" id="tr-req-ti">Solicitar Transferência</div><div class="cm" id="tr-req-cm">Em breve</div></div>
+        <div class="cb locked-overlay" style="padding:30px;text-align:center">
+          <div style="font-size:13px;font-weight:500;color:var(--mu);margin-bottom:4px" id="tr-locked-msg">Funcionalidade em desenvolvimento</div>
+          <div style="font-size:12px;color:var(--mu)" id="tr-locked-sub">Em breve você poderá solicitar transferências diretamente pelo portal.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cb" style="display:flex;align-items:flex-start;gap:12px">
+          <div style="width:32px;height:32px;border-radius:6px;background:var(--ambg);border:1px solid var(--ambr);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--bk);margin-bottom:3px" id="tr-nt">Importante</div>
+            <div style="font-size:12px;color:var(--bo);line-height:1.6" id="tr-nb" class="tr-note-mob">Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.<br><a href="mailto:contact@gstpartners.us" style="color:inherit;text-decoration:none">contact@gstpartners.us</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="pg" id="pg-support">
+      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="su-ti">Suporte</div></div></div>
+      <div class="twocol">
+        <div class="card">
+          <div class="ch"><div class="ct" id="su-ct">Enviar Mensagem</div></div>
+          <div class="cb sup-form">
+            <label class="fl" id="su-lb1">Assunto</label>
+            <input class="finp" type="text" id="su-sub" placeholder="Ex: Dúvida sobre pagamento" style="margin-bottom:14px">
+            <label class="fl" id="su-lb2">Mensagem</label>
+            <textarea id="su-msg" placeholder="Descreva sua dúvida ou solicitação..."></textarea>
+            <button class="sup-btn" onclick="sendSupport()" id="su-btn">Enviar mensagem</button>
+            <div class="sup-success" id="su-ok">Mensagem enviada com sucesso! Nossa equipe retornará em até 24 horas.</div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="ch"><div class="ct" id="su-ct2">Contato Direto</div></div>
+            <div class="cb">
+              <div class="br2"><span class="blab">E-mail</span><span style="font-size:12px;color:var(--bk)">contact@gstpartners.us</span></div>
+              <div class="br2"><span class="blab">Endereço</span><span style="font-size:12px;color:var(--bk)">200 E Robinson St, Orlando FL 32801</span></div>
+              <div class="br2"><span class="blab">EIN</span><span class="bval">38-4273898</span></div>
+              <div class="br2" style="border:none"><span class="blab" id="su-resp">Tempo de resposta</span><span style="font-size:12px;color:var(--gn);font-weight:500">Até 24 horas úteis</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ct" id="su-ct3">Horário de Atendimento</div></div>
+            <div class="cb">
+              <div class="br2"><span class="blab">Segunda a Sexta</span><span style="font-size:12px;color:var(--bk)">9h – 18h (EST)</span></div>
+              <div class="br2" style="border:none"><span class="blab">Sábado e Domingo</span><span style="font-size:12px;color:var(--mu)">Fechado</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="fi2"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span id="fo1">Acesso individual e confidencial</span></div>
+      <div class="fs desk-only"></div>
+      <div class="fi2 desk-only">GST Partners Corp · EIN 38-4273898</div>
+      <div class="fs desk-only"></div>
+      <div class="fi2 desk-only">contact@gstpartners.us</div>
+    </div>
+    <div class="disc" id="disc">As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.</div>
+
+  </main>
+</div>
 
 <script>
-// Nav scroll
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').classList.toggle('scrolled',scrollY>40)
-})
+const SB_URL='https://opijtpzlrygujkkjsltf.supabase.co'
+const SB_KEY='sb_publishable_cDJ1qwzVvmWBFILegIBvgg_ziL1slRT'
+const {createClient}=supabase
+const db=createClient(SB_URL,SB_KEY)
+let CU=null,INV=null,PAYS=[],DOCS=[],lang='pt',lineChart=null,donutChart=null,FX_RATE=5.75
 
-// Reveal on scroll
-var obs=new IntersectionObserver(function(es){
-  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'})
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)})
-
-// Language
-var TX={
-  pt:{
-    'n-about':'Sobre','n-strategy':'Estratégia','n-perf':'Resultados','n-sec':'Segurança','n-login':'Login',
-    'h-title':'Onde capital e<br><span class="accent">estratégia</span><br>se encontram.',
-    'h-sub':'Gestão privada de capital no mercado americano.<br>Rentabilidade consistente, estrutura sólida,<br>acesso exclusivo.',
-    'h-btn1':'Login','h-btn2':'Conhecer o fundo',
-    's1-lbl':'Capital sob gestão','s2-lbl':'Anos de operação',
-    'a-tag':'Sobre o fundo','a-title':'Gestão privada.<br><span class="accent">Resultado real.</span>',
-    'a-sub':'A GST Partners nasceu da convicção de que investidores brasileiros merecem acesso real ao mercado americano — com estrutura, transparência e gestão que trata cada capital com a seriedade que ele exige.',
-    'a-p2':'Sediados em Orlando, Flórida, operamos desde 2020 com um modelo de gestão próxima e personalizada. Cada investidor é único — e a composição do portfólio reflete isso.',
-    'a-card-lbl':'Fundação do fundo','a-card-txt':'Iniciamos as operações em Orlando, Flórida, com foco em investimentos estruturados no mercado americano para investidores brasileiros.',
-    'st-tag':'Estratégia','st-title':'Diversificação<br><span class="accent">inteligente.</span>',
-    'st-sub':'Alocação em diferentes classes de ativos americanos, selecionadas com critérios rigorosos de risco e retorno e adaptadas ao momento do mercado.',
-    'sc1-t':'Renda Fixa','sc1-x':'Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Estabilidade e preservação de capital com proteção governamental.',
-    'sc2-t':'Fundo Imobiliário','sc2-x':'Exposição ao mercado imobiliário americano via fundos estruturados, com foco em regiões de alta valorização e demanda consistente.',
-    'sc3-t':'Private Credit','sc3-x':'Crédito privado para empresas americanas com garantia real e análise prévia rigorosa. Uma das principais fontes de rentabilidade do fundo.',
-    'sc4-t':'Equity Estruturado','sc4-x':'Posições em empresas do S&P 500 com estratégia de proteção. Exposição ao crescimento do mercado acionário americano com gestão de risco.',
-    'sc5-t':'Reserva de Liquidez','sc5-x':'Alocação em money market americano que garante liquidez operacional, pagamentos mensais e aproveitamento de oportunidades de mercado.',
-    'sc6-t':'Carteira Personalizada','sc6-x':'Cada investidor pode, junto com nossa equipe, montar uma estratégia própria combinando as classes que melhor se adequam ao seu perfil.',
-    'p-tag':'Resultados','p-title':'Números que<br><span class="accent">falam por si.</span>',
-    'p1-lbl':'Capital sob gestão','p1-sub':'Em ativos americanos','p2-lbl':'Anos de operação','p2-sub':'Desde 2020',
-    'se-tag':'Segurança','se-title':'Estrutura sólida.<br><span class="accent">Proteção real.</span>',
-    'se-sub':'Operamos com conformidade legal e estrutura regulatória americana, garantindo segurança e transparência para cada investidor.',
-    'sb1-t':'Proteção FDIC','sb1-x':'Depósitos em renda fixa protegidos pelo governo federal americano em até US$ 3.000.000 por depositante, por instituição.',
-    'sb2-t':'Empresa Registrada','sb2-x':'GST Partners Corp registrada no Estado da Flórida, EUA — EIN 38-4273898.<br>Operação 100% regulamentada sob as leis americanas.',
-    'sb3-t':'Contrato Digital','sb3-x':'Cada investidor assina contrato com validade jurídica completa, disponível para consulta a qualquer momento no portal.',
-    'sb4-t':'Portal Exclusivo','sb4-x':'Cada investidor acessa seu portfólio em tempo real — rendimentos, histórico, documentos e extratos, 24h por dia.',
-    'cta-h':'Pronto para<br><span class="accent">investir melhor?</span>','cta-sub':'Acesse seu portal ou entre em contato para saber mais sobre como participar.','cta-btn':'Login',
+const T={
+  pt:{lt:'Bem-vindo',ls:'Entre com seu e-mail e senha para acessar o portal.',ll1:'E-mail',ll2:'Senha',LBT:'Entrar',
+    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações & Sim.',ns3:'Serviços',nt6:'Transferência',nt7:'Suporte',nt8:'Sair',
+    'tb-ey':'Dashboard · GST Access','tb-ti':'Visão Geral do Portfólio','tb-st':'Ativo',
+    m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Médio Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
+    'cy-ti':'Ciclo de Investimento',ph1:'Mês 1–6',ph2:'Mês 7–18',ph3:'Mês 19–120',
+    pc1l:'Fase atual',pc1n:'Aceleração',pc2l:'Próxima fase',pc2n:'Devolução',pc3l:'Fase final',pc3n:'Sócio dos Lucros',
+    'ch-ti':'Evolução dos Rendimentos','ch-me':'Últimos pagamentos','al-ti':'Composição da Carteira',
+    'py-ti':'Histórico de Pagamentos','py-ct':'Pagamentos Mensais',
+    'dc-ti':'Documentos','dc-ct':'Contratos e Relatórios','dc-ci':'Informações do Titular',
+    'nw-ti':'Notícias & Mercado','nw-us':'Mercado Americano','nw-us-s':'Principais portais','nw-br':'Mercado Brasileiro','nw-br-s':'Principais portais',
+    'fx-ti':'Calculadora USD / BRL',
+    'al2-ti':'Alocações do Fundo','al2-sub':'Estratégia de Investimento',
+    'tr-ti':'Dados para Transferência','tr-req-ti':'Solicitar Transferência','tr-req-cm':'Em breve',
+    'tr-locked-msg':'Indisponível para cotas novas','tr-locked-sub':'Solicitações de transferência ficam disponíveis após o período de carência conforme contrato.',
+    'tr-nt':'Importante','tr-nb':'Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.\nDúvidas: contact@gstpartners.us',
+    'su-ti':'Suporte','su-ct':'Enviar Mensagem','su-lb1':'Assunto','su-lb2':'Mensagem','su-btn':'Enviar mensagem',
+    'su-ct2':'Contato Direto','su-ct3':'Horário de Atendimento','su-resp':'Tempo de resposta',
+    fo1:'Acesso individual e confidencial',
+    th1:'Mês',th2:'Rendimento',th3:'Amortização',th4:'Total',th5:'Status',th6:'Rent. %',
+    td1:'Tipo',td2:'Referência',td3:'Arquivo',
+    ep:'Nenhum pagamento registrado ainda.',ed:'Nenhum documento disponível ainda.',
+    dl:'Abrir',paid:'Pago',pending:'Pendente',p1:'Fase 1 · Aceleração',nodata:'Sem dados ainda.',
+    welcome:'Bem-vindo,',disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
   },
-  en:{
-    'n-about':'About','n-strategy':'Strategy','n-perf':'Results','n-sec':'Security','n-login':'Login',
-    'h-title':'Where capital and<br><span class="accent">strategy</span><br>meet.',
-    'h-sub':'Private capital management in the American market.<br>Consistent returns, solid structure,<br>exclusive access.',
-    'h-btn1':'Login','h-btn2':'Learn more',
-    's1-lbl':'Assets under management','s2-lbl':'Years of operation',
-    'a-tag':'About the fund','a-title':'Private management.<br><span class="accent">Real results.</span>',
-    'a-sub':'GST Partners was born from the conviction that Brazilian investors deserve real access to the American market — with structure, transparency and management that treats every capital with the seriousness it deserves.',
-    'a-p2':'Based in Orlando, Florida, we have operated since 2020 with a close, personalized management model. Each investor is unique — and portfolio composition reflects that.',
-    'a-card-lbl':'Fund founded','a-card-txt':'We started operations in Orlando, Florida, focused on structured investments in the American market for Brazilian investors.',
-    'st-tag':'Strategy','st-title':'Intelligent<br><span class="accent">diversification.</span>',
-    'st-sub':'Allocation across different American asset classes, selected with rigorous risk and return criteria and adapted to market conditions.',
-    'sc1-t':'Fixed Income','sc1-x':'US Treasury bonds and FDIC-insured bank deposits. Stability and capital preservation with government protection.',
-    'sc2-t':'Real Estate Fund','sc2-x':'Exposure to the American real estate market through structured funds, focused on high-appreciation regions with consistent demand.',
-    'sc3-t':'Private Credit','sc3-x':'Private credit for American companies with real guarantees and rigorous prior analysis. One of the fund\'s main sources of return.',
-    'sc4-t':'Structured Equity','sc4-x':'S&P 500 positions with a hedging strategy. Exposure to American stock market growth with risk management.',
-    'sc5-t':'Liquidity Reserve','sc5-x':'Allocation in American money market ensuring operational liquidity, monthly payments and market opportunity capture.',
-    'sc6-t':'Custom Portfolio','sc6-x':'Each investor can, together with our team, build their own strategy combining the asset classes that best suit their profile.',
-    'p-tag':'Results','p-title':'Numbers that<br><span class="accent">speak for themselves.</span>',
-    'p1-lbl':'Assets under management','p1-sub':'In American assets','p2-lbl':'Years of operation','p2-sub':'Since 2020',
-    'se-tag':'Security','se-title':'Solid structure.<br><span class="accent">Real protection.</span>',
-    'se-sub':'We operate with full legal compliance and American regulatory framework, ensuring security and transparency for every investor.',
-    'sb1-t':'FDIC Protection','sb1-x':'Fixed income deposits protected by the US federal government up to $3,000,000 per depositor, per institution.',
-    'sb2-t':'Registered Company','sb2-x':'GST Partners Corp registered in the State of Florida, USA — EIN 38-4273898.<br>100% regulated operation under American laws.',
-    'sb3-t':'Digital Contract','sb3-x':'Each investor signs a legally binding contract, available for consultation at any time in the investor portal.',
-    'sb4-t':'Exclusive Portal','sb4-x':'Each investor accesses their portfolio in real time — returns, history, documents and statements, 24 hours a day.',
-    'cta-h':'Ready to<br><span class="accent">invest better?</span>','cta-sub':'Access your portal or get in touch to learn more about joining the fund.','cta-btn':'Login',
+  en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
+    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',ns2:'Market',nt4:'News',nt5:'Alloc. & Sim.',ns3:'Services',nt6:'Transfer',nt7:'Support',nt8:'Sign out',
+    'tb-ey':'Dashboard · GST Access','tb-ti':'Portfolio Overview','tb-st':'Active',
+    m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Avg. Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
+    'cy-ti':'Investment Cycle',ph1:'Month 1–6',ph2:'Month 7–18',ph3:'Month 19–120',
+    pc1l:'Current phase',pc1n:'Acceleration',pc2l:'Next phase',pc2n:'Repayment',pc3l:'Final phase',pc3n:'Profit Partner',
+    'ch-ti':'Returns Over Time','ch-me':'Latest payments','al-ti':'Portfolio Composition',
+    'py-ti':'Payment History','py-ct':'Monthly Payments',
+    'dc-ti':'Documents','dc-ct':'Contracts & Reports','dc-ci':'Account Holder Information',
+    'nw-ti':'News & Market','nw-us':'US Market','nw-us-s':'Top sources','nw-br':'Brazilian Market','nw-br-s':'Top sources',
+    'fx-ti':'USD / BRL Calculator',
+    'al2-ti':'Fund Allocations','al2-sub':'Investment Strategy',
+    'tr-ti':'Transfer Information','tr-req-ti':'Request Transfer','tr-req-cm':'Coming soon',
+    'tr-locked-msg':'Unavailable for new quotas','tr-locked-sub':'Transfer requests become available after the lock-in period as per contract.',
+    'tr-nt':'Important','tr-nb':'Always confirm details with the GST team before making any transfer.\nQuestions: contact@gstpartners.us',
+    'su-ti':'Support','su-ct':'Send Message','su-lb1':'Subject','su-lb2':'Message','su-btn':'Send message',
+    'su-ct2':'Direct Contact','su-ct3':'Business Hours','su-resp':'Response time',
+    fo1:'Individual and confidential access',
+    th1:'Month',th2:'Return',th3:'Repayment',th4:'Total',th5:'Status',th6:'Yield %',
+    td1:'Type',td2:'Reference',td3:'File',
+    ep:'No payments registered yet.',ed:'No documents available yet.',
+    dl:'Open',paid:'Paid',pending:'Pending',p1:'Phase 1 · Acceleration',nodata:'No data yet.',
+    welcome:'Welcome,',disc:'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor.'
+  }
+}
+function t(k){return T[lang][k]||k}
+
+function setLang(l){
+  lang=l
+  document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'))
+  document.querySelector('.lb[onclick="setLang(\''+l+'\')"]').classList.add('on')
+  Object.keys(T[l]).forEach(k=>{
+    const el=document.getElementById(k)
+    if(el&&!['m1v','m2v','m3v','m4v','m5v','m6v','m1s','m2s','m3s','m4s','m5s','m6s','pc1d','pc2d','pc3d','phf','AV','UN','UP','MAV','MUN','MPL','PAY','DOC','ann-section','NUS','NBR','tb-we','fx-rate-display','fx-chg','fx-brl','fx-usd-out','fx-rate-note','fx-rate-note2','py-cm','client-info-grid','cycle-note','alloc-grid','fdic-disc','su-ok','al2-desc','disc'].includes(k))
+      el.textContent=T[l][k]
+  })
+  const discEl=document.getElementById('disc')
+  if(discEl)discEl.textContent=t('disc')
+  if(INV)renderInv(INV)
+  renderPay(PAYS)
+  renderDoc(DOCS)
+  renderChart(PAYS)
+  renderNews()
+  renderAlloc()
+  calcFX()
+}
+
+// ── AUTH ──
+function togglePw(){
+  const pw=document.getElementById('PW')
+  pw.type=pw.type==='password'?'text':'password'
+}
+async function doLogin(){
+  const email=document.getElementById('EM').value.trim()
+  const pass=document.getElementById('PW').value
+  const err=document.getElementById('LE')
+  if(!email||!pass){err.textContent='Preencha e-mail e senha.';return}
+  document.getElementById('LB').disabled=true
+  document.getElementById('LBT').textContent=lang==='pt'?'Entrando...':'Signing in...'
+  err.textContent=''
+  const {data,error}=await db.auth.signInWithPassword({email,password:pass})
+  if(error){
+    err.textContent=lang==='pt'?'E-mail ou senha incorretos.':'Incorrect email or password.'
+    document.getElementById('LB').disabled=false
+    document.getElementById('LBT').textContent=t('LBT')
+    return
+  }
+  CU=data.user
+  await loadApp()
+}
+async function doLogout(){
+  await db.auth.signOut()
+  document.getElementById('APP').classList.remove('on')
+  document.getElementById('LP').style.display='flex'
+  document.getElementById('PW').value=''
+  CU=null;INV=null;PAYS=[];DOCS=[]
+}
+
+// ── LOAD APP ──
+async function loadApp(){
+  document.getElementById('LP').style.display='none'
+  document.getElementById('APP').classList.add('on')
+  const email=CU.email
+  const {data:inv}=await db.from('Investidor').select('*').eq('E-mail',email).single()
+  if(inv){INV=inv;renderInv(inv)}
+  // Load payments
+  var payResult=await db.from('Pagamentos').select('*').eq('E-mail',email)
+  if(payResult.error){
+    console.error('Pagamentos error:',JSON.stringify(payResult.error))
+    var payEl=document.getElementById('PAY')
+    if(payEl)payEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+payResult.error.message+'</div>'
+  } else {
+    PAYS=(payResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+    renderPay(PAYS);renderChart(PAYS)
+  }
+  // Load documents
+  var docResult=await db.from('Documentos').select('*').eq('E-mail',email)
+  if(docResult.error){
+    console.error('Documentos error:',JSON.stringify(docResult.error))
+    var docEl=document.getElementById('DOC')
+    if(docEl)docEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+docResult.error.message+'</div>'
+  } else {
+    DOCS=(docResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+    renderDoc(DOCS)
+  }
+  loadAnn();renderNews();renderAlloc();fetchFX();setTimeout(function(){renderDonut()},100)
+}
+
+// ── RENDER INVESTOR ──
+function renderInv(inv){
+  const name=inv['Nome Completo']||''
+  const first=name.split(' ')[0]
+  const ini=name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase()
+  ;['AV','MAV'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini})
+  document.getElementById('UN').textContent=name
+  document.getElementById('UP').textContent=(inv['Plano']||'')+' · '+(inv['Status']||'')
+  document.getElementById('MUN').textContent=first
+  document.getElementById('MPL').textContent=inv['Plano']||''
+  var weEl=document.getElementById('tb-we')
+  if(weEl)weEl.innerHTML='<span style=font-size:13px;font-weight:400;color:var(--sf)>'+t('welcome')+'</span> <span style=font-size:15px;font-weight:700;color:var(--tld)>'+first+'</span>'
+  // Detect currency from investor record
+  const moeda = inv['Moeda'] || 'USD'
+  window.INV_CURRENCY = moeda
+  const currSymbol = moeda === 'BRL' ? 'R$ ' : '$ '
+  const currLocale = moeda === 'BRL' ? 'pt-BR' : 'en-US'
+  const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
+  window.fmtCurr = fmt
+  document.getElementById('m1v').textContent=fmt(inv['Aporte (USD)'] || inv['Aporte (BRL)'] || inv['Aporte'])
+  document.getElementById('m1s').textContent=(inv['Plano']||'')+(inv['Data Inicio']?' · '+inv['Data Inicio']:'')
+  // Show currency badge
+  const badge = document.getElementById('currency-badge')
+  if(badge){ badge.textContent = moeda; badge.style.display = 'inline-flex' }
+  // m4 will be updated by renderPay with actual average
+  document.getElementById('m4v').textContent='—'
+  document.getElementById('m4s').textContent='—'
+  const pd={'Tier 1':['3% / mês','2% / mês · mês 19','1% / mês · até mês 120'],'Tier 2':['4% / mês','3% / mês · mês 13','1.5% / mês · até mês 120'],'Tier 3':['5% / mês','4% / mês · mês 7','2% / mês · até mês 120']}
+  const p=pd[inv['Plano']]||['—','—','—']
+  document.getElementById('pc1d').textContent=p[0]
+  document.getElementById('pc2d').textContent=p[1]
+  document.getElementById('pc3d').textContent=p[2]
+  // Cycle duration
+  const dur=inv['Ciclo (meses)']
+  const cycleNote=document.getElementById('cycle-note')
+  const cyTitle=document.getElementById('cy-ti')
+  const cyCm=document.getElementById('cy-cm')
+  if(dur&&dur!==120){
+    const yrs=Math.round(dur/12)
+    cyCm.textContent=yrs+' anos · '+dur+' meses'
+    cycleNote.style.display='block'
+    cycleNote.textContent=lang==='pt'?'Ciclo personalizado de '+dur+' meses conforme contrato.':'Custom cycle of '+dur+' months as per contract.'
+  }else{
+    cyCm.textContent='10 anos · 120 meses'
+    cycleNote.style.display='none'
+  }
+  // Client info for documents page
+  renderClientInfo(inv)
+}
+
+function renderClientInfo(inv){
+  const card=document.getElementById('client-info-card')
+  const grid=document.getElementById('client-info-grid')
+  if(!card||!grid)return
+  const moedaLabel = (inv['Moeda']||'USD') === 'BRL' ? 'BRL (Reais)' : 'USD (Dólares)'
+  const fields=[
+    ['Nome Completo',inv['Nome Completo']||'—'],
+    ['E-mail',inv['E-mail']||'—'],
+    ['Telefone',inv['Telefone']||'—'],
+    ['Documento (ID/CPF)',inv['Documento']||'—'],
+    ['Endereço',inv['Endereço']||'—'],
+    ['Plano',inv['Plano']||'—'],
+    ['Moeda',moedaLabel],
+  ]
+  let h=''
+  fields.forEach(function(f){
+    h+='<div class="info-row"><div class="info-label">'+f[0]+'</div><div class="info-val">'+f[1]+'</div></div>'
+  })
+  grid.innerHTML=h
+  card.style.display='block'
+}
+
+// ── RENDER PAYMENTS ──
+function fmtMes(dateStr){
+  if(!dateStr)return '—'
+  var d=new Date(dateStr+'T12:00:00')
+  var s=d.toLocaleDateString('pt-BR',{month:'short',year:'numeric'}).replace(' de ','/')
+  return s.charAt(0).toUpperCase()+s.slice(1)
+}
+function renderPay(pays){
+  const el=document.getElementById('PAY')
+  const cm=document.getElementById('py-cm')
+  const moeda = window.INV_CURRENCY || 'USD'
+  const currSymbol = moeda === 'BRL' ? 'R$ ' : '$ '
+  const currLocale = moeda === 'BRL' ? 'pt-BR' : 'en-US'
+  const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
+  const mob=window.innerWidth<=768
+  if(!pays||!pays.length){
+    el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
+    if(cm)cm.textContent='0'
+    ;['m2v','m3v','m5v','m6v'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
+    ;['m2s','m3s','m5s','m6s'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
+    return
+  }
+  cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
+  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase();return s==='pago'||s==='paid'})
+  const totalRet=paid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
+  // Calculate average monthly return from Rentabilidade %
+  const rents=paid.filter(p=>p['Rentabilidade %']).map(p=>Number(p['Rentabilidade %']))
+  const avgRent=rents.length?( rents.reduce((a,b)=>a+b,0)/rents.length):null
+  const m4v=document.getElementById('m4v');const m4s=document.getElementById('m4s')
+  if(m4v){m4v.textContent=avgRent?avgRent.toFixed(2)+'%':'—'}
+  if(m4s){m4s.textContent=avgRent?(lang==='pt'?'média dos últimos '+rents.length+' pagamentos':'avg of last '+rents.length+' payments'):'—'}
+  const totalWith=paid.reduce((s,p)=>s+(Number(p['Amortização (USD)'])||0),0)
+  const fmt2=n=>currSymbol+Number(n).toLocaleString(currLocale,{minimumFractionDigits:0})
+  document.getElementById('m2v').textContent=fmt2(totalRet)
+  document.getElementById('m2s').textContent=paid.length+' '+(lang==='pt'?'pagamentos':'payments')
+  document.getElementById('m5v').textContent=fmt2(totalWith)
+  document.getElementById('m5s').textContent=lang==='pt'?'Amortizações acumuladas':'Accumulated repayments'
+  const aporte=INV&&INV['Aporte (USD)']?Number(INV['Aporte (USD)']):0
+  if(aporte>0){
+    const pct=((totalRet/aporte)*100).toFixed(1)
+    document.getElementById('m6v').textContent=pct+'%'
+    document.getElementById('m6s').textContent=lang==='pt'?'do capital investido':'of invested capital'
+  }else{
+    document.getElementById('m6v').textContent='—'
+    document.getElementById('m6s').textContent='—'
+  }
+  const pend=pays.find(p=>{const s=(p['Status']||'').toLowerCase();return s==='pendente'||s==='pending'})
+  if(pend){
+    document.getElementById('m3v').textContent=fmt(pend['Rendimento Pago (USD)'])
+    document.getElementById('m3s').textContent=pend['Mês de Referência']||'—'
+  }else{
+    document.getElementById('m3v').textContent='—'
+    document.getElementById('m3s').textContent=lang==='pt'?'Nenhum pendente':'None pending'
+  }
+  if(mob){
+    let h=''
+    pays.forEach(function(p){
+      const s=(p['Status']||'').toLowerCase()
+      const isPaid=s==='pago'||s==='paid'
+      const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
+      h+='<div style="padding:14px 16px;border-bottom:1px solid var(--bds)">'
+      h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:12px;color:var(--mu)">'+fmtMes(p['Mês de Referência'])+'</span>'+badge+'</div>'
+      const rentMob = p['Rentabilidade %'] ? Number(p['Rentabilidade %']).toFixed(2)+'%' : null; h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+      h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th2')+'</div><div class="tt" style="font-size:16px">'+fmt(p['Rendimento Pago (USD)'])+'</div></div>'
+      h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th4')+'</div><div class="tm" style="font-size:16px">'+fmt(p['Total do Mês (USD)'])+'</div></div>'
+      if(rentMob)h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:13px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>'
+      h+='</div></div>'
+    })
+    el.innerHTML=h
+  }else{
+    let rows=''
+    pays.forEach(function(p){
+      const s=(p['Status']||'').toLowerCase()
+      const isPaid=s==='pago'||s==='paid'
+      const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
+      const rent = p['Rentabilidade %'] ? '<span style="font-family:Space Grotesk,sans-serif;font-weight:600;color:var(--tld)">'+Number(p['Rentabilidade %']).toFixed(2)+'%</span>' : '<span class="td">—</span>'; rows+='<tr><td>'+fmtMes(p['Mês de Referência'])+'</td><td class="tt">'+fmt(p['Rendimento Pago (USD)'])+'</td><td class="tm">'+(p['Amortização (USD)']?fmt(p['Amortização (USD)']):'<span class="td">—</span>')+'</td><td class="tm">'+fmt(p['Total do Mês (USD)'])+'</td><td>'+rent+'</td><td>'+badge+'</td></tr>'
+    })
+    el.innerHTML='<table><thead><tr><th>'+t('th1')+'</th><th>'+t('th2')+'</th><th>'+t('th3')+'</th><th>'+t('th4')+'</th><th>'+t('th6')+'</th><th>'+t('th5')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
   }
 }
 
-function setLang(l){
-  document.documentElement.lang=l
-  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')})
-  document.querySelector('.lang-btn[onclick="setLang(\''+l+'\')"]').classList.add('active')
-  var t=TX[l]
-  Object.keys(t).forEach(function(id){
-    var el=document.getElementById(id)
-    if(el)el.innerHTML=t[id]
+// ── RENDER DOCUMENTS ──
+function renderDoc(docs){
+  const el=document.getElementById('DOC')
+  if(!docs||!docs.length){el.innerHTML='<div class="empty"><div class="et">'+t('ed')+'</div></div>';return}
+  let rows=''
+  docs.forEach(function(d){
+    const link=d['Link do Arquivo']
+    const btn=link?'<a href="'+link+'" target="_blank" class="sb2 sa" style="text-decoration:none;padding:4px 10px">'+t('dl')+'</a>':'<span class="td">—</span>'
+    rows+='<tr><td class="tm">'+(d['Tipo']||'—')+'</td><td>'+(d['Mês de Referência']||'—')+'</td><td>'+btn+'</td></tr>'
+  })
+  el.innerHTML='<table><thead><tr><th>'+t('td1')+'</th><th>'+t('td2')+'</th><th>'+t('td3')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
+}
+
+// ── CHART ──
+function renderChart(pays){
+  const ctx=document.getElementById('RC')
+  if(!ctx||!ctx.getContext)return
+
+  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase().trim();return s.includes('pago')||s.includes('paid')||s.includes('pag')||s!=='pendente'&&s!=='pending'&&s!==''})
+    .sort((a,b)=>(a['Mês de Referência']||'').localeCompare(b['Mês de Referência']||'')).slice(-12)
+  // If no paid found, try all payments
+  const chartData = paid.length ? paid : pays.sort((a,b)=>(a['Mês de Referência']||'').localeCompare(b['Mês de Referência']||'')).slice(-12)
+  if(!chartData.length){
+    ctx.parentElement.innerHTML='<div class="chart-empty"><div class="chart-empty-bars">'+[40,55,35,65,45,70,50,80,60,75,55,85].map(h=>'<div class="chart-empty-bar" style="height:'+h+'%"></div>').join('')+'</div><div style="font-size:12px;color:var(--mu)">'+t('nodata')+'</div></div>'
+    return
+  }
+  const labels=chartData.map(p=>{const d=new Date(p['Mês de Referência']);return d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'short',year:'2-digit'})})
+  const data=chartData.map(p=>Number(p['Rendimento Pago (USD)'])||0)
+  if(lineChart)lineChart.destroy()
+  lineChart=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:(lang==='pt'?'Rendimento':'Return')+' ('+(window.INV_CURRENCY||'USD')+')',data,borderColor:'#2AABB8',backgroundColor:'rgba(42,171,184,0.08)',borderWidth:2,pointBackgroundColor:'#2AABB8',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString('en-US')}}},scales:{y:{beginAtZero:true,grid:{color:'#E2E2DE'},ticks:{font:{family:'JetBrains Mono',size:10},color:'#ABABAB',callback:v=>'$'+v.toLocaleString('en-US')}},x:{grid:{display:false},ticks:{font:{size:10},color:'#ABABAB'}}}}})
+}
+
+// ── DONUT ──
+function renderDonut(){
+  const ctx=document.getElementById('DC')
+  if(!ctx||!ctx.getContext)return
+  const allocs=[{name:'Renda Fixa US',pct:35,color:'#2AABB8'},{name:'Private Credit',pct:25,color:'#E11D48'},{name:'Real Estate',pct:20,color:'#7C3AED'},{name:'Equity',pct:12,color:'#1A7F4B'},{name:'Liquidez',pct:8,color:'#D97706'}]
+  if(donutChart)donutChart.destroy()
+  donutChart=new Chart(ctx,{type:'doughnut',data:{labels:allocs.map(a=>a.name),datasets:[{data:allocs.map(a=>a.pct),backgroundColor:allocs.map(a=>a.color),borderWidth:2,borderColor:'#fff',hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}},cutout:'65%'}})
+  const leg=document.getElementById('donut-legend')
+  if(leg){
+    leg.innerHTML=allocs.map(a=>'<div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:'+a.color+';flex-shrink:0"></div><span style="font-size:11px;color:var(--bo)">'+a.name+' <strong>'+a.pct+'%</strong></span></div>').join('')
+  }
+}
+
+// ── ALLOCATIONS ──
+function renderAlloc(){
+  const grid=document.getElementById('alloc-grid')
+  if(!grid)return
+  const allocs=[
+    {pct:'35%',color:'#2AABB8',name:lang==='pt'?'Renda Fixa US':'US Fixed Income',
+     desc:lang==='pt'?'Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Foco em preservação de capital e liquidez.':'US Treasury bonds and FDIC-insured deposits. Focus on capital preservation and liquidity.',
+     vs:lang==='pt'?'vs CDI BR (~13.6% a.a.) — menor risco cambial':'vs BR CDI (~13.6% p.a.) — lower FX risk'},
+    {pct:'25%',color:'#E11D48',name:lang==='pt'?'Private Credit':'Private Credit',
+     desc:lang==='pt'?'Crédito privado estruturado com empresas americanas de médio porte. Retornos acima da média do mercado com contratos de prazo definido.':'Structured private credit with US mid-market companies. Above-market returns with defined-term contracts.',
+     vs:lang==='pt'?'vs Debêntures BR — menor volatilidade, denominado em USD':'vs BR Debentures — lower volatility, USD-denominated'},
+    {pct:'20%',color:'#7C3AED',name:lang==='pt'?'Real Estate (REITs)':'Real Estate (REITs)',
+     desc:lang==='pt'?'Fundos imobiliários americanos com distribuição mensal de dividendos. Setor residencial e comercial diversificado.':'US REITs with monthly dividend distribution. Diversified residential and commercial sector.',
+     vs:lang==='pt'?'vs FIIs BR — maior liquidez e proteção em USD':'vs BR REITs — higher liquidity and USD protection'},
+    {pct:'12%',color:'#1A7F4B',name:lang==='pt'?'Equity Estruturado':'Structured Equity',
+     desc:lang==='pt'?'Posições em empresas do S&P 500 com estratégia de proteção (hedge). Foco em setores defensivos.':'S&P 500 positions with hedging strategy. Focus on defensive sectors.',
+     vs:lang==='pt'?'vs Ibovespa — menor volatilidade por design':'vs Ibovespa — lower volatility by design'},
+    {pct:'8%',color:'#D97706',name:lang==='pt'?'Reserva de Liquidez':'Liquidity Reserve',
+     desc:lang==='pt'?'Caixa e equivalentes em money market americano. Garante pagamentos mensais e oportunidades.':'Cash and US money market equivalents. Ensures monthly payments and opportunities.',
+     vs:lang==='pt'?'Equivalente à Selic curta — lastreado em dólar':'Equivalent to short Selic — USD-backed'},
+  ]
+  const allocHtml=allocs.map(a=>'<div class="alloc-card"><div class="alloc-bar" style="background:'+a.color+'"></div><div class="alloc-pct" style="color:'+a.color+'">'+a.pct+'</div><div class="alloc-name">'+a.name+'</div><div class="alloc-desc">'+a.desc+'</div><div class="alloc-vs">'+a.vs+'</div></div>').join(''); if(grid)grid.innerHTML=allocHtml
+  const fdic=document.getElementById('fdic-disc')
+  if(fdic)fdic.textContent=lang==='pt'?'As alocações em renda fixa são realizadas exclusivamente em instituições financeiras com cobertura do FDIC (Federal Deposit Insurance Corporation), garantindo proteção de até US$ 3.000.000 por depositante, por instituição. Esta proteção é fornecida pelo governo federal americano independentemente da situação da instituição.':'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor, per institution. This protection is provided by the US federal government regardless of the institution\'s condition.'
+}
+
+// ── FX ──
+async function fetchFX(){
+  function setRate(r){
+    FX_RATE=r
+    var el=document.getElementById('fx-rate-display');if(el)el.textContent='R$ '+r.toFixed(2)
+    var chg=document.getElementById('fx-chg');if(chg)chg.textContent=lang==='pt'?'Taxa atual':'Current rate'
+    calcFX();calcFXrev()
+  }
+  try{
+    var res=await fetch('https://open.er-api.com/v6/latest/USD',{mode:'cors'})
+    var d=await res.json()
+    if(d.rates&&d.rates.BRL){setRate(d.rates.BRL);return}
+  }catch(e){}
+  try{
+    var r2=await fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    var d2=await r2.json()
+    if(d2.rates&&d2.rates.BRL){setRate(d2.rates.BRL);return}
+  }catch(e2){}
+  setRate(FX_RATE)
+}
+function calcFX(){
+  const usdEl=document.getElementById('fx-usd'); if(!usdEl)return
+  const usd=parseFloat(usdEl.value)||0
+  const brl=usd*FX_RATE
+  document.getElementById('fx-brl').textContent='R$ '+brl.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})
+  document.getElementById('fx-rate-note').textContent='1 USD = R$ '+FX_RATE.toFixed(2)
+}
+function calcFXrev(){
+  const brlEl=document.getElementById('fx-brl-inp'); if(!brlEl)return
+  const brl=parseFloat(brlEl.value)||0
+  const usd=brl/FX_RATE
+  document.getElementById('fx-usd-out').textContent='$ '+usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
+  document.getElementById('fx-rate-note2').textContent='1 BRL = $ '+(1/FX_RATE).toFixed(4)
+}
+
+// ── ANNOUNCEMENTS ──
+async function loadAnn(){
+  const el=document.getElementById('ann-section')
+  if(!el)return
+  try{
+    const {data}=await db.from('Avisos').select('*').order('Data',{ascending:false}).limit(3)
+    if(!data||!data.length){el.innerHTML='';return}
+    el.innerHTML=data.map(a=>'<div class="ann"><div class="ann-h"><div class="ann-t">'+( a['Titulo']||'Aviso GST')+'</div><div class="ann-d">'+(a['Data']||'')+'</div></div><div class="ann-b">'+(a['Mensagem']||'')+'</div></div>').join('')
+  }catch(e){el.innerHTML=''}
+}
+
+// ── NEWS ──
+const NEWS_US=[
+  {title:'Wall Street Journal — Markets',url:'https://www.wsj.com/news/markets',src:'WSJ'},
+  {title:'Bloomberg Markets',url:'https://www.bloomberg.com/markets',src:'Bloomberg'},
+  {title:'CNBC — Financial Markets',url:'https://www.cnbc.com/markets/',src:'CNBC'},
+  {title:'Reuters — Business & Finance',url:'https://www.reuters.com/finance/',src:'Reuters'},
+  {title:'MarketWatch',url:'https://www.marketwatch.com/',src:'MarketWatch'},
+  {title:'Financial Times — Markets',url:'https://www.ft.com/markets',src:'FT'},
+]
+const NEWS_BR=[
+  {title:'InfoMoney — Mercados',url:'https://www.infomoney.com.br/mercados/',src:'InfoMoney'},
+  {title:'Valor Econômico — Finanças',url:'https://valor.globo.com/financas/',src:'Valor Econômico'},
+  {title:'Exame Invest — Mercados',url:'https://exame.com/invest/mercados/',src:'Exame'},
+  {title:'Estadão — Economia',url:'https://www.estadao.com.br/economia/',src:'Estadão'},
+  {title:'BTG Pactual — Research',url:'https://www.btgpactual.com/research',src:'BTG'},
+  {title:'XP Investimentos — Análise',url:'https://conteudos.xpi.com.br/acoes/',src:'XP'},
+]
+function renderNews(){
+  renderNewsList(NEWS_US,'NUS')
+  renderNewsList(NEWS_BR,'NBR')
+}
+function renderNewsList(items,elId){
+  const el=document.getElementById(elId)
+  if(!el)return
+  el.innerHTML=''
+  let h=''
+  items.forEach(function(item){
+    const d=document.createElement('div')
+    d.className='ni2'
+    d.setAttribute('data-url',item.url)
+    d.innerHTML='<div class="ndot"></div><div><div class="ntit">'+item.title+'</div><div class="nmet">'+item.src+' · '+(lang==='pt'?'Clique para acessar':'Click to open')+'</div></div>'
+    d.onclick=function(){window.open(this.getAttribute('data-url'),'_blank')}
+    el.appendChild(d)
   })
 }
+
+// ── TOGGLE METRIC ──
+function toggleMetric(valId,subId){
+  const v=document.getElementById(valId)
+  const s=document.getElementById(subId)
+  if(!v)return
+  const hidden=v.getAttribute('data-hidden')==='1'
+  v.textContent=hidden?(v.getAttribute('data-val')||'—'):'••••••'
+  if(s)s.style.opacity=hidden?'1':'0'
+  v.setAttribute('data-hidden',hidden?'0':'1')
+  if(!hidden)v.setAttribute('data-val',v.textContent==='••••••'?v.getAttribute('data-val')||'—':v.textContent)
+}
+
+// Override renderInv/renderPay to store values for toggle
+const _origRenderInv=renderInv
+// After values are set, store them
+function storeMetricVal(id){
+  const el=document.getElementById(id)
+  if(el)el.setAttribute('data-val',el.textContent)
+}
+
+// ── SUPPORT ──
+async function sendSupport(){
+  const sub=document.getElementById('su-sub').value.trim()
+  const msg=document.getElementById('su-msg').value.trim()
+  if(!sub||!msg)return
+  const btn=document.getElementById('su-btn')
+  btn.disabled=true
+  btn.textContent=lang==='pt'?'Enviando...':'Sending...'
+  try{
+    await db.from('Suporte').insert([{'E-mail':CU.email,'Assunto':sub,'Mensagem':msg,'Data':new Date().toISOString().split('T')[0]}])
+  }catch(e){}
+  document.getElementById('su-ok').style.display='block'
+  document.getElementById('su-sub').value=''
+  document.getElementById('su-msg').value=''
+  btn.disabled=false
+  btn.textContent=t('su-btn')
+}
+
+// ── NAV ──
+function nav(page,el){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'))
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'))
+  document.getElementById('pg-'+page).classList.add('on')
+  el.classList.add('on')
+  if(page==='dashboard'){setTimeout(function(){renderChart(PAYS);renderDonut()},50)}
+  if(page==='alloc'){setTimeout(function(){renderAlloc();setTimeout(runSim,100)},50)}
+  if(page==='news'){setTimeout(function(){renderNews();calcFX()},50)}
+}
+
+// ── COPY ──
+function cp(text,btn){
+  navigator.clipboard.writeText(text).then(function(){
+    const orig=btn.textContent
+    btn.textContent='✓'
+    btn.classList.add('ok')
+    setTimeout(function(){btn.textContent=orig;btn.classList.remove('ok')},1500)
+  })
+}
+
+// ── SIMULATOR ──
+var simChart=null,simMode='simple'
+function setSimMode(m){
+  simMode=m
+  var a=document.getElementById('sim-btn-s'),b=document.getElementById('sim-btn-c')
+  if(a&&b){
+    a.style.cssText='padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:Inter,sans-serif;border:1px solid '+(m==='simple'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
+    b.style.cssText='padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:Inter,sans-serif;border:1px solid '+(m==='compound'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
+  }
+  runSim()
+}
+function runSim(){
+  var capEl=document.getElementById('sim-capital');if(!capEl)return
+  var cap=parseFloat(capEl.value)||50000,rate=parseFloat(document.getElementById('sim-rate').value)/100||0.03,mon=parseInt(document.getElementById('sim-months').value)||12
+  var moeda=window.INV_CURRENCY||'USD',sym=moeda==='BRL'?'R$ ':'$ ',loc=moeda==='BRL'?'pt-BR':'en-US'
+  var fmt=function(v){return sym+Math.round(v).toLocaleString(loc)}
+  var n=document.getElementById('sim-note');if(n)n.textContent=simMode==='simple'?'Modo: cliente saca os rendimentos todo mês — capital permanece intacto':'Modo: rendimentos reinvestidos mensalmente (juros compostos)'
+  var tot=0,arr=[],run=cap
+  for(var i=0;i<mon;i++){var r=simMode==='simple'?cap*rate:run*rate;if(simMode==='compound')run+=r;tot+=r;arr.push(Math.round(simMode==='simple'?tot:run-cap))}
+  var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
+  var res=document.getElementById('sim-results');if(!res)return
+  var isMob=window.innerWidth<=768
+  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:3px;white-space:nowrap">'+c[0]+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:14px;font-weight:600;color:'+c[2]+';white-space:nowrap">'+c[1]+'</div></div>'}).join('')
+  res.style.gridTemplateColumns=isMob?'1fr 1fr':'repeat(4,1fr)'
+  var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
+  if(simChart)simChart.destroy()
+  var labels=arr.map(function(_,i){return'M'+(i+1)})
+  simChart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{data:arr,backgroundColor:'rgba(42,171,184,0.6)',borderColor:'#2AABB8',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:400},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return sym+c.raw.toLocaleString(loc)}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'JetBrains Mono',size:9},color:'#ABABAB',callback:function(v){return sym+v.toLocaleString(loc)},maxTicksLimit:5}},x:{grid:{display:false},ticks:{font:{size:9},color:'#ABABAB',maxTicksLimit:8}}}}})
+}
+// ── DARK MODE ──
+var isDark=false
+function toggleDark(){
+  isDark=!isDark
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light')
+  localStorage.setItem('gst-dark',isDark?'1':'0')
+  setTimeout(function(){renderChart(PAYS);renderDonut()},80)
+}
+window.addEventListener('load',async function(){
+  if(localStorage.getItem('gst-dark')==='1'){isDark=true;document.documentElement.setAttribute('data-theme','dark')}
+  const {data:{session}}=await db.auth.getSession()
+  if(session){CU=session.user;await loadApp()}
+})
 </script>
 </body>
 </html>
