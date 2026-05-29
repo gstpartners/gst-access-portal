@@ -12,6 +12,13 @@
 :root{--bg:#F4F4F2;--s:#fff;--s2:#F9F9F8;--bd:#E2E2DE;--bds:#EAEAE7;--tl:#2AABB8;--tld:#1D8F9B;--tlbg:#EDF8FA;--tlbr:#B8E5EA;--gy:#767676;--bk:#1A1A1A;--bo:#3D3D3D;--mu:#ABABAB;--sf:#888;--gn:#1A7F4B;--gnbg:#EBF7F1;--gnbr:#C2E8D4;--am:#D97706;--ambg:#FFF8E7;--ambr:#F0D080;--pu:#7C3AED;--pubg:#F5F3FF;--pubr:#DDD6FE;--re:#DC2626;--rebg:#FEF2F2;--rebr:#FECACA}
 [data-theme="dark"]{--bg:#111318;--s:#1C1F2A;--s2:#222535;--bd:#2E3147;--bds:#262940;--bk:#EDEDF0;--bo:#C5C5CC;--mu:#5A5B6E;--sf:#8888A0;--gy:#8888A0;--tlbg:rgba(42,171,184,.1);--tlbr:rgba(42,171,184,.22);--gnbg:rgba(26,127,75,.1);--gnbr:rgba(26,127,75,.22);--ambg:rgba(217,119,6,.1);--ambr:rgba(217,119,6,.22);--pubg:rgba(124,58,237,.1);--pubr:rgba(124,58,237,.22);--rebg:rgba(220,38,38,.1);--rebr:rgba(220,38,38,.22)}
 *{margin:0;padding:0;box-sizing:border-box}
+.wlc-step{display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--s);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .2s;margin-bottom:2px}
+.wlc-step:hover{border-color:var(--tl)}
+.wlc-step-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wlc-step-body{flex:1}
+.wlc-step-title{font-size:14px;font-weight:700;color:var(--bk);margin-bottom:3px}
+.wlc-step-text{font-size:12px;color:var(--mu);line-height:1.5}
+.wlc-step-arr{color:var(--mu);display:flex;align-items:center;flex-shrink:0;margin-top:4px}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--bo);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:13px}
 .lp{min-height:100vh;display:flex;align-items:center;justify-content:center}
 .lc{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:40px;width:100%;max-width:380px}
@@ -243,6 +250,53 @@ tbody tr:hover td{background:var(--s2)}
 </head>
 <body>
 
+<!-- WELCOME OVERLAY -->
+<div id="WLC" style="display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto">
+  <div style="max-width:520px;margin:0 auto;padding:48px 24px 80px">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px">
+      <svg viewBox="0 0 180 90" style="height:32px;width:auto">
+        <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
+        <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
+        <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
+      </svg>
+      <button onclick="closeWelcome()" style="background:none;border:1px solid var(--bd);border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--mu);cursor:pointer;font-family:inherit" id="wlc-skip">Pular</button>
+    </div>
+    <!-- Greeting -->
+    <div style="margin-bottom:36px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tld);margin-bottom:8px" id="wlc-tag">Bem-vindo ao GST Access</div>
+      <div style="font-size:26px;font-weight:700;color:var(--bk);line-height:1.2;letter-spacing:-.02em;margin-bottom:10px" id="wlc-name">—</div>
+      <div style="font-size:14px;color:var(--mu);line-height:1.6" id="wlc-sub">Seu portal exclusivo de investimentos. Aqui você acompanha tudo em tempo real.</div>
+    </div>
+    <!-- Steps -->
+    <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:36px" id="wlc-steps">
+      <div class="wlc-step" onclick="goStep(0)">
+        <div class="wlc-step-icon" style="background:rgba(42,171,184,.12)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="wlc-step-body"><div class="wlc-step-title" id="ws1t">Dashboard</div><div class="wlc-step-text" id="ws1x">Veja seu patrimônio, rendimentos acumulados e a evolução do seu investimento.</div></div>
+        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="wlc-step" onclick="goStep(1)">
+        <div class="wlc-step-icon" style="background:rgba(26,127,75,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="wlc-step-body"><div class="wlc-step-title" id="ws2t">Pagamentos</div><div class="wlc-step-text" id="ws2x">Histórico completo de todos os rendimentos mensais recebidos.</div></div>
+        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="wlc-step" onclick="goStep(2)">
+        <div class="wlc-step-icon" style="background:rgba(124,58,237,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="wlc-step-body"><div class="wlc-step-title" id="ws3t">Alocações</div><div class="wlc-step-text" id="ws3x">Veja como seu capital está distribuído e use o simulador de crescimento.</div></div>
+        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="wlc-step" onclick="goStep(3)">
+        <div class="wlc-step-icon" style="background:rgba(217,119,6,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+        <div class="wlc-step-body"><div class="wlc-step-title" id="ws4t">Documentos</div><div class="wlc-step-text" id="ws4x">Acesse seu contrato e extratos gerados mensalmente.</div></div>
+        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+    </div>
+    <!-- CTA -->
+    <button onclick="closeWelcome()" style="width:100%;padding:14px;background:var(--tl);color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.01em" id="wlc-cta">Acessar meu portal</button>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--mu)" id="wlc-note">Esta tela não aparecerá novamente</div>
+  </div>
+</div>
+
 <!-- LOGIN -->
 <div class="lp" id="LP">
   <div class="lc">
@@ -304,7 +358,7 @@ tbody tr:hover td{background:var(--s2)}
     <nav class="sb-nav">
       <div class="ns" id="ns1">Visão Geral</div>
       <a class="ni on" onclick="nav('dashboard',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.354 1.146a.5.5 0 00-.708 0l-6 6A.5.5 0 002 7.5v7a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-4h2v4a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-7a.5.5 0 00-.146-.354L13 5.793V2.5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v1.293z"/></svg><span id="nt1">Dashboard</span></a>
-      <a class="ni" onclick="nav('payments',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v1h14V4a1 1 0 00-1-1H2zm13 4H1v5a1 1 0 001 1h12a1 1 0 001-1V7z"/></svg><span id="nt2">Pagamentos</span></a>
+      <a class="ni" onclick="nav('payments',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span id="nt2">Pagamentos</span></a>
       <a class="ni" onclick="nav('documents',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 0h5.293A1 1 0 0110 .293L13.707 4a1 1 0 01.293.707V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2zm5.5 1.5v2a1 1 0 001 1h2L9.5 1.5z"/></svg><span id="nt3">Documentos</span></a>
       <div class="ns" id="ns2">Mercado</div>
       <a class="ni" onclick="nav('news',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.5A1.5 1.5 0 011.5 1h11A1.5 1.5 0 0114 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 000-1H14v-9a.5.5 0 00-1 0v9H1.497A1.497 1.497 0 012 12.5v-10zm3.5 1a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4z"/></svg><span id="nt4">Notícias</span></a>
@@ -340,6 +394,23 @@ tbody tr:hover td{background:var(--s2)}
       </div>
 
       <div id="ann-section"></div>
+
+      <!-- HERO METRIC -->
+      <div id="hero-metric" style="background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:22px 28px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tl),#5DCDD8)"></div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:8px" id="hm-label">Patrimônio Investido</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,40px);font-weight:600;color:var(--bk);letter-spacing:-.03em;line-height:1" id="hm-val">—</div>
+          <div style="font-size:11px;color:var(--mu);margin-top:4px;font-weight:500" id="hm-sub">—</div>
+          <div style="font-size:11px;color:var(--gn);margin-top:2px;font-weight:600" id="hm-ret"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)">Ativo</div>
+          <button onclick="toggleHeroMetric()" style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;cursor:pointer;color:var(--mu);padding:6px;display:flex;align-items:center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
 
       <!-- Metrics row 1 -->
       <div class="metrics">
@@ -815,6 +886,7 @@ function renderInv(inv){
   }
   // Client info for documents page
   renderClientInfo(inv)
+  if(PAYS.length)updateHeroMetric(inv,PAYS)
 }
 
 function renderClientInfo(inv){
@@ -956,16 +1028,51 @@ function renderChart(pays){
 function renderDonut(){
   const ctx=document.getElementById('DC')
   if(!ctx||!ctx.getContext)return
-  const allocs=[{name:'Renda Fixa US',pct:35,color:'#2AABB8'},{name:'Private Credit',pct:25,color:'#E11D48'},{name:'Real Estate',pct:20,color:'#7C3AED'},{name:'Equity',pct:12,color:'#1A7F4B'},{name:'Liquidez',pct:8,color:'#D97706'}]
   if(donutChart)donutChart.destroy()
-  donutChart=new Chart(ctx,{type:'doughnut',data:{labels:allocs.map(a=>a.name),datasets:[{data:allocs.map(a=>a.pct),backgroundColor:allocs.map(a=>a.color),borderWidth:2,borderColor:'#fff',hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}},cutout:'65%'}})
-  const leg=document.getElementById('donut-legend')
-  if(leg){
-    leg.innerHTML=allocs.map(a=>'<div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:2px;background:'+a.color+';flex-shrink:0"></div><span style="font-size:11px;color:var(--bo)">'+a.name+' <strong>'+a.pct+'%</strong></span></div>').join('')
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark'
+  const allocs=[
+    {name:lang==='pt'?'Renda Fixa':'Fixed Income',pct:35,color:'#2AABB8'},
+    {name:'Private Credit',pct:25,color:'#5DCDD8'},
+    {name:lang==='pt'?'Fundo Imobiliário':'Real Estate',pct:20,color:'#1D8F9B'},
+    {name:'Equity',pct:12,color:'#0E6B7A'},
+    {name:lang==='pt'?'Liquidez':'Liquidity',pct:8,color:'#B8E5EA'}
+  ]
+  donutChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:allocs.map(function(a){return a.name}),
+      datasets:[{
+        data:allocs.map(function(a){return a.pct}),
+        backgroundColor:allocs.map(function(a){return a.color}),
+        borderWidth:3,
+        borderColor:isDark?'#1C1F2A':'#fff',
+        hoverOffset:10,
+        hoverBorderWidth:0
+      }]
+    },
+    options:{
+      cutout:'68%',responsive:true,maintainAspectRatio:true,
+      animation:{animateRotate:true,duration:700},
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'rgba(0,0,0,.82)',padding:10,callbacks:{label:function(c){return'  '+c.label+': '+c.raw+'%'}}}
+      }
+    }
+  })
+  const tbl=document.getElementById('alloc-table')
+  if(tbl){
+    tbl.innerHTML=allocs.map(function(a){
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd)">'+
+        '<div style="display:flex;align-items:center;gap:10px">'+
+        '<div style="width:10px;height:10px;border-radius:50%;background:'+a.color+';flex-shrink:0"></div>'+
+        '<span style="font-size:13px;font-weight:500;color:var(--bk)">'+a.name+'</span>'+
+        '</div>'+
+        '<span style="font-family:Space Grotesk,sans-serif;font-size:14px;font-weight:700;color:var(--bk)">'+a.pct+'%</span>'+
+        '</div>'
+    }).join('')+'<div style="display:flex;justify-content:flex-end;padding-top:8px"><span style="font-size:11px;color:var(--mu)">'+( lang==='pt'?'Alocação indicativa':'Indicative allocation')+'</span></div>'
   }
 }
 
-// ── ALLOCATIONS ──
 function renderAlloc(){
   const grid=document.getElementById('alloc-grid')
   if(!grid)return
@@ -1161,6 +1268,27 @@ function runSim(){
   var labels=arr.map(function(_,i){return'M'+(i+1)})
   simChart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{data:arr,backgroundColor:'rgba(42,171,184,0.6)',borderColor:'#2AABB8',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:400},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return sym+c.raw.toLocaleString(loc)}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'JetBrains Mono',size:9},color:'#ABABAB',callback:function(v){return sym+v.toLocaleString(loc)},maxTicksLimit:5}},x:{grid:{display:false},ticks:{font:{size:9},color:'#ABABAB',maxTicksLimit:8}}}}})
 }
+// ── WELCOME SCREEN ──
+function showWelcome(name){
+  var wlc=document.getElementById('WLC')
+  if(!wlc)return
+  if(localStorage.getItem('gst-welcomed')==='1'){return}
+  var nm=document.getElementById('wlc-name')
+  if(nm)nm.textContent=lang==='pt'?'Olá, '+name+'!':'Hello, '+name+'!'
+  wlc.style.display='block'
+  document.body.style.overflow='hidden'
+}
+function closeWelcome(){
+  var wlc=document.getElementById('WLC')
+  if(wlc){wlc.style.opacity='0';wlc.style.transition='opacity .3s';setTimeout(function(){wlc.style.display='none';document.body.style.overflow=''},300)}
+  localStorage.setItem('gst-welcomed','1')
+}
+function goStep(idx){
+  closeWelcome()
+  var pages=['dashboard','pay','doc','alloc']
+  setTimeout(function(){nav(pages[idx])},350)
+}
+
 // ── DARK MODE ──
 var isDark=false
 function toggleDark(){
@@ -1169,6 +1297,55 @@ function toggleDark(){
   localStorage.setItem('gst-dark',isDark?'1':'0')
   setTimeout(function(){renderChart(PAYS);renderDonut()},80)
 }
+// ── HERO METRIC ──
+function updateHeroMetric(inv, pays){
+  var moeda=window.INV_CURRENCY||'USD'
+  var sym=moeda==='BRL'?'R$ ':'$ '
+  var loc=moeda==='BRL'?'pt-BR':'en-US'
+  var aporte=Number(inv['Aporte (USD)']||inv['Aporte (BRL)']||inv['Aporte']||0)
+  var paid=(pays||[]).filter(function(p){var s=(p['Status']||'').toLowerCase();return s.includes('pago')||s.includes('paid')})
+  var totalRet=paid.reduce(function(s,p){return s+(Number(p['Rendimento Pago (USD)'])||0)},0)
+  var hmv=document.getElementById('hm-val')
+  var hms=document.getElementById('hm-sub')
+  var hml=document.getElementById('hm-label')
+  var hm2=document.getElementById('hm-ret')
+  if(hmv){hmv.textContent=sym+aporte.toLocaleString(loc,{minimumFractionDigits:0});hmv.setAttribute('data-v',hmv.textContent)}
+  if(hml)hml.textContent=lang==='pt'?'Patrimônio Investido':'Invested Capital'
+  if(hms)hms.textContent=(inv['Plano']||'')+(inv['Data Inicio']?' · Desde '+new Date(inv['Data Inicio']+'T12:00:00').toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'short',year:'numeric'}):'')
+  if(hm2&&totalRet>0)hm2.textContent=(lang==='pt'?'Total recebido: ':'Total received: ')+sym+totalRet.toLocaleString(loc,{minimumFractionDigits:0})
+}
+function toggleHeroMetric(){
+  var el=document.getElementById('hm-val')
+  if(!el)return
+  if(el.getAttribute('data-h')==='1'){el.textContent=el.getAttribute('data-v')||'—';el.setAttribute('data-h','0')}
+  else{el.setAttribute('data-v',el.textContent);el.textContent='••••••';el.setAttribute('data-h','1')}
+}
+
+// ── TIMELINE ──
+function renderTimeline(pays){
+  var el=document.getElementById('TL');if(!el||!INV)return
+  var startDate=new Date((INV['Data Inicio']||Date.now())+'T12:00:00')
+  var plano=INV['Plano']||'Tier 1'
+  var devMap={'Tier 1':18,'Tier 2':12,'Tier 3':6}
+  var devMes=devMap[plano]||18
+  var now=new Date()
+  var meses=Math.floor((now-startDate)/(1000*60*60*24*30.44))
+  var moeda=window.INV_CURRENCY||'USD';var sym=moeda==='BRL'?'R$':'$'
+  var paid=(pays||[]).filter(function(p){var s=(p['Status']||'').toLowerCase();return s.includes('pago')||s.includes('paid')})
+  var totalRet=paid.reduce(function(s,p){return s+(Number(p['Rendimento Pago (USD)'])||0)},0)
+  var cm=document.getElementById('tl-cm')
+  if(cm)cm.textContent=(lang==='pt'?'Mês ':'Month ')+meses
+  var items=[
+    {state:'done',tag:lang==='pt'?'Início':'Start',name:lang==='pt'?'Investimento iniciado':'Investment started',detail:startDate.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'long',year:'numeric'})},
+    {state:meses<devMes?'current':'done',tag:lang==='pt'?'Fase atual':'Current phase',name:lang==='pt'?'Aceleração dos rendimentos':'Return acceleration',detail:(lang==='pt'?'Total recebido: ':'Total received: ')+sym+totalRet.toLocaleString()},
+    {state:meses>=devMes?'done':'future',tag:lang==='pt'?'Fase 2':'Phase 2',name:lang==='pt'?'Início da devolução':'Repayment begins',detail:(lang==='pt'?'A partir do mês ':'From month ')+devMes},
+    {state:'future',tag:lang==='pt'?'Fase final':'Final phase',name:lang==='pt'?'Sócio dos lucros':'Profit partner',detail:lang==='pt'?'Participação nos lucros do fundo':'Fund profit participation'},
+  ]
+  el.innerHTML=items.map(function(item){
+    return '<div class="tl-item tl-'+item.state+'"><div class="tl-dot"></div><div class="tl-tag">'+item.tag+'</div><div class="tl-name">'+item.name+'</div><div class="tl-detail">'+item.detail+'</div></div>'
+  }).join('')
+}
+
 window.addEventListener('load',async function(){
   if(localStorage.getItem('gst-dark')==='1'){isDark=true;document.documentElement.setAttribute('data-theme','dark')}
   const {data:{session}}=await db.auth.getSession()
