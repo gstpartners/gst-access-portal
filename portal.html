@@ -1056,29 +1056,49 @@ async function loadApp(){
   document.getElementById('LP').style.display='none'
   document.getElementById('APP').classList.add('on')
   const email=CU.email
-  const {data:inv}=await db.from('Investidor').select('*').eq('E-mail',email).single()
-  if(inv){INV=inv;renderInv(inv)}
-  // Load payments
-  var payResult=await db.from('Pagamentos').select('*').eq('E-mail',email)
-  if(payResult.error){
-    console.error('Pagamentos error:',JSON.stringify(payResult.error))
-    var payEl=document.getElementById('PAY')
-    if(payEl)payEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+payResult.error.message+'</div>'
-  } else {
-    PAYS=(payResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
-    renderPay(PAYS);renderChart(PAYS)
+
+  // ── Load investor ──
+  try{
+    const {data:inv,error:invErr}=await db.from('Investidor').select('*').eq('E-mail',email).single()
+    if(inv){INV=inv;renderInv(inv)}
+    else if(invErr){console.warn('Investidor:',invErr.message)}
+  }catch(e){console.warn('Investidor exception:',e)}
+
+  // ── Load payments ──
+  var payEl=document.getElementById('PAY')
+  try{
+    var payResult=await db.from('Pagamentos').select('*').eq('E-mail',email)
+    if(payResult.error){
+      console.error('Pagamentos error:',payResult.error.message)
+      if(payEl)payEl.innerHTML='<div class="empty"><div class="et">Erro ao carregar pagamentos</div><div style="font-size:11px;color:var(--mu);margin-top:4px">'+payResult.error.message+'</div></div>'
+    } else {
+      PAYS=(payResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+      renderPay(PAYS)
+      renderChart(PAYS)
+    }
+  }catch(e){
+    console.error('Pagamentos exception:',e)
+    if(payEl)payEl.innerHTML='<div class="empty"><div class="et">Erro de conexão</div></div>'
   }
-  // Load documents
-  var docResult=await db.from('Documentos').select('*').eq('E-mail',email)
-  if(docResult.error){
-    console.error('Documentos error:',JSON.stringify(docResult.error))
-    var docEl=document.getElementById('DOC')
-    if(docEl)docEl.innerHTML='<div style="padding:20px;color:#D32F2F;font-size:12px">Erro: '+docResult.error.message+'</div>'
-  } else {
-    DOCS=(docResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
-    renderDoc(DOCS)
+
+  // ── Load documents ──
+  var docEl=document.getElementById('DOC')
+  try{
+    var docResult=await db.from('Documentos').select('*').eq('E-mail',email)
+    if(docResult.error){
+      console.error('Documentos error:',docResult.error.message)
+      if(docEl)docEl.innerHTML='<div class="empty"><div class="et">Erro ao carregar documentos</div></div>'
+    } else {
+      DOCS=(docResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
+      renderDoc(DOCS)
+    }
+  }catch(e){
+    console.error('Documentos exception:',e)
+    if(docEl)docEl.innerHTML='<div class="empty"><div class="et">Erro de conexão</div></div>'
   }
-  loadAnn();renderNews();renderAlloc();fetchFX();setTimeout(function(){renderDonut();buildRateTable();buildRateDetail()},100)
+
+  loadAnn();renderNews();renderAlloc();fetchFX()
+  setTimeout(function(){renderDonut();buildRateTable();buildRateDetail()},100)
 }
 
 // ── RENDER INVESTOR ──
@@ -1170,10 +1190,12 @@ function renderPay(pays){
   const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
   const mob=window.innerWidth<=768
   if(!pays||!pays.length){
-    el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
-    if(cm)cm.textContent='0'
+    if(el)el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
+    if(cm)cm.textContent='0 registros'
     ;['m2v','m3v','m5v','m6v'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
     ;['m2s','m3s','m5s','m6s'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
+    var rpl=document.getElementById('recent-pays-list')
+    if(rpl)rpl.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);font-size:12px">Nenhum pagamento registrado ainda.</div>'
     return
   }
   cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
@@ -1252,6 +1274,7 @@ function renderPay(pays){
 // ── RENDER DOCUMENTS ──
 function renderDoc(docs){
   const el=document.getElementById('DOC')
+  if(!el)return
   if(!docs||!docs.length){el.innerHTML='<div class="empty"><div class="et">'+t('ed')+'</div></div>';return}
   let rows=''
   docs.forEach(function(d){
