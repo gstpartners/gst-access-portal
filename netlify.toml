@@ -1,0 +1,18 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+
+[build]
+  publish = "."
+
+# Remove .html from all URLs
+[[redirects]]
+  from = "/portal"
+  to = "/portal.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal-captador"
+  to = "/portal-captador.html"
+  status = 200

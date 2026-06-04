@@ -1,2 +1,3 @@
-/portal    /portal.html    200
-/login     /portal.html    200
+/portal        /portal.html        200
+/portal-captador /portal-captador.html 200
+/captador      /portal-captador.html 200
