@@ -1177,23 +1177,25 @@ function renderPay(pays){
     return
   }
   cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
-  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase();return s==='pago'||s==='paid'})
-  const totalRet=paid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
+  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase().trim();return !s.includes('pendente')&&!s.includes('pending')||s.includes('pago')||s.includes('paid')||s===''||s.length>0})
+  const allPaid=paid.length?paid:pays
+  const totalRet=allPaid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
   // Calculate average monthly return from Rentabilidade %
-  const rents=paid.filter(p=>p['Rentabilidade %']).map(p=>Number(p['Rentabilidade %']))
+  const rents=allPaid.filter(p=>p['Rentabilidade %']).map(p=>Number(p['Rentabilidade %']))
   const avgRent=rents.length?( rents.reduce((a,b)=>a+b,0)/rents.length):null
   const m4v=document.getElementById('m4v');const m4s=document.getElementById('m4s')
   if(m4v){m4v.textContent=avgRent?avgRent.toFixed(2)+'%':'—'}
   if(m4s){m4s.textContent=avgRent?(lang==='pt'?'média dos últimos '+rents.length+' pagamentos':'avg of last '+rents.length+' payments'):'—'}
-  const totalWith=paid.reduce((s,p)=>s+(Number(p['Amortização (USD)'])||0),0)
+  const totalWith=allPaid.reduce((s,p)=>s+(Number(p['Amortização (USD)'])||0),0)
   const fmt2=n=>currSymbol+Number(n).toLocaleString(currLocale,{minimumFractionDigits:0})
   document.getElementById('m2v').textContent=fmt2(totalRet)
-  document.getElementById('m2s').textContent=paid.length+' '+(lang==='pt'?'pagamentos':'payments')
+  document.getElementById('m2s').textContent=allPaid.length+' '+(lang==='pt'?'pagamentos':'payments')
   document.getElementById('m5v').textContent=fmt2(totalWith)
   document.getElementById('m5s').textContent=lang==='pt'?'Amortizações acumuladas':'Accumulated repayments'
   const aporte=INV?(Number(INV['Aporte (USD)'])||Number(INV['Aporte (BRL)'])||Number(INV['Aporte'])||0):0
+  const totalRetForPct=allPaid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
   if(aporte>0){
-    const pct=((totalRet/aporte)*100).toFixed(1)
+    const pct=((totalRetForPct/aporte)*100).toFixed(1)
     document.getElementById('m6v').textContent=pct+'%'
     document.getElementById('m6s').textContent=lang==='pt'?'do capital investido':'of invested capital'
   }else{
@@ -1211,7 +1213,7 @@ function renderPay(pays){
   // ── Recent pays dashboard panel ──
   var rpl=document.getElementById('recent-pays-list')
   if(rpl){
-    var recent=paid.slice(0,5)
+    var recent=allPaid.slice(0,5)
     if(!recent.length){rpl.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);font-size:12px">Nenhum pagamento registrado</div>'}
     else{rpl.innerHTML=recent.map(function(p){
       var mes=fmtMes(p['Mês de Referência'])
