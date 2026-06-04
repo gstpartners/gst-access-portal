@@ -1191,7 +1191,7 @@ function renderPay(pays){
   document.getElementById('m2s').textContent=paid.length+' '+(lang==='pt'?'pagamentos':'payments')
   document.getElementById('m5v').textContent=fmt2(totalWith)
   document.getElementById('m5s').textContent=lang==='pt'?'Amortizações acumuladas':'Accumulated repayments'
-  const aporte=INV&&INV['Aporte (USD)']?Number(INV['Aporte (USD)']):0
+  const aporte=INV?(Number(INV['Aporte (USD)'])||Number(INV['Aporte (BRL)'])||Number(INV['Aporte'])||0):0
   if(aporte>0){
     const pct=((totalRet/aporte)*100).toFixed(1)
     document.getElementById('m6v').textContent=pct+'%'
