@@ -48,7 +48,7 @@ nav.sc{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom
 .nlogin:hover{opacity:.7}
 
 /* ─── TICKER ─── */
-.tkr{position:sticky;top:var(--nh);left:0;right:0;z-index:199;height:var(--th);background:var(--off2);border-bottom:1px solid var(--rule);overflow:hidden;display:flex;align-items:center}
+.tkr{position:fixed;top:var(--nh);left:0;right:0;z-index:199;height:var(--th);background:var(--off2);border-bottom:1px solid var(--rule);overflow:hidden;display:flex;align-items:center}
 .tki{display:flex;animation:scroll 55s linear infinite;white-space:nowrap}
 .tki-item{display:flex;align-items:center;gap:7px;padding:0 24px;border-right:1px solid var(--rule)}
 .tkn{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
@@ -59,7 +59,7 @@ nav.sc{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom
 
 /* ─── HERO — centered like Range ─── */
 .hero{
-  padding-top:calc(var(--nh) + 100px);
+  padding-top:calc(var(--nh) + var(--th) + 80px);
   padding-bottom:100px;
   padding-left:24px;padding-right:24px;
   background:var(--w);
