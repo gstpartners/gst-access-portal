@@ -471,19 +471,19 @@ tbody tr:hover td{background:var(--s2)}
             <thead><tr><th>Documento</th><th>Tipo</th><th>Atualização</th><th>Ação</th></tr></thead>
             <tbody id="mat-tbody">
               <tr>
-                <td><span class="tm">Apresentação GST Partners — Captadores</span></td>
+                <td><span class="tm">Apresentação para Captadores</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Apresentacao_Captadores.pdf</div></td>
                 <td><span class="sb2 sa">PDF</span></td>
                 <td style="color:var(--mu)">Jun 2026</td>
                 <td id="mat-apresentacao"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('apresentacao')">Baixar</button></td>
               </tr>
               <tr>
-                <td><span class="tm">Contrato Modelo — Captador</span></td>
+                <td><span class="tm">Contrato Modelo — Captador</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Contrato_Captador.pdf</div></td>
                 <td><span class="sb2 sa">PDF</span></td>
                 <td style="color:var(--mu)">Jun 2026</td>
                 <td id="mat-contrato-cap"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('contrato-cap')">Baixar</button></td>
               </tr>
               <tr>
-                <td><span class="tm">Contrato Modelo — Investidor</span></td>
+                <td><span class="tm">Contrato Modelo — Investidor</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Contrato_Investidor.pdf</div></td>
                 <td><span class="sb2 sa">PDF</span></td>
                 <td style="color:var(--mu)">Jun 2026</td>
                 <td id="mat-contrato-inv"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('contrato-inv')">Baixar</button></td>
@@ -721,6 +721,7 @@ const MAT_FILES = {
   'contrato-cap':  'GST_Contrato_Captador.pdf',
   'contrato-inv':  'GST_Contrato_Investidor.pdf',
 }
+// Note: PDFs must be in root of GitHub repo alongside this HTML file
 function dlMat(key){
   const file = MAT_FILES[key]
   if(!file){ alert('Arquivo não disponível ainda.'); return }
