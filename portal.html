@@ -3,375 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal GST</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232AABB8'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EGST%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>GST Partners · Portal do Captador</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#F7F7F5;--s:#FFFFFF;--s2:#F2F2F0;--bd:#E2E2DE;--bds:#EAEAE6;
-  --tl:#2AABB8;--tld:#1A8F9B;--tlbg:#F0FAFB;--tlbr:rgba(42,171,184,.18);
-  --bk:#111111;--bo:#444444;--mu:#AAAAAA;--sf:#888880;
+  --bg:#F7F7F5;--s:#FFF;--s2:#F5F5F2;--bd:#E2E2DE;--bds:#EAEAE7;
+  --tl:#2AABB8;--tld:#1A8F9B;--tlbg:#F0FAFB;--tlbr:rgba(42,171,184,.2);
+  --bk:#111111;--bo:#555555;--mu:#BBBBBB;--sf:#888880;
   --gn:#177A45;--gnbg:#EBF7F1;--gnbr:#C2E8D4;
   --am:#D97706;--ambg:#FFF8E7;--ambr:#F0D080;
   --pu:#7C3AED;--pubg:#F5F3FF;--pubr:#DDD6FE;
   --re:#DC2626;--rebg:#FEF2F2;--rebr:#FECACA;
 }
-[data-theme="dark"]{
-  --bg:#0F1015;--s:#17191F;--s2:#1E2028;--bd:#2A2D38;--bds:#242733;
-  --bk:#F0F0F0;--bo:#B8B8C0;--mu:#555566;--sf:#8888A0;
-  --tlbg:rgba(42,171,184,.08);--tlbr:rgba(42,171,184,.2);
-  --gnbg:rgba(23,122,69,.1);--gnbr:rgba(23,122,69,.22);
-  --ambg:rgba(217,119,6,.1);--ambr:rgba(217,119,6,.22);
-  --pubg:rgba(124,58,237,.1);--pubr:rgba(124,58,237,.22);
-  --rebg:rgba(220,38,38,.1);--rebr:rgba(220,38,38,.22);
-}
 *{margin:0;padding:0;box-sizing:border-box}
-
-/* ─ WELCOME ──────────────────────────── */
-.wlc-step{display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--s);border:1px solid var(--bd);border-radius:8px;cursor:pointer;transition:border-color .2s;margin-bottom:2px}
-.wlc-step:hover{border-color:var(--tl)}
-.wlc-step-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wlc-step-body{flex:1}
-.wlc-step-title{font-size:14px;font-weight:700;color:var(--bk);margin-bottom:3px}
-.wlc-step-text{font-size:12px;color:var(--mu);line-height:1.5}
-.wlc-step-arr{color:var(--mu);display:flex;align-items:center;flex-shrink:0;margin-top:4px}
-
-/* ─ GLOBAL ───────────────────────────── */
 body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--bo);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:13px}
 
-/* ─ LOGIN ───────────────────────────── */
+/* LOGIN */
 .lp{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
-.lc{background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:48px 44px;width:100%;max-width:380px;box-shadow:0 8px 48px rgba(0,0,0,.07)}
-.logo-c{text-align:center;margin-bottom:32px}
-.lpill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid var(--bd);border-radius:20px;margin-top:8px}
-.lpill span{font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--mu);text-transform:uppercase}
-.ltit{font-family:'Lora',serif;font-size:23px;font-weight:400;color:var(--bk);margin-bottom:6px;letter-spacing:-.02em}
-.lsub{font-size:12px;color:var(--mu);margin-bottom:26px;line-height:1.6}
-.fl{display:block;font-size:11px;font-weight:600;color:var(--bo);margin-bottom:5px;letter-spacing:.02em}
-.finp{width:100%;padding:10px 13px;border:1px solid var(--bd);border-radius:7px;font-size:13px;font-family:'Figtree',sans-serif;color:var(--bk);background:var(--s);margin-bottom:14px;transition:border-color .15s;outline:none}
-.finp:focus{border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.pw-wrap{position:relative;margin-bottom:14px}
-.pw-wrap .finp{margin-bottom:0;padding-right:40px}
-.eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--mu);padding:4px;display:flex;align-items:center}
-.eye-btn:hover{color:var(--sf)}
-.bp{width:100%;padding:11px;background:var(--tl);color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;font-family:'Figtree',sans-serif;cursor:pointer;transition:background .15s;letter-spacing:.02em}
+.lc{background:var(--s);border:1px solid var(--bd);border-radius:12px;padding:44px 40px;width:100%;max-width:380px;box-shadow:0 4px 40px rgba(0,0,0,.06)}
+.logo-c{text-align:center;margin-bottom:28px}
+.l-role{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid var(--bd);border-radius:20px;margin-top:6px}
+.l-role span{font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--mu);text-transform:uppercase}
+.ltit{font-family:'Lora',serif;font-size:22px;font-weight:400;color:var(--bk);margin-bottom:6px;letter-spacing:-.02em}
+.lsub{font-size:12px;color:var(--mu);margin-bottom:24px}
+.fl{display:block;font-size:11px;font-weight:500;color:var(--bo);margin-bottom:5px}
+.finp{width:100%;padding:9px 12px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:'Figtree',sans-serif;color:var(--bk);background:var(--s);margin-bottom:14px;transition:border-color .15s}
+.finp:focus{outline:none;border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
+.bp{width:100%;padding:10px;background:var(--tl);color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;font-family:'Figtree',sans-serif;cursor:pointer;transition:background .15s}
 .bp:hover{background:var(--tld)}
-.bp:disabled{opacity:.5;cursor:default}
-.lerr{font-size:12px;color:#D32F2F;margin-top:10px;text-align:center;line-height:1.5}
+.lerr{font-size:12px;color:#D32F2F;margin-top:10px;text-align:center}
 .lft{margin-top:24px;padding-top:16px;border-top:1px solid var(--bd);font-size:11px;color:var(--mu);text-align:center}
 
-/* ─ APP ─────────────────────────────── */
+/* APP LAYOUT */
 .app{display:none;min-height:100vh}
 .app.on{display:flex}
-
-/* ─ SIDEBAR ──────────────────────────── */
-.sb{width:200px;min-height:100vh;background:var(--s);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
-.sb-logo{padding:20px 20px 16px;border-bottom:1px solid var(--bd)}
-.sb-user{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:9px}
-.av{width:30px;height:30px;border-radius:50%;background:var(--tlbg);border:1px solid var(--tlbr);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--tld);flex-shrink:0;letter-spacing:.02em}
-.un{font-size:12px;font-weight:600;color:var(--bk);line-height:1.3}
+.sb{width:220px;min-height:100vh;background:var(--s);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:50}
+.sb-logo{padding:18px 20px 14px;border-bottom:1px solid var(--bd)}
+.sb-user{padding:11px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--tlbg);border:1px solid var(--tlbr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--tld);flex-shrink:0}
+.un{font-size:12px;font-weight:600;color:var(--bk)}
 .up{font-size:10px;color:var(--mu);margin-top:1px}
-.sb-nav{padding:12px 8px;flex:1;overflow-y:auto}
-.ns{font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tl);padding:0 10px;margin-bottom:3px;margin-top:18px}
+.sb-nav{padding:14px 10px;flex:1;overflow-y:auto}
+.ns{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tl);padding:0 10px;margin-bottom:4px;margin-top:16px}
 .ns:first-child{margin-top:0}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--mu);text-decoration:none;margin-bottom:1px;transition:all .1s;font-weight:400}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:5px;cursor:pointer;font-size:12.5px;color:var(--sf);text-decoration:none;margin-bottom:1px;transition:all .12s}
 .ni:hover{background:var(--bg);color:var(--bo)}
-.ni.on{background:var(--tlbg);color:var(--tld);font-weight:600}
-.ni.on{border-left:2px solid var(--tl);border-radius:0 6px 6px 0;padding-left:8px}
-.ni svg{width:14px;height:14px;opacity:.35;flex-shrink:0}
-.ni.on svg{opacity:.9}
-.sb-bot{padding:12px 16px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
-.lang{display:flex;gap:2px}
-.lb{padding:3px 8px;font-size:11px;font-weight:500;font-family:'Figtree',sans-serif;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--mu);border-radius:4px;transition:all .12s}
-.lb.on{border-color:var(--tlbr);color:var(--tld);background:var(--tlbg)}
-.outbtn{font-size:11px;color:var(--mu);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Figtree',sans-serif;transition:color .12s}
-.outbtn:hover{color:var(--bk)}
+.ni.on{background:var(--tlbg);color:var(--tld);font-weight:600;border-left:2px solid var(--tl);padding-left:8px}
+.ni svg{width:15px;height:15px;opacity:.4;flex-shrink:0}
+.ni.on svg{opacity:1}
+.sb-bot{padding:14px 20px;border-top:1px solid var(--bd)}
+.outbtn{font-size:11px;color:var(--mu);cursor:pointer;display:flex;align-items:center;gap:5px;background:none;border:none;font-family:'Figtree',sans-serif}
+.outbtn:hover{color:var(--sf)}
 
-/* ─ MAIN ─────────────────────────────── */
-.mn{margin-left:200px;flex:1;padding:36px 44px 48px;max-width:1280px}
+/* MAIN */
+.mn{margin-left:220px;flex:1;padding:32px 40px 40px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.tb-ey{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px}
+.tb-ti{font-family:'Lora',serif;font-size:26px;font-weight:400;color:var(--bk);letter-spacing:-.02em;line-height:1.1}
+.badge-g{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:500;color:var(--gn);background:var(--gnbg);border:1px solid var(--gnbr);padding:4px 11px;border-radius:20px}
+.dot{width:6px;height:6px;background:var(--gn);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ─ TOPBAR ───────────────────────────── */
-.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:22px;border-bottom:1px solid var(--bd)}
-.tb-ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:4px}
-.tb-ti{font-family:'Lora',serif;font-size:28px;font-weight:400;color:var(--bk);letter-spacing:-.02em;line-height:1.1}
-.tb-we{font-size:13px;color:var(--sf);margin-top:5px}
-.badge-g{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:500;color:var(--gn);background:var(--gnbg);border:1px solid var(--gnbr);padding:4px 12px;border-radius:20px;white-space:nowrap}
-.dot{width:5px;height:5px;background:var(--gn);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.metric{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:18px 20px 16px;position:relative;transition:box-shadow .15s,border-color .15s;overflow:hidden}
+.metric:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);border-color:rgba(42,171,184,.25)}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.accent-tl::before{background:linear-gradient(90deg,#2AABB8,#5DCDD8)}.accent-tl{border-top:none}
+.accent-gn::before{background:linear-gradient(90deg,#177A45,#34D399)}.accent-gn{border-top:none}
+.accent-pu::before{background:linear-gradient(90deg,#7C3AED,#A78BFA)}.accent-pu{border-top:none}
+.accent-am::before{background:linear-gradient(90deg,#D97706,#FCD34D)}.accent-am{border-top:none}
+.ml{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
+.mv{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1}
+.mv.tl{color:var(--tld)}.mv.gn{color:var(--gn)}.mv.am{color:var(--am)}
+.ms{font-size:11px;color:var(--mu);margin-top:6px}
 
-/* ─ HERO METRIC (patrimônio) ────────── */
-.hero-band{
-  background:var(--s);border:1px solid var(--bd);border-radius:12px;
-  padding:28px 32px;margin-bottom:16px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:relative;overflow:hidden;
-}
-.hero-band::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--tl),rgba(42,171,184,.2))}
-.hero-band-left{flex:1}
-.hero-band-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
-.hero-band-val{font-family:'Lora',serif;font-size:clamp(36px,4vw,52px);font-weight:400;color:var(--bk);letter-spacing:-.02em;line-height:1}
-.hero-band-sub{font-size:12px;color:var(--mu);margin-top:6px;font-weight:500}
-.hero-band-ret{font-size:12px;color:var(--gn);margin-top:3px;font-weight:600}
-.hero-band-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-
-/* ─ STAT CARDS ───────────────────────── */
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.stat{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:20px 22px 17px;position:relative;overflow:hidden;transition:box-shadow .2s,border-color .2s;cursor:default}
-.stat:hover{box-shadow:0 4px 24px rgba(0,0,0,.05);border-color:rgba(42,171,184,.2)}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.stat-tl::before{background:linear-gradient(90deg,#2AABB8,#5DCDD8)}.stat-tl{border-top:none}
-.stat-gn::before{background:linear-gradient(90deg,#177A45,#34D399)}.stat-gn{border-top:none}
-.stat-am::before{background:linear-gradient(90deg,#D97706,#FCD34D)}.stat-am{border-top:none}
-.stat-pu::before{background:linear-gradient(90deg,#7C3AED,#A78BFA)}.stat-pu{border-top:none}
-.stat-re::before{background:linear-gradient(90deg,#DC2626,#FB7185)}.stat-re{border-top:none}
-.sl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:9px}
-.sv{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;color:var(--bk);letter-spacing:-.03em;line-height:1;transition:opacity .2s}
-.sv.tl{color:var(--tld)}.sv.gn{color:var(--gn)}.sv.am{color:var(--am)}.sv.pu{color:var(--pu)}.sv.re{color:var(--re)}
-.ss{font-size:11px;color:var(--mu);margin-top:7px;line-height:1.4}
-.hide-btn{position:absolute;top:15px;right:13px;background:none;border:none;cursor:pointer;color:var(--mu);padding:3px;display:flex;align-items:center;transition:color .12s;opacity:.6}
-.hide-btn:hover{opacity:1;color:var(--sf)}
-
-/* ─ DASHBOARD GRID ─────────────────── */
-.dash-grid{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:16px}
-
-/* ─ CARD ─────────────────────────────── */
-.card{background:var(--s);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
-.card:last-child{margin-bottom:0}
-.ch{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--bds)}
-.ct{font-family:'Figtree',sans-serif;font-size:13px;font-weight:700;color:var(--bk);letter-spacing:-.01em}
+/* CARD */
+.card{background:var(--s);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--bds)}
+.ct{font-family:'Figtree',sans-serif;font-size:13.5px;font-weight:600;color:var(--bk)}
 .cm{font-size:11px;color:var(--mu)}
-.cb{padding:20px}
+.cb{padding:18px 20px}
 
-/* ─ CHART ────────────────────────────── */
-.chart-box{position:relative;height:180px;width:100%}
-
-/* ─ RIGHT PANEL (carteira + pagamentos) */
-.rpanel{display:flex;flex-direction:column;gap:16px}
-.donut-wrap{display:flex;align-items:center;gap:20px;padding:6px 0}
-.donut-canvas{width:100px;height:100px;flex-shrink:0}
-.donut-legend{display:flex;flex-direction:column;gap:7px;flex:1}
-.dl-item{display:flex;align-items:center;gap:7px}
-.dl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.dl-name{font-size:11px;color:var(--bo);flex:1}
-.dl-pct{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--bk)}
-
-/* ─ RECENT PAYMENTS LIST ─────────────── */
-.pay-item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bds)}
-.pay-item:last-child{border-bottom:none}
-.pay-left{display:flex;align-items:center;gap:9px}
-.pay-dot{width:6px;height:6px;border-radius:50%;background:var(--gn);flex-shrink:0}
-.pay-mes{font-size:12px;font-weight:500;color:var(--bk)}
-.pay-dt{font-size:11px;color:var(--mu);margin-top:1px}
-.pay-val{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--gn)}
-
-/* ─ TABLE ────────────────────────────── */
+/* TABLE */
 table{width:100%;border-collapse:collapse}
 thead tr{border-bottom:1px solid var(--bd)}
-th{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding:9px 14px;text-align:left;background:var(--s2)}
+th{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding:9px 14px;text-align:left;background:var(--s2)}
 td{padding:11px 14px;font-size:12px;color:var(--bo);border-bottom:1px solid var(--bds)}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:var(--s2)}
 .tm{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--bk);font-weight:500}
-.tt{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--tld);font-weight:600}
-.td{color:var(--mu)}
-.sb2{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600}
+.tt{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--tld);font-weight:500}
+.sb2{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
 .sp{background:var(--gnbg);color:var(--gn);border:1px solid var(--gnbr)}
-.spe{background:var(--ambg);color:var(--am);border:1px solid var(--ambr)}
 .sa{background:var(--tlbg);color:var(--tld);border:1px solid var(--tlbr)}
-.empty{text-align:center;padding:40px 20px;color:var(--mu)}
-.et{font-size:13px;font-weight:500;color:var(--sf);margin-bottom:4px}
+.spe{background:var(--ambg);color:var(--am);border:1px solid var(--ambr)}
+.sr{background:var(--rebg);color:var(--re);border:1px solid var(--rebr)}
 
-/* ─ ANN ─────────────────────────────── */
-.ann{background:var(--tlbg);border:1px solid var(--tlbr);border-left:3px solid var(--tl);border-radius:8px;padding:11px 14px;margin-bottom:14px}
-.ann-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
-.ann-t{font-size:12px;font-weight:700;color:var(--tld)}
-.ann-d{font-size:10px;color:var(--mu)}
-.ann-b{font-size:12px;color:var(--bo);line-height:1.6}
-
-/* ─ PAGES ────────────────────────────── */
+/* PAGES */
 .pg{display:none}.pg.on{display:block}
 
-/* ─ TWOCOL / THREECOL ───────────────── */
-.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.threecol{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+/* TWOCOL */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 
-/* ─ FOOTER ───────────────────────────── */
-.foot{display:flex;align-items:center;gap:16px;padding:12px 18px;border:1px solid var(--bd);border-radius:8px;margin-top:12px;background:var(--s);flex-wrap:wrap}
-.fi2{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:6px}
-.fs{width:1px;height:12px;background:var(--bd)}
-.disc{font-size:10px;color:var(--mu);padding:10px 18px;text-align:center;line-height:1.6;margin-top:6px}
-
-/* ─ NEWS ─────────────────────────────── */
-.ni2{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--bds);cursor:pointer}
-.ni2:last-child{border-bottom:none;padding-bottom:0}
-.ni2:hover .ntit{color:var(--tld)}
-.ndot{width:5px;height:5px;border-radius:50%;background:var(--tl);margin-top:6px;flex-shrink:0}
-.ntit{font-size:12px;font-weight:500;color:var(--bk);margin-bottom:3px;line-height:1.4;transition:color .12s}
-.nmet{font-size:10px;color:var(--mu)}
-
-/* ─ TICKER ───────────────────────────── */
-.ticker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-.tick{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:14px 16px}
-.tick-name{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px}
-.tick-val{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:500;color:var(--bk);line-height:1}
-.tick-chg{font-size:11px;margin-top:3px;font-weight:500}
-.tick-chg.up{color:var(--gn)}.tick-chg.dn{color:var(--re)}
-
-/* ─ FX CALC ──────────────────────────── */
-.fx-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.fx-inp{padding:9px 12px;border:1px solid var(--bd);border-radius:7px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:140px;transition:border-color .15s;outline:none}
-.fx-inp:focus{border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.fx-label{font-size:12px;font-weight:600;color:var(--sf)}
-.fx-result{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--tld)}
-.fx-rate{font-size:11px;color:var(--mu);margin-top:3px}
-
-/* ─ ALLOC ────────────────────────────── */
-.alloc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.alloc-card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:18px;position:relative;overflow:hidden}
-.alloc-bar{height:2px;position:absolute;top:0;left:0;right:0}
-.alloc-pct{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;color:var(--bk);margin-bottom:5px}
-.alloc-name{font-size:12px;font-weight:700;color:var(--bk);margin-bottom:4px}
-.alloc-desc{font-size:11px;color:var(--sf);line-height:1.5;margin-bottom:8px}
-.alloc-vs{font-size:10px;color:var(--mu);background:var(--bg);border:1px solid var(--bd);padding:4px 8px;border-radius:4px;display:inline-block}
-
-/* ─ BANK ─────────────────────────────── */
-.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.bst{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
-.br2{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bds)}
-.br2:last-child{border-bottom:none}
-.blab{font-size:11px;color:var(--mu)}
-.bval{font-size:12px;font-weight:600;color:var(--bk);font-family:'Space Grotesk',sans-serif}
-.cbtn{font-size:10px;padding:2px 7px;border:1px solid var(--bd);border-radius:4px;cursor:pointer;color:var(--mu);background:var(--bg);transition:all .12s;font-family:'Figtree',sans-serif}
-.cbtn:hover{border-color:var(--tl);color:var(--tld)}
-.cbtn.ok{border-color:var(--gnbr);color:var(--gn);background:var(--gnbg)}
-
-/* ─ LOCKED ───────────────────────────── */
-.locked-overlay{position:relative}
-.locked-overlay::after{content:'Em breve';position:absolute;inset:0;background:rgba(247,247,245,.88);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;border-radius:10px}
-
-/* ─ SUPPORT ──────────────────────────── */
-.sup-form textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:7px;font-size:13px;font-family:'Figtree',sans-serif;color:var(--bk);background:var(--s);resize:vertical;min-height:100px;transition:border-color .15s;margin-bottom:10px;outline:none}
-.sup-form textarea:focus{border-color:var(--tl);box-shadow:0 0 0 3px var(--tlbg)}
-.sup-btn{padding:10px 22px;background:var(--tl);color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;font-family:'Figtree',sans-serif;cursor:pointer;transition:background .15s}
-.sup-btn:hover{background:var(--tld)}
-.sup-success{background:var(--gnbg);border:1px solid var(--gnbr);border-radius:7px;padding:12px 16px;font-size:12px;color:var(--gn);font-weight:600;display:none}
-
-/* ─ INFO GRID ────────────────────────── */
-.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
-.info-row{padding:8px 0;border-bottom:1px solid var(--bds);display:flex;flex-direction:column;gap:2px}
+/* CLIENT CARD */
+.cli-card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px;cursor:pointer;transition:all .15s}
+.cli-card:hover{border-color:var(--tlbr);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.cli-name{font-size:13.5px;font-weight:600;color:var(--bk);margin-bottom:3px}
+.cli-sub{font-size:11px;color:var(--mu);margin-bottom:10px}
+.cli-stat{display:flex;gap:12px}
+.cli-s{font-size:11px;color:var(--sf)}
+.cli-s span{font-weight:600;color:var(--bk)}
+.cli-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.info-row{padding:8px 0;border-bottom:1px solid var(--bds);display:flex;justify-content:space-between;align-items:center}
 .info-row:last-child{border-bottom:none}
-.info-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.info-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
 .info-val{font-size:12px;font-weight:500;color:var(--bk)}
-
-/* ─ RATE TABLE ───────────────────────── */
-.chart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;gap:10px}
-.chart-empty-bars{display:flex;align-items:flex-end;gap:5px;height:60px}
-.chart-empty-bar{width:14px;border-radius:3px 3px 0 0;background:var(--bd)}
-
-/* ─ MOBILE ───────────────────────────── */
-@media(max-width:768px){
-  .sb{width:100%!important;min-height:auto!important;height:60px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(--bd)!important}
-  .sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
-  .sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;overflow:hidden!important}
-  .ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:4px 2px!important;border-radius:0!important;font-size:9px!important;margin-bottom:0!important}
-  .ni.on{background:var(--tlbg)!important;border-top:2px solid var(--tl)!important;border-left:none!important;border-radius:0!important}
-  .ni svg{width:18px!important;height:18px!important;opacity:.5!important}
-  .ni.on svg{opacity:1!important}
-  .mn{margin-left:0!important;padding:72px 14px 72px!important}
-  .topbar{flex-direction:column!important;gap:8px!important;margin-bottom:16px!important}
-  .tb-ti{font-size:22px!important}
-  .stat-row{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-  .stat-row .stat:last-child:nth-child(odd){grid-column:1/-1!important}
-  .sv{font-size:18px!important}
-  .dash-grid{grid-template-columns:1fr!important}
-  .twocol{grid-template-columns:1fr!important}
-  .threecol{grid-template-columns:1fr!important}
-  .bgrid{grid-template-columns:1fr!important}
-  .alloc-grid{grid-template-columns:1fr!important}
-  .ticker{grid-template-columns:repeat(2,1fr)!important}
-  .info-grid{grid-template-columns:1fr!important}
-  .foot{flex-direction:column!important;gap:6px!important}
-  .fs,.desk-only{display:none!important}
-  .lc{margin:16px!important;padding:32px 20px!important}
-  .mob-top{display:flex!important}
-  .hero-band{flex-direction:column!important;gap:12px!important}
-  .hero-band-right{align-items:flex-start!important}
-}
-@media(min-width:769px){.mob-top{display:none!important}}
-.mob-top{position:fixed;top:0;left:0;right:0;height:56px;background:var(--s);border-bottom:1px solid var(--bd);align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
+.chart-box{position:relative;height:160px}
+.disc{font-size:10px;color:var(--mu);padding:10px 18px;text-align:center;line-height:1.5;margin-top:6px}
+@media(max-width:768px){.sb{display:none}.mn{margin-left:0;padding:20px}}
 </style>
 </head>
 <body>
-
-<!-- WELCOME OVERLAY -->
-<div id="WLC" style="display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto">
-  <div style="max-width:520px;margin:0 auto;padding:48px 24px 80px">
-    <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px">
-      <svg viewBox="0 0 180 90" style="height:32px;width:auto">
-        <text x="90" y="54" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="46" fill="#AAAAAA" text-anchor="middle" letter-spacing="-2">GST</text>
-        <text x="90" y="72" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#2AABB8" text-anchor="middle" letter-spacing="5">PARTNERS</text>
-      </svg>
-      <button onclick="closeWelcome()" style="background:none;border:1px solid var(--bd);border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--mu);cursor:pointer;font-family:inherit" id="wlc-skip">Pular</button>
-    </div>
-    <!-- Greeting -->
-    <div style="margin-bottom:36px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tld);margin-bottom:8px" id="wlc-tag">Bem-vindo ao GST Access</div>
-      <div style="font-family:'Lora',serif;font-size:30px;font-weight:400;color:var(--bk);line-height:1.15;letter-spacing:-.01em;margin-bottom:10px" id="wlc-name">—</div>
-      <div style="font-size:14px;color:var(--mu);line-height:1.6" id="wlc-sub">Seu portal exclusivo de investimentos. Aqui você acompanha tudo em tempo real.</div>
-    </div>
-    <!-- Steps -->
-    <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:36px" id="wlc-steps">
-      <div class="wlc-step" onclick="goStep(0)">
-        <div class="wlc-step-icon" style="background:rgba(42,171,184,.12)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2AABB8" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="wlc-step-body"><div class="wlc-step-title" id="ws1t">Dashboard</div><div class="wlc-step-text" id="ws1x">Veja seu patrimônio, rendimentos acumulados e a evolução do seu investimento.</div></div>
-        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-      </div>
-      <div class="wlc-step" onclick="goStep(1)">
-        <div class="wlc-step-icon" style="background:rgba(26,127,75,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A7F4B" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-        <div class="wlc-step-body"><div class="wlc-step-title" id="ws2t">Pagamentos</div><div class="wlc-step-text" id="ws2x">Histórico completo de todos os rendimentos mensais recebidos.</div></div>
-        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-      </div>
-      <div class="wlc-step" onclick="goStep(2)">
-        <div class="wlc-step-icon" style="background:rgba(124,58,237,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div class="wlc-step-body"><div class="wlc-step-title" id="ws3t">Alocações</div><div class="wlc-step-text" id="ws3x">Veja como seu capital está distribuído e use o simulador de crescimento.</div></div>
-        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-      </div>
-      <div class="wlc-step" onclick="goStep(3)">
-        <div class="wlc-step-icon" style="background:rgba(217,119,6,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
-        <div class="wlc-step-body"><div class="wlc-step-title" id="ws4t">Documentos</div><div class="wlc-step-text" id="ws4x">Acesse seu contrato e extratos gerados mensalmente.</div></div>
-        <div class="wlc-step-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-      </div>
-    </div>
-    <!-- CTA -->
-    <button onclick="closeWelcome()" style="width:100%;padding:13px;background:var(--bk);color:white;border:none;border-radius:5px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.02em" id="wlc-cta">Acessar meu portal</button>
-    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--mu)" id="wlc-note">Esta tela não aparecerá novamente</div>
-  </div>
-</div>
 
 <!-- LOGIN -->
 <div class="lp" id="LP">
   <div class="lc">
     <div class="logo-c">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:80px;width:auto;display:block;margin:0 auto 12px">
-  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#AAAAAA" text-anchor="middle" letter-spacing="-2">GST</text>
-  <text x="90" y="80" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#2AABB8" text-anchor="middle" letter-spacing="5">PARTNERS</text>
-</svg>
+      <svg viewBox="0 0 160 64" style="height:52px;width:auto;display:block;margin:0 auto 8px">
+        <text x="4" y="42" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="42" fill="#AAAAAA" letter-spacing="-1">GST</text>
+        <text x="4" y="58" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#2AABB8" letter-spacing="4">PARTNERS</text>
+      </svg>
+      <div class="l-role"><span>Portal do Captador</span></div>
     </div>
-    <div class="ltit" id="lt">Bem-vindo</div>
-    <div class="lsub" id="ls">Entre com seu e-mail e senha para acessar o portal.</div>
-    <label class="fl" id="ll1">E-mail</label>
+    <div class="ltit">Bem-vindo</div>
+    <div class="lsub">Acesse sua conta de captador para acompanhar clientes e comissões.</div>
+    <label class="fl">E-mail</label>
     <input class="finp" type="email" id="EM" placeholder="seu@email.com">
-    <label class="fl" id="ll2">Senha</label>
-    <div class="pw-wrap">
-      <input class="finp" type="password" id="PW" placeholder="••••••••">
-      <button class="eye-btn" onclick="togglePw()" type="button">
-        <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-    <button class="bp" id="LB" onclick="doLogin()"><span id="LBT">Entrar</span></button>
+    <label class="fl">Senha</label>
+    <input class="finp" type="password" id="PW" placeholder="••••••••">
+    <button class="bp" onclick="doLogin()">Entrar</button>
     <div class="lerr" id="LE"></div>
     <div class="lft">Acesso restrito · GST Partners Corp · Orlando, FL</div>
   </div>
@@ -379,52 +152,51 @@ tbody tr:hover td{background:var(--s2)}
 
 <!-- APP -->
 <div class="app" id="APP">
-
-  <!-- MOBILE TOP -->
-  <div class="mob-top" id="MOB">
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:30px;width:auto;display:block">
-  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#AAAAAA" text-anchor="middle" letter-spacing="-2">GST</text>
-  <text x="90" y="80" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#2AABB8" text-anchor="middle" letter-spacing="5">PARTNERS</text>
-</svg>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <div style="text-align:right"><div id="MUN" style="font-size:12px;font-weight:500;color:var(--bk)">—</div><div id="MPL" style="font-size:10px;color:var(--mu)">—</div></div>
-      <div id="MAV" class="av" style="width:32px;height:32px;font-size:11px">--</div>
-    </div>
-  </div>
-
   <!-- SIDEBAR -->
   <aside class="sb">
     <div class="sb-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" style="height:52px;width:auto;display:block">
-  <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#AAAAAA" text-anchor="middle" letter-spacing="-2">GST</text>
-  <text x="90" y="80" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#2AABB8" text-anchor="middle" letter-spacing="5">PARTNERS</text>
-</svg>
+      <svg viewBox="0 0 160 64" style="height:44px;width:auto;display:block">
+        <text x="4" y="38" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="38" fill="#AAAAAA" letter-spacing="-1">GST</text>
+        <text x="4" y="54" font-family="Arial,sans-serif" font-weight="700" font-size="10" fill="#2AABB8" letter-spacing="4">PARTNERS</text>
+      </svg>
     </div>
     <div class="sb-user">
-      <div class="av" id="AV">--</div>
-      <div><div class="un" id="UN">—</div><div class="up" id="UP">—</div></div>
+      <div class="av">RC</div>
+      <div>
+        <div class="un">Ricardo Costa</div>
+        <div class="up">Captador · Ativo</div>
+      </div>
     </div>
     <nav class="sb-nav">
-      <div class="ns" id="ns1">Visão Geral</div>
-      <a class="ni on" onclick="nav('dashboard',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.354 1.146a.5.5 0 00-.708 0l-6 6A.5.5 0 002 7.5v7a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-4h2v4a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-7a.5.5 0 00-.146-.354L13 5.793V2.5a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v1.293z"/></svg><span id="nt1">Dashboard</span></a>
-      <a class="ni" onclick="nav('payments',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span id="nt2">Pagamentos</span></a>
-      <a class="ni" onclick="nav('documents',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 0h5.293A1 1 0 0110 .293L13.707 4a1 1 0 01.293.707V14a2 2 0 01-2 2H4a2 2 0 01-2-2V2a2 2 0 012-2zm5.5 1.5v2a1 1 0 001 1h2L9.5 1.5z"/></svg><span id="nt3">Documentos</span></a>
-      <a class="ni" onclick="nav('rates',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg><span id="nt9">Rentabilidade</span></a>
-      <div class="ns" id="ns2">Mercado</div>
-      <a class="ni" onclick="nav('news',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 2.5A1.5 1.5 0 011.5 1h11A1.5 1.5 0 0114 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 000-1H14v-9a.5.5 0 00-1 0v9H1.497A1.497 1.497 0 012 12.5v-10zm3.5 1a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4z"/></svg><span id="nt4">Notícias</span></a>
-      <a class="ni" onclick="nav('alloc',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 2a1 1 0 011 1v1h.5A1.5 1.5 0 0114 5.5v7a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-7A1.5 1.5 0 013.5 4H4V3a1 1 0 012 0v1h4V3a1 1 0 011-1zm1 4H4v6.5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5V6z"/></svg><span id="nt5">Alocações</span></a>
-      <div class="ns" id="ns3">Serviços</div>
-      <a class="ni" onclick="nav('transfer',this)"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"/></svg><span id="nt6">Transferência</span></a>
-      <a class="ni" onclick="nav('support',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg><span id="nt7">Suporte</span></a>
+      <div class="ns">Visão Geral</div>
+      <a class="ni on" onclick="nav('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a class="ni" onclick="nav('clients',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Meus Clientes
+      </a>
+      <div class="ns">Financeiro</div>
+      <a class="ni" onclick="nav('commissions',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Comissões
+      </a>
+      <div class="ns">Serviços</div>
+      <a class="ni" onclick="nav('contract',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Meu Contrato
+      </a>
+      <a class="ni" onclick="nav('materials',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Materiais
+      </a>
     </nav>
     <div class="sb-bot">
-      <div class="lang"><button class="lb on" onclick="setLang('pt')">PT</button><button class="lb" onclick="setLang('en')">EN</button></div>
-      <button onclick="toggleDark()" style="background:none;border:1px solid var(--bd);border-radius:5px;padding:3px 7px;cursor:pointer;color:var(--mu);display:flex;align-items:center">
-        <svg id="dark-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <button class="outbtn" onclick="doLogout()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sair
       </button>
-      <button class="outbtn" onclick="doLogout()"><svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg><span id="nt8">Sair</span></button>
     </div>
   </aside>
 
@@ -433,1203 +205,539 @@ tbody tr:hover td{background:var(--s2)}
 
     <!-- DASHBOARD -->
     <div class="pg on" id="pg-dashboard">
-
-      <!-- TOPBAR -->
       <div class="topbar">
         <div>
-          <div class="tb-ey" id="tb-ey">Dashboard · GST Access</div>
-          <div class="tb-ti" id="tb-ti">Visão Geral do Portfólio</div>
-          <div id="tb-we" style="font-size:14px;color:var(--mu);margin-top:5px;font-weight:400"></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span id="currency-badge" style="display:none;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--ambg);color:var(--am);border:1px solid var(--ambr)">BRL</span>
-          <div class="badge-g"><div class="dot"></div><span id="tb-st">Ativo</span></div>
-        </div>
-      </div>
-
-      <div id="ann-section"></div>
-
-      <!-- HERO BAND: patrimônio -->
-      <div class="hero-band" id="hero-metric">
-        <div class="hero-band-left">
-          <div class="hero-band-label" id="hm-label">Patrimônio Investido</div>
-          <div class="hero-band-val" id="hm-val">—</div>
-          <div class="hero-band-sub" id="hm-sub">—</div>
-          <div class="hero-band-ret" id="hm-ret"></div>
-        </div>
-        <div class="hero-band-right">
-          <div class="badge-g"><div class="dot"></div><span id="tb-st2">Ativo</span></div>
-          <button onclick="toggleHeroMetric()" style="background:none;border:1px solid var(--bd);border-radius:6px;cursor:pointer;color:var(--mu);padding:5px 7px;display:flex;align-items:center;margin-top:2px">
-            <svg id="hm-eye" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- STAT CARDS ROW 1 -->
-      <div class="stat-row">
-        <div class="stat stat-tl">
-          <div class="sl" id="m1l">Valor Aportado</div>
-          <div class="sv" id="m1v">—</div>
-          <div class="ss" id="m1s">—</div>
-          <button class="hide-btn" onclick="toggleMetric('m1v','m1s')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <div class="stat stat-gn">
-          <div class="sl" id="m2l">Rendimentos Recebidos</div>
-          <div class="sv gn" id="m2v">—</div>
-          <div class="ss" id="m2s">—</div>
-          <button class="hide-btn" onclick="toggleMetric('m2v','m2s')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <div class="stat stat-am">
-          <div class="sl" id="m3l">Próximo Pagamento</div>
-          <div class="sv am" id="m3v">—</div>
-          <div class="ss" id="m3s">—</div>
-          <button class="hide-btn" onclick="toggleMetric('m3v','m3s')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- STAT CARDS ROW 2 -->
-      <div class="stat-row">
-        <div class="stat stat-pu">
-          <div class="sl" id="m4l">Retorno Médio Mensal</div>
-          <div class="sv pu" id="m4v">—</div>
-          <div class="ss" id="m4s">—</div>
-        </div>
-        <div class="stat stat-re">
-          <div class="sl" id="m5l">Total Retirado</div>
-          <div class="sv re" id="m5v">—</div>
-          <div class="ss" id="m5s">—</div>
-          <button class="hide-btn" onclick="toggleMetric('m5v','m5s')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <div class="stat stat-tl">
-          <div class="sl" id="m6l">Rentabilidade Acumulada</div>
-          <div class="sv tl" id="m6v">—</div>
-          <div class="ss" id="m6s">—</div>
-        </div>
-      </div>
-
-      <!-- DASHBOARD GRID: chart + right panel -->
-      <div class="dash-grid">
-
-        <!-- LEFT: chart -->
-        <div class="card" style="margin-bottom:0">
-          <div class="ch">
-            <div class="ct" id="ch-ti">Evolução dos Rendimentos</div>
-            <div class="cm" id="ch-me">Últimos pagamentos</div>
+          <div class="tb-ey">Portal do Captador · GST Access</div>
+          <div class="tb-ti">Dashboard</div>
+          <div style="font-size:13px;color:var(--sf);margin-top:4px">
+            Bem-vindo de volta, <strong style="color:var(--tld)">Ricardo</strong>
           </div>
-          <div class="cb"><div class="chart-box"><canvas id="RC"></canvas></div></div>
         </div>
+        <div class="badge-g"><div class="dot"></div>Conta ativa · Junho 2026</div>
+      </div>
 
-        <!-- RIGHT PANEL -->
-        <div class="rpanel">
+      <!-- Metrics -->
+      <div class="metrics">
+        <div class="metric accent-tl">
+          <div class="ml">Capital Captado</div>
+          <div class="mv tl">US$ 285.000</div>
+          <div class="ms">4 clientes ativos</div>
+        </div>
+        <div class="metric accent-gn">
+          <div class="ml">Comissão Mensal</div>
+          <div class="mv gn">US$ 3.027</div>
+          <div class="ms">Próximo pagamento: 30/06</div>
+        </div>
+        <div class="metric accent-pu">
+          <div class="ml">Total Recebido</div>
+          <div class="mv">US$ 19.620</div>
+          <div class="ms">Desde jan/2025</div>
+        </div>
+        <div class="metric accent-am">
+          <div class="ml">Comissões de Entrada</div>
+          <div class="mv am">US$ 5.700</div>
+          <div class="ms">4 integralizações</div>
+        </div>
+      </div>
 
-          <!-- Donut -->
-          <div class="card" style="margin-bottom:0">
-            <div class="ch"><div class="ct" id="al-ti">Composição da Carteira</div></div>
-            <div class="cb">
-              <div class="donut-wrap">
-                <canvas id="DC" class="donut-canvas"></canvas>
-                <div class="donut-legend" id="donut-legend"></div>
+      <div class="twocol">
+        <!-- Chart -->
+        <div class="card">
+          <div class="ch"><div class="ct">Evolução das Comissões Mensais</div><div class="cm">Jan – Jun 2026</div></div>
+          <div class="cb">
+            <div class="chart-box"><canvas id="commChart"></canvas></div>
+          </div>
+        </div>
+        <!-- Clients summary -->
+        <div class="card">
+          <div class="ch"><div class="ct">Clientes Ativos</div><div class="cm">Resumo</div></div>
+          <div class="cb" style="padding:0">
+            <table>
+              <thead><tr><th>Cliente</th><th>Capital</th><th>Comissão/mês</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><span class="tm">Mariana Souza</span></td><td><span class="tt">US$ 100.000</span></td><td><span class="tt">US$ 1.790</span></td><td><span class="sb2 sp">Ativo</span></td></tr>
+                <tr><td><span class="tm">Felipe Andrade</span></td><td><span class="tt">US$ 75.000</span></td><td><span class="tt">US$ 968</span></td><td><span class="sb2 sp">Ativo</span></td></tr>
+                <tr><td><span class="tm">Carolina Melo</span></td><td><span class="tt">US$ 60.000</span></td><td><span class="tt">US$ 774</span></td><td><span class="sb2 sp">Ativo</span></td></tr>
+                <tr><td><span class="tm">Bruno Tavares</span></td><td><span class="tt">US$ 50.000</span></td><td><span class="tt">US$ 495</span></td><td><span class="sb2 sa">Em análise</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next commission -->
+      <div class="card">
+        <div class="ch"><div class="ct">Próxima Distribuição</div><div class="cm">30 de junho de 2026</div></div>
+        <div class="cb">
+          <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Comissão estimada</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:600;color:var(--tld);letter-spacing:-.04em">US$ 3.027</div>
+              <div style="font-size:11px;color:var(--mu);margin-top:4px">Baseado em US$ 235.000 capital ativo (3 clientes)</div>
+            </div>
+            <div style="width:1px;height:60px;background:var(--bd)"></div>
+            <div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Detalhamento</div>
+              <div style="font-size:12px;color:var(--bo);line-height:2">
+                Mariana Souza: <strong>US$ 1.790</strong><br>
+                Felipe Andrade: <strong>US$ 968</strong><br>
+                Carolina Melo: <strong>US$ 774</strong>
               </div>
             </div>
-          </div>
-
-          <!-- Recent payments -->
-          <div class="card" style="margin-bottom:0">
-            <div class="ch">
-              <div class="ct">Últimos Pagamentos</div>
-              <a onclick="nav('payments',document.querySelector('.ni[onclick*=payments]'))" style="font-size:11px;color:var(--tld);cursor:pointer;font-weight:600;text-decoration:none">Ver todos →</a>
-            </div>
-            <div class="cb" style="padding:4px 20px 16px" id="recent-pays-list">
-              <div style="text-align:center;padding:20px;color:var(--mu);font-size:12px">Carregando...</div>
+            <div style="width:1px;height:60px;background:var(--bd)"></div>
+            <div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Bruno Tavares</div>
+              <div style="font-size:12px;color:var(--am)">Pendente integralização</div>
+              <div style="font-size:11px;color:var(--mu);margin-top:3px">Comissão de entrada: US$ 1.000</div>
             </div>
           </div>
-
-        </div><!-- /rpanel -->
-      </div><!-- /dash-grid -->
-
+        </div>
+      </div>
+      <div class="disc">As comissões são calculadas sobre o capital efetivamente integralizado e ativo. Valores estimados sujeitos a confirmação.</div>
     </div>
 
-    <!-- RATES TABLE -->
-    <div class="pg" id="pg-rates">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="rt-ti">Tabela de Rentabilidade</div><div style="font-size:13px;color:var(--sf);margin-top:4px" id="rt-sub">Rendimentos pré-fixados por valor e prazo de aplicação</div></div></div>
-
-      <!-- Selector tabs -->
-      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-        <button onclick="setRateView('monthly')" id="rv-monthly" style="padding:7px 16px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--tl);background:var(--tl);color:white;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:all .15s">Saques Mensais</button>
-        <button onclick="setRateView('compound')" id="rv-compound" style="padding:7px 16px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:all .15s">Juros Compostos</button>
+    <!-- CLIENTS -->
+    <div class="pg" id="pg-clients">
+      <div class="topbar">
+        <div><div class="tb-ey">Portal do Captador</div><div class="tb-ti">Meus Clientes</div></div>
+        <div class="badge-g"><div class="dot"></div>4 clientes</div>
       </div>
 
-      <!-- Profile cards -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px" id="rt-profiles">
-        <div onclick="setRateTier(1)" id="rt-tier-1" style="background:var(--s);border:2px solid var(--tl);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tld);margin-bottom:8px">TIER 1</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--bk)">$25k – $49k</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:4px">2.5% – 3.0% / mês</div>
+      <div class="cli-grid">
+
+        <div class="cli-card" onclick="showClient('mariana')">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="av" style="width:36px;height:36px;font-size:13px">MS</div>
+            <div>
+              <div class="cli-name">Mariana Souza</div>
+              <div class="cli-sub">mariana.souza@email.com · Perfil Arrojado</div>
+            </div>
+          </div>
+          <div class="cli-stat">
+            <div class="cli-s">Capital: <span>US$ 100.000</span></div>
+            <div class="cli-s">Retorno: <span>1,79%/mês</span></div>
+            <div class="cli-s"><span class="sb2 sp">Ativo</span></div>
+          </div>
         </div>
-        <div onclick="setRateTier(2)" id="rt-tier-2" style="background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pu);margin-bottom:8px">TIER 2</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--bk)">$50k – $99k</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:4px">3.0% – 3.5% / mês</div>
+
+        <div class="cli-card" onclick="showClient('felipe')">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--pubg);border-color:var(--pubr);color:var(--pu)">FA</div>
+            <div>
+              <div class="cli-name">Felipe Andrade</div>
+              <div class="cli-sub">felipe.andrade@email.com · Perfil Arrojado</div>
+            </div>
+          </div>
+          <div class="cli-stat">
+            <div class="cli-s">Capital: <span>US$ 75.000</span></div>
+            <div class="cli-s">Retorno: <span>1,29%/mês</span></div>
+            <div class="cli-s"><span class="sb2 sp">Ativo</span></div>
+          </div>
         </div>
-        <div onclick="setRateTier(3)" id="rt-tier-3" style="background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:16px 18px;cursor:pointer;transition:all .15s">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--am);margin-bottom:8px">TIER 3</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--bk)">$100k+</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:4px">3.5% – 4.5% / mês</div>
+
+        <div class="cli-card" onclick="showClient('carolina')">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">CM</div>
+            <div>
+              <div class="cli-name">Carolina Melo</div>
+              <div class="cli-sub">carolina.melo@email.com · Perfil Arrojado</div>
+            </div>
+          </div>
+          <div class="cli-stat">
+            <div class="cli-s">Capital: <span>US$ 60.000</span></div>
+            <div class="cli-s">Retorno: <span>1,29%/mês</span></div>
+            <div class="cli-s"><span class="sb2 sp">Ativo</span></div>
+          </div>
         </div>
+
+        <div class="cli-card" onclick="showClient('bruno')">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">BT</div>
+            <div>
+              <div class="cli-name">Bruno Tavares</div>
+              <div class="cli-sub">bruno.tavares@email.com · Perfil Arrojado</div>
+            </div>
+          </div>
+          <div class="cli-stat">
+            <div class="cli-s">Capital: <span>US$ 50.000</span></div>
+            <div class="cli-s">Retorno: <span>—</span></div>
+            <div class="cli-s"><span class="sb2 sa">Em análise</span></div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Main rates table -->
-      <div class="card" style="margin-bottom:14px">
-        <div class="ch" style="flex-wrap:wrap;gap:8px">
-          <div>
-            <div class="ct" id="rt-card-ti">Projeção de Rendimentos — Tier 1 · $25k–$49k</div>
-            <div class="cm" id="rt-card-sub">Taxa base: 2.5% a.m. | Com reinvestimento parcial</div>
+      <!-- Client detail -->
+      <div id="client-detail" style="display:none">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <button onclick="document.getElementById('client-detail').style.display='none'" style="background:none;border:1px solid var(--bd);border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;color:var(--mu);font-family:inherit">← Voltar</button>
+          <div style="font-size:16px;font-weight:600;color:var(--bk)" id="cd-name">—</div>
+          <div id="cd-badge"></div>
+        </div>
+        <div class="twocol">
+          <div class="card">
+            <div class="ch"><div class="ct">Dados do Cliente</div></div>
+            <div class="cb" id="cd-info"></div>
           </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <div style="width:8px;height:8px;border-radius:50%;background:var(--gn)"></div>
-            <span style="font-size:10px;font-weight:600;color:var(--gn)" id="rt-rate-badge">2.5% a.m.</span>
+          <div class="card">
+            <div class="ch"><div class="ct">Histórico de Pagamentos</div><div class="cm" id="cd-comm-total">—</div></div>
+            <div class="cb" style="padding:0" id="cd-pays"></div>
           </div>
         </div>
-        <div style="overflow-x:auto">
-          <table id="rt-table">
-            <thead>
-              <tr>
-                <th id="rt-th1">Capital Inicial</th>
-                <th>6 meses</th>
-                <th>12 meses</th>
-                <th>18 meses</th>
-                <th>24 meses</th>
-                <th>36 meses</th>
-              </tr>
-            </thead>
-            <tbody id="rt-tbody"></tbody>
+      </div>
+    </div>
+
+    <!-- COMMISSIONS -->
+    <div class="pg" id="pg-commissions">
+      <div class="topbar">
+        <div><div class="tb-ey">Portal do Captador</div><div class="tb-ti">Minhas Comissões</div></div>
+      </div>
+      <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+        <div class="metric accent-gn">
+          <div class="ml">Total Recebido</div>
+          <div class="mv gn">US$ 19.620</div>
+          <div class="ms">Jan 2025 – Jun 2026</div>
+        </div>
+        <div class="metric accent-tl">
+          <div class="ml">Comissões de Entrada</div>
+          <div class="mv tl">US$ 6.375</div>
+          <div class="ms">4 clientes</div>
+        </div>
+        <div class="metric accent-am">
+          <div class="ml">Comissões Mensais</div>
+          <div class="mv am">US$ 13.245</div>
+          <div class="ms">17 meses</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">Histórico de Comissões</div><div class="cm">Todas as entradas</div></div>
+        <div class="cb" style="padding:0">
+          <table>
+            <thead><tr><th>Data</th><th>Tipo</th><th>Cliente</th><th>Capital Base</th><th>Valor Recebido</th><th>Status</th></tr></thead>
+            <tbody id="comm-table-body"></tbody>
           </table>
         </div>
       </div>
-
-      <!-- Per-month breakdown -->
-      <div class="card" style="margin-bottom:14px">
-        <div class="ch">
-          <div class="ct" id="rt-det-ti">Detalhamento Mensal — Simule seu investimento</div>
-        </div>
-        <div class="cb">
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:16px;align-items:flex-end">
-            <div>
-              <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px" id="rt-cap-lbl">Capital (USD)</div>
-              <input type="number" id="rt-capital" value="50000" step="1000" oninput="buildRateDetail()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:150px">
-            </div>
-            <div>
-              <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px" id="rt-rate-lbl">Taxa Mensal (%)</div>
-              <input type="number" id="rt-rate" value="3.0" step="0.1" min="1" max="10" oninput="buildRateDetail()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:110px">
-            </div>
-            <div>
-              <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px" id="rt-per-lbl">Período (meses)</div>
-              <input type="number" id="rt-months" value="12" min="1" max="36" oninput="buildRateDetail()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Space Grotesk',sans-serif;color:var(--bk);background:var(--s);width:100px">
-            </div>
-          </div>
-          <!-- Summary badges -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px" id="rt-summary"></div>
-          <!-- Month by month table -->
-          <div style="overflow-x:auto"><table id="rt-detail-table"><thead><tr><th id="rt-dth1">Mês</th><th id="rt-dth2">Saldo</th><th id="rt-dth3">Rendimento</th><th id="rt-dth4">Total Recebido</th></tr></thead><tbody id="rt-detail-body"></tbody></table></div>
-        </div>
-      </div>
-
-      <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:6px;padding:10px 14px;font-size:11px;color:var(--am);font-weight:500;line-height:1.6" id="rt-disc">Projeções meramente ilustrativas. Rentabilidade pré-fixada sujeita a condições contratuais. Consulte sua assessora para confirmar taxas e prazos do seu contrato.</div>
+      <div class="disc">As comissões de entrada são pagas em até 10 dias úteis após confirmação da integralização. As mensais seguem o ciclo de pagamento dos investidores.</div>
     </div>
 
-    <!-- PAYMENTS -->
-    <div class="pg" id="pg-payments">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="py-ti">Histórico de Pagamentos</div></div></div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="py-ct">Pagamentos Mensais</div><div class="cm" id="py-cm">—</div></div>
-        <div id="PAY" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
+    <!-- CONTRACT -->
+    <div class="pg" id="pg-contract">
+      <div class="topbar">
+        <div><div class="tb-ey">Portal do Captador</div><div class="tb-ti">Meu Contrato</div></div>
       </div>
-    </div>
-
-    <!-- DOCUMENTS -->
-    <div class="pg" id="pg-documents">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="dc-ti">Documentos</div></div></div>
-      <div class="card" id="client-info-card" style="display:none">
-        <div class="ch"><div class="ct" id="dc-ci">Informações do Titular</div></div>
-        <div class="cb">
-          <div class="info-grid" id="client-info-grid"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ct" id="dc-ct">Contratos e Relatórios</div></div>
-        <div id="DOC" style="overflow-x:auto"><div style="text-align:center;padding:40px;color:var(--mu)">Carregando...</div></div>
-      </div>
-    </div>
-
-    <!-- NEWS -->
-    <div class="pg" id="pg-news">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="nw-ti">Notícias & Mercado</div></div></div>
-
-      <!-- Market Tickers -->
-      <div class="ticker">
-        <div class="tick">
-          <div class="tick-name">USD/BRL</div>
-          <div class="tick-val" id="fx-rate-display">—</div>
-          <div class="tick-chg" id="fx-chg">Carregando...</div>
-        </div>
-        <div class="tick">
-          <div class="tick-name">IBOVESPA</div>
-          <div class="tick-val">~131k</div>
-          <div class="tick-chg up">Bolsa de SP</div>
-        </div>
-        <div class="tick">
-          <div class="tick-name">S&P 500</div>
-          <div class="tick-val">~5,600</div>
-          <div class="tick-chg up">Bolsa de NY</div>
-        </div>
-        <div class="tick">
-          <div class="tick-name">CDI (BR)</div>
-          <div class="tick-val">~13.6%</div>
-          <div class="tick-chg" style="color:var(--mu)">a.a.</div>
-        </div>
-      </div>
-
-      <!-- FX Calculator -->
-      <div class="card" style="margin-bottom:14px">
-        <div class="ch"><div class="ct" id="fx-ti">Calculadora USD / BRL</div></div>
-        <div class="cb">
-          <div class="fx-row">
-            <span class="fx-label">USD $</span>
-            <input class="fx-inp" type="number" id="fx-usd" value="1000" oninput="calcFX()">
-            <span class="fx-label">=</span>
-            <div><div class="fx-result" id="fx-brl">—</div><div class="fx-rate" id="fx-rate-note">—</div></div>
-          </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bds)">
-            <div class="fx-row">
-              <span class="fx-label">BRL R$</span>
-              <input class="fx-inp" type="number" id="fx-brl-inp" value="5000" oninput="calcFXrev()">
-              <span class="fx-label">=</span>
-              <div><div class="fx-result" id="fx-usd-out">—</div><div class="fx-rate" id="fx-rate-note2">—</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="twocol">
         <div class="card">
-          <div class="ch"><div class="ct" id="nw-us">Mercado Americano</div><div class="cm" id="nw-us-s">Principais portais</div></div>
-          <div class="cb" id="NUS"></div>
+          <div class="ch"><div class="ct">Contrato Vigente</div><div class="cm">DocuSign · Certificado</div></div>
+          <div class="cb">
+            <div class="info-row"><span class="info-label">Número do Contrato</span><span class="info-val">2025-OP-CAP-RC</span></div>
+            <div class="info-row"><span class="info-label">Data de Assinatura</span><span class="info-val">15 de janeiro de 2025</span></div>
+            <div class="info-row"><span class="info-label">Série</span><span class="info-val">Série 2025-OP-CAP</span></div>
+            <div class="info-row"><span class="info-label">Status</span><span class="info-val"><span class="sb2 sp">Ativo</span></span></div>
+            <div class="info-row"><span class="info-label">Envelope DocuSign</span><span class="info-val" style="font-size:11px;color:var(--tld)">A3B4C5D6-E7F8-9012-ABCD-EF1234567890</span></div>
+            <div style="margin-top:16px">
+              <button style="padding:9px 20px;background:var(--tl);color:white;border:none;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit" onclick="alert('PDF do contrato disponível em breve.')">
+                Baixar PDF do Contrato
+              </button>
+            </div>
+          </div>
         </div>
         <div class="card">
-          <div class="ch"><div class="ct" id="nw-br">Mercado Brasileiro</div><div class="cm" id="nw-br-s">Principais portais</div></div>
-          <div class="cb" id="NBR"></div>
+          <div class="ch"><div class="ct">Tabela de Comissões</div><div class="cm">Vigente</div></div>
+          <div class="cb" style="padding:0">
+            <table>
+              <thead><tr><th>Produto</th><th>Faixa</th><th>Entrada</th><th>Mensal</th></tr></thead>
+              <tbody>
+                <tr><td>Fundo GST</td><td>$25k – $49k</td><td style="color:var(--gn);font-weight:600">2,0%</td><td style="color:var(--tld);font-weight:600">0,99%</td></tr>
+                <tr><td>Fundo GST</td><td>$50k – $99k</td><td style="color:var(--gn);font-weight:600">2,5%</td><td style="color:var(--tld);font-weight:600">1,29%</td></tr>
+                <tr><td>Fundo GST</td><td>$100k – $249k</td><td style="color:var(--gn);font-weight:600">3,5%</td><td style="color:var(--tld);font-weight:600">1,79%</td></tr>
+                <tr><td>Fundo GST</td><td>$250k+</td><td style="color:var(--gn);font-weight:600">4,0%</td><td style="color:var(--tld);font-weight:600">2,09%</td></tr>
+                <tr><td>ANC / JP</td><td>$25k+</td><td style="color:var(--gn);font-weight:600">1,5%</td><td style="color:var(--tld);font-weight:600">0,70%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ALLOCATIONS -->
-    <div class="pg" id="pg-alloc">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="al2-ti">Alocações do Fundo</div></div></div>
-
-      <div class="alloc-grid" id="alloc-grid"></div>
-
-      <div class="card" style="margin-top:24px;margin-bottom:14px">
-        <div class="ch" style="flex-wrap:wrap;gap:8px">
-          <div class="ct">Simulador de Crescimento</div>
-          <div style="display:flex;gap:4px">
-            <button id="sim-btn-s" onclick="setSimMode('simple')" style="padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--tl);background:var(--tl);color:white;cursor:pointer;font-family:Inter,sans-serif">Saques Mensais</button>
-            <button id="sim-btn-c" onclick="setSimMode('compound')" style="padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);cursor:pointer;font-family:Inter,sans-serif">Juros Compostos</button>
-          </div>
-        </div>
-        <div class="cb">
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px">
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Valor inicial</div><input type="number" id="sim-capital" value="50000" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:150px"></div>
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Taxa mensal (%)</div><input type="number" id="sim-rate" value="3" step="0.1" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
-            <div><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:5px">Período (meses)</div><input type="number" id="sim-months" value="12" min="1" max="120" oninput="runSim()" style="padding:8px 12px;border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:Space Grotesk,sans-serif;color:var(--bk);background:var(--s);width:100px"></div>
-          </div>
-          <div id="sim-note" style="font-size:11px;color:var(--tld);font-weight:600;margin-bottom:10px;padding:5px 10px;background:var(--tlbg);border-radius:5px;border:1px solid var(--tlbr)"></div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px" id="sim-results"></div>
-          <div style="position:relative;height:150px"><canvas id="SC"></canvas></div>
-        </div>
+    <!-- MATERIALS -->
+    <div class="pg" id="pg-materials">
+      <div class="topbar">
+        <div><div class="tb-ey">Portal do Captador</div><div class="tb-ti">Materiais</div></div>
       </div>
-      <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:6px;padding:10px 14px;font-size:11px;color:var(--am);font-weight:500;line-height:1.6;margin-bottom:14px">Esta simulação é meramente ilustrativa e não constitui garantia de rentabilidade futura.</div>
-    </div>
-
-    <!-- TRANSFER -->
-    <div class="pg" id="pg-transfer">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="tr-ti">Dados para Transferência</div></div></div>
-      <div class="bgrid">
-        <div class="card">
-          <div class="ch"><div class="ct">🇺🇸 Wire Transfer</div></div>
-          <div class="cb">
-            <div class="bst">Beneficiary</div>
-            <div class="br2"><span class="blab">Account Name</span><span class="bval">GST Partners Corp</span></div>
-            <div class="br2"><span class="blab">Bank Name</span><span class="bval">Bank of America</span></div>
-            <div class="br2" style="border:none"><span class="blab">Account / Routing</span><span style="font-size:12px;color:var(--am);font-weight:600">A Consultar</span></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="ch"><div class="ct">🇧🇷 PIX / TED</div></div>
-          <div class="cb">
-            <div class="bst">Dados Bancários — A Consultar</div>
-            <div style="background:var(--ambg);border:1px solid var(--ambr);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--am);font-weight:500">Os dados bancários para transferência em BRL estão sendo finalizados. Entre em contato pelo suporte para informações.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Solicitar Transferência - LOCKED -->
-      <div class="card" style="margin-bottom:14px">
-        <div class="ch"><div class="ct" id="tr-req-ti">Solicitar Transferência</div><div class="cm" id="tr-req-cm">Em breve</div></div>
-        <div class="cb locked-overlay" style="padding:30px;text-align:center">
-          <div style="font-size:13px;font-weight:500;color:var(--mu);margin-bottom:4px" id="tr-locked-msg">Funcionalidade em desenvolvimento</div>
-          <div style="font-size:12px;color:var(--mu)" id="tr-locked-sub">Em breve você poderá solicitar transferências diretamente pelo portal.</div>
-        </div>
-      </div>
-
       <div class="card">
-        <div class="cb" style="display:flex;align-items:flex-start;gap:12px">
-          <div style="width:32px;height:32px;border-radius:6px;background:var(--ambg);border:1px solid var(--ambr);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--am)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:600;color:var(--bk);margin-bottom:3px" id="tr-nt">Importante</div>
-            <div style="font-size:12px;color:var(--bo);line-height:1.6" id="tr-nb" class="tr-note-mob">Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.<br><a href="mailto:contact@gstpartners.us" style="color:inherit;text-decoration:none">contact@gstpartners.us</a></div>
-          </div>
+        <div class="ch"><div class="ct">Materiais de Apresentação</div><div class="cm">Use com seus clientes</div></div>
+        <div class="cb" style="padding:0">
+          <table>
+            <thead><tr><th>Documento</th><th>Tipo</th><th>Atualização</th><th>Ação</th></tr></thead>
+            <tbody id="mat-tbody">
+              <tr>
+                <td><span class="tm">Apresentação para Captadores</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Apresentacao_Captadores.pdf</div></td>
+                <td><span class="sb2 sa">PDF</span></td>
+                <td style="color:var(--mu)">Jun 2026</td>
+                <td id="mat-apresentacao"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('apresentacao')">Baixar</button></td>
+              </tr>
+              <tr>
+                <td><span class="tm">Contrato Modelo — Captador</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Contrato_Captador.pdf</div></td>
+                <td><span class="sb2 sa">PDF</span></td>
+                <td style="color:var(--mu)">Jun 2026</td>
+                <td id="mat-contrato-cap"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('contrato-cap')">Baixar</button></td>
+              </tr>
+              <tr>
+                <td><span class="tm">Contrato Modelo — Investidor</span><div style="font-size:10px;color:var(--mu);margin-top:2px">GST_Contrato_Investidor.pdf</div></td>
+                <td><span class="sb2 sa">PDF</span></td>
+                <td style="color:var(--mu)">Jun 2026</td>
+                <td id="mat-contrato-inv"><button style="padding:4px 12px;background:var(--tl);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer" onclick="dlMat('contrato-inv')">Baixar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct">Contato GST Partners</div></div>
+        <div class="cb">
+          <div class="info-row"><span class="info-label">Operacional</span><span class="info-val">contact@gstpartners.us</span></div>
+          <div class="info-row"><span class="info-label">Suporte Captadores</span><span class="info-val">captadores@gstpartners.us</span></div>
+          <div class="info-row"><span class="info-label">Site</span><span class="info-val">gstpartners.us</span></div>
         </div>
       </div>
     </div>
-
-    <!-- SUPPORT -->
-    <div class="pg" id="pg-support">
-      <div class="topbar"><div><div class="tb-ey">GST Access</div><div class="tb-ti" id="su-ti">Suporte</div></div></div>
-      <div class="twocol">
-        <div class="card">
-          <div class="ch"><div class="ct" id="su-ct">Enviar Mensagem</div></div>
-          <div class="cb sup-form">
-            <label class="fl" id="su-lb1">Assunto</label>
-            <input class="finp" type="text" id="su-sub" placeholder="Ex: Dúvida sobre pagamento" style="margin-bottom:14px">
-            <label class="fl" id="su-lb2">Mensagem</label>
-            <textarea id="su-msg" placeholder="Descreva sua dúvida ou solicitação..."></textarea>
-            <button class="sup-btn" onclick="sendSupport()" id="su-btn">Enviar mensagem</button>
-            <div class="sup-success" id="su-ok">Mensagem enviada com sucesso! Nossa equipe retornará em até 24 horas.</div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="margin-bottom:14px">
-            <div class="ch"><div class="ct" id="su-ct2">Contato Direto</div></div>
-            <div class="cb">
-              <div class="br2"><span class="blab">E-mail</span><span style="font-size:12px;color:var(--bk)">contact@gstpartners.us</span></div>
-              <div class="br2"><span class="blab">Endereço</span><span style="font-size:12px;color:var(--bk)">200 E Robinson St, Orlando FL 32801</span></div>
-              <div class="br2"><span class="blab">EIN</span><span class="bval">38-4273898</span></div>
-              <div class="br2" style="border:none"><span class="blab" id="su-resp">Tempo de resposta</span><span style="font-size:12px;color:var(--gn);font-weight:500">Até 24 horas úteis</span></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="ch"><div class="ct" id="su-ct3">Horário de Atendimento</div></div>
-            <div class="cb">
-              <div class="br2"><span class="blab">Segunda a Sexta</span><span style="font-size:12px;color:var(--bk)">9h – 18h (EST)</span></div>
-              <div class="br2" style="border:none"><span class="blab">Sábado e Domingo</span><span style="font-size:12px;color:var(--mu)">Fechado</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="foot">
-      <div class="fi2"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span id="fo1">Acesso individual e confidencial</span></div>
-      <div class="fs desk-only"></div>
-      <div class="fi2 desk-only">GST Partners Corp · EIN 38-4273898</div>
-      <div class="fs desk-only"></div>
-      <div class="fi2 desk-only">contact@gstpartners.us</div>
-    </div>
-    <div class="disc" id="disc">As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.</div>
 
   </main>
 </div>
 
 <script>
-const SB_URL='https://opijtpzlrygujkkjsltf.supabase.co'
-const SB_KEY='sb_publishable_cDJ1qwzVvmWBFILegIBvgg_ziL1slRT'
-const {createClient}=supabase
-const db=createClient(SB_URL,SB_KEY)
-let CU=null,INV=null,PAYS=[],DOCS=[],lang='pt',lineChart=null,donutChart=null,FX_RATE=5.75
+// ── DATA ─────────────────────────────────────────────────────────
+const CAPTADOR = {
+  nome: 'Ricardo Costa',
+  email: 'ricardo.costa@email.com',
+  iniciais: 'RC',
+  contrato: '2025-OP-CAP-RC',
+  desde: 'Janeiro 2025'
+}
 
-const T={
-  pt:{lt:'Bem-vindo',ls:'Entre com seu e-mail e senha para acessar o portal.',ll1:'E-mail',ll2:'Senha',LBT:'Entrar',
-    ns1:'Visão Geral',nt1:'Dashboard',nt2:'Pagamentos',nt3:'Documentos',nt9:'Rentabilidade',ns2:'Mercado',nt4:'Notícias',nt5:'Alocações & Sim.',ns3:'Serviços',nt6:'Transferência',nt7:'Suporte',nt8:'Sair',
-    'tb-ey':'Dashboard · GST Access','tb-ti':'Visão Geral do Portfólio','tb-st':'Ativo',
-    m1l:'Valor Aportado',m2l:'Rendimentos Recebidos',m3l:'Próximo Pagamento',m4l:'Retorno Médio Mensal',m5l:'Total Retirado',m6l:'Rentabilidade Acumulada',
-    'cy-ti':'Ciclo de Investimento',ph1:'Mês 1–6',ph2:'Mês 7–18',ph3:'Mês 19–120',
-    pc1l:'Fase atual',pc1n:'Aceleração',pc2l:'Próxima fase',pc2n:'Devolução',pc3l:'Fase final',pc3n:'Sócio dos Lucros',
-    'ch-ti':'Evolução dos Rendimentos','ch-me':'Últimos pagamentos','al-ti':'Composição da Carteira',
-    'py-ti':'Histórico de Pagamentos','py-ct':'Pagamentos Mensais',
-    'dc-ti':'Documentos','dc-ct':'Contratos e Relatórios','dc-ci':'Informações do Titular',
-    'nw-ti':'Notícias & Mercado','nw-us':'Mercado Americano','nw-us-s':'Principais portais','nw-br':'Mercado Brasileiro','nw-br-s':'Principais portais',
-    'fx-ti':'Calculadora USD / BRL',
-    'al2-ti':'Alocações do Fundo','al2-sub':'Estratégia de Investimento',
-    'tr-ti':'Dados para Transferência','tr-req-ti':'Solicitar Transferência','tr-req-cm':'Em breve',
-    'tr-locked-msg':'Indisponível para cotas novas','tr-locked-sub':'Solicitações de transferência ficam disponíveis após o período de carência conforme contrato.',
-    'tr-nt':'Importante','tr-nb':'Sempre confirme os dados com a equipe GST antes de realizar qualquer transferência.\nDúvidas: contact@gstpartners.us',
-    'su-ti':'Suporte','su-ct':'Enviar Mensagem','su-lb1':'Assunto','su-lb2':'Mensagem','su-btn':'Enviar mensagem',
-    'su-ct2':'Contato Direto','su-ct3':'Horário de Atendimento','su-resp':'Tempo de resposta',
-    fo1:'Acesso individual e confidencial',
-    th1:'Mês',th2:'Rendimento',th3:'Amortização',th4:'Total',th5:'Status',th6:'Rent. %',
-    td1:'Tipo',td2:'Referência',td3:'Arquivo',
-    ep:'Nenhum pagamento registrado ainda.',ed:'Nenhum documento disponível ainda.',
-    dl:'Abrir',paid:'Pago',pending:'Pendente',p1:'Fase 1 · Aceleração',nodata:'Sem dados ainda.',
-    welcome:'Bem-vindo,',disc:'As alocações em renda fixa são realizadas exclusivamente em instituições com cobertura FDIC de até US$ 3.000.000 por depositante.'
+const CLIENTS = {
+  mariana: {
+    nome: 'Mariana Souza',
+    email: 'mariana.souza@email.com',
+    perfil: 'Arrojado · Fundo GST Partners',
+    capital: 'US$ 100.000',
+    capitalVal: 100000,
+    aporte: '10/03/2025',
+    retorno: '1,79% a.m.',
+    status: 'Ativo',
+    statusClass: 'sp',
+    comEntrada: 2000,
+    comMensal: 1790,
+    initials: 'MS',
+    pagamentos: [
+      {mes:'Maio 2026',    valor:'US$ 1.790', data:'11/05/2026'},
+      {mes:'Abril 2026',   valor:'US$ 1.790', data:'11/04/2026'},
+      {mes:'Março 2026',   valor:'US$ 1.790', data:'11/03/2026'},
+      {mes:'Fevereiro 2026',valor:'US$ 1.790',data:'11/02/2026'},
+      {mes:'Janeiro 2026', valor:'US$ 1.790', data:'11/01/2026'},
+    ]
   },
-  en:{lt:'Welcome',ls:'Sign in with your email and password.',ll1:'Email',ll2:'Password',LBT:'Sign in',
-    ns1:'Overview',nt1:'Dashboard',nt2:'Payments',nt3:'Documents',nt9:'Rates Table',ns2:'Market',nt4:'News',nt5:'Alloc. & Sim.',ns3:'Services',nt6:'Transfer',nt7:'Support',nt8:'Sign out',
-    'tb-ey':'Dashboard · GST Access','tb-ti':'Portfolio Overview','tb-st':'Active',
-    m1l:'Amount Invested',m2l:'Returns Received',m3l:'Next Payment',m4l:'Avg. Monthly Return',m5l:'Total Withdrawn',m6l:'Cumulative Return',
-    'cy-ti':'Investment Cycle',ph1:'Month 1–6',ph2:'Month 7–18',ph3:'Month 19–120',
-    pc1l:'Current phase',pc1n:'Acceleration',pc2l:'Next phase',pc2n:'Repayment',pc3l:'Final phase',pc3n:'Profit Partner',
-    'ch-ti':'Returns Over Time','ch-me':'Latest payments','al-ti':'Portfolio Composition',
-    'py-ti':'Payment History','py-ct':'Monthly Payments',
-    'dc-ti':'Documents','dc-ct':'Contracts & Reports','dc-ci':'Account Holder Information',
-    'nw-ti':'News & Market','nw-us':'US Market','nw-us-s':'Top sources','nw-br':'Brazilian Market','nw-br-s':'Top sources',
-    'fx-ti':'USD / BRL Calculator',
-    'al2-ti':'Fund Allocations','al2-sub':'Investment Strategy',
-    'tr-ti':'Transfer Information','tr-req-ti':'Request Transfer','tr-req-cm':'Coming soon',
-    'tr-locked-msg':'Unavailable for new quotas','tr-locked-sub':'Transfer requests become available after the lock-in period as per contract.',
-    'tr-nt':'Important','tr-nb':'Always confirm details with the GST team before making any transfer.\nQuestions: contact@gstpartners.us',
-    'su-ti':'Support','su-ct':'Send Message','su-lb1':'Subject','su-lb2':'Message','su-btn':'Send message',
-    'su-ct2':'Direct Contact','su-ct3':'Business Hours','su-resp':'Response time',
-    fo1:'Individual and confidential access',
-    th1:'Month',th2:'Return',th3:'Repayment',th4:'Total',th5:'Status',th6:'Yield %',
-    td1:'Type',td2:'Reference',td3:'File',
-    ep:'No payments registered yet.',ed:'No documents available yet.',
-    dl:'Open',paid:'Paid',pending:'Pending',p1:'Phase 1 · Acceleration',nodata:'No data yet.',
-    welcome:'Welcome,',disc:'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor.'
+  felipe: {
+    nome: 'Felipe Andrade',
+    email: 'felipe.andrade@email.com',
+    perfil: 'Arrojado · Fundo GST Partners',
+    capital: 'US$ 75.000',
+    capitalVal: 75000,
+    aporte: '05/07/2025',
+    retorno: '1,29% a.m.',
+    status: 'Ativo',
+    statusClass: 'sp',
+    comEntrada: 1875,
+    comMensal: 968,
+    initials: 'FA',
+    pagamentos: [
+      {mes:'Maio 2026',  valor:'US$ 968', data:'11/05/2026'},
+      {mes:'Abril 2026', valor:'US$ 968', data:'11/04/2026'},
+      {mes:'Março 2026', valor:'US$ 968', data:'11/03/2026'},
+      {mes:'Fevereiro 2026',valor:'US$ 968',data:'11/02/2026'},
+    ]
+  },
+  carolina: {
+    nome: 'Carolina Melo',
+    email: 'carolina.melo@email.com',
+    perfil: 'Arrojado · Fundo GST Partners',
+    capital: 'US$ 60.000',
+    capitalVal: 60000,
+    aporte: '15/09/2025',
+    retorno: '1,29% a.m.',
+    status: 'Ativo',
+    statusClass: 'sp',
+    comEntrada: 1500,
+    comMensal: 774,
+    initials: 'CM',
+    pagamentos: [
+      {mes:'Maio 2026',  valor:'US$ 774', data:'11/05/2026'},
+      {mes:'Abril 2026', valor:'US$ 774', data:'11/04/2026'},
+      {mes:'Março 2026', valor:'US$ 774', data:'11/03/2026'},
+    ]
+  },
+  bruno: {
+    nome: 'Bruno Tavares',
+    email: 'bruno.tavares@email.com',
+    perfil: 'Arrojado · Fundo GST Partners',
+    capital: 'US$ 50.000',
+    capitalVal: 50000,
+    aporte: 'Pendente',
+    retorno: '—',
+    status: 'Em análise',
+    statusClass: 'sa',
+    comEntrada: 1000,
+    comMensal: 495,
+    initials: 'BT',
+    pagamentos: []
   }
 }
-function t(k){return T[lang][k]||k}
 
-function setLang(l){
-  lang=l
-  document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'))
-  document.querySelector('.lb[onclick="setLang(\''+l+'\')"]').classList.add('on')
-  Object.keys(T[l]).forEach(k=>{
-    const el=document.getElementById(k)
-    if(el&&!['m1v','m2v','m3v','m4v','m5v','m6v','m1s','m2s','m3s','m4s','m5s','m6s','pc1d','pc2d','pc3d','phf','AV','UN','UP','MAV','MUN','MPL','PAY','DOC','ann-section','NUS','NBR','tb-we','fx-rate-display','fx-chg','fx-brl','fx-usd-out','fx-rate-note','fx-rate-note2','py-cm','client-info-grid','cycle-note','alloc-grid','fdic-disc','su-ok','al2-desc','disc'].includes(k))
-      el.textContent=T[l][k]
-  })
-  const discEl=document.getElementById('disc')
-  if(discEl)discEl.textContent=t('disc')
-  if(INV)renderInv(INV)
-  renderPay(PAYS)
-  renderDoc(DOCS)
-  renderChart(PAYS)
-  renderNews()
-  renderAlloc()
-  calcFX()
-}
+const COMM_HISTORY = [
+  {data:'11/05/2026', tipo:'Mensal',  cliente:'Mariana Souza', base:'US$ 100.000', valor:'US$ 1.790', status:'sp', statusLabel:'Pago'},
+  {data:'11/05/2026', tipo:'Mensal',  cliente:'Felipe Andrade', base:'US$ 75.000', valor:'US$ 968',   status:'sp', statusLabel:'Pago'},
+  {data:'11/05/2026', tipo:'Mensal',  cliente:'Carolina Melo',  base:'US$ 60.000', valor:'US$ 774',   status:'sp', statusLabel:'Pago'},
+  {data:'11/04/2026', tipo:'Mensal',  cliente:'Mariana Souza', base:'US$ 100.000', valor:'US$ 1.790', status:'sp', statusLabel:'Pago'},
+  {data:'11/04/2026', tipo:'Mensal',  cliente:'Felipe Andrade', base:'US$ 75.000', valor:'US$ 968',   status:'sp', statusLabel:'Pago'},
+  {data:'11/04/2026', tipo:'Mensal',  cliente:'Carolina Melo',  base:'US$ 60.000', valor:'US$ 774',   status:'sp', statusLabel:'Pago'},
+  {data:'11/03/2026', tipo:'Mensal',  cliente:'Mariana Souza', base:'US$ 100.000', valor:'US$ 1.790', status:'sp', statusLabel:'Pago'},
+  {data:'11/03/2026', tipo:'Mensal',  cliente:'Felipe Andrade', base:'US$ 75.000', valor:'US$ 968',   status:'sp', statusLabel:'Pago'},
+  {data:'11/03/2026', tipo:'Mensal',  cliente:'Carolina Melo',  base:'US$ 60.000', valor:'US$ 774',   status:'sp', statusLabel:'Pago'},
+  {data:'15/09/2025', tipo:'Entrada', cliente:'Carolina Melo',  base:'US$ 60.000', valor:'US$ 1.875', status:'sp', statusLabel:'Pago'},
+  {data:'05/07/2025', tipo:'Entrada', cliente:'Felipe Andrade', base:'US$ 75.000', valor:'US$ 1.875', status:'sp', statusLabel:'Pago'},
+  {data:'10/03/2025', tipo:'Entrada', cliente:'Mariana Souza', base:'US$ 100.000', valor:'US$ 2.000', status:'sp', statusLabel:'Pago'},
+  {data:'30/06/2026', tipo:'Mensal',  cliente:'Todos',           base:'US$ 235.000',valor:'US$ 2.890', status:'spe', statusLabel:'Estimado'},
+  {data:'—',          tipo:'Entrada', cliente:'Bruno Tavares',  base:'US$ 50.000', valor:'US$ 1.000', status:'sa', statusLabel:'Pendente'},
+]
 
-// ── RATES TABLE ──
-var rateView='monthly', rateTier=1
-var rateTiers={
-  1:{label:'Tier 1 · $25k–$49k',range:'$25,000 – $49,999',base:2.5,max:3.0,color:'var(--tl)',amounts:[25000,30000,40000,50000]},
-  2:{label:'Tier 2 · $50k–$99k',range:'$50,000 – $99,999',base:3.0,max:3.5,color:'var(--pu)',amounts:[50000,60000,75000,100000]},
-  3:{label:'Tier 3 · $100k+',range:'$100,000+',base:3.5,max:4.5,color:'var(--am)',amounts:[100000,150000,200000,300000]}
-}
-function setRateView(v){
-  rateView=v
-  document.getElementById('rv-monthly').style.cssText='padding:7px 16px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:all .15s;border:1px solid '+(v==='monthly'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
-  document.getElementById('rv-compound').style.cssText='padding:7px 16px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:all .15s;border:1px solid '+(v==='compound'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
-  buildRateTable()
-  buildRateDetail()
-}
-function setRateTier(t){
-  rateTier=t
-  ;[1,2,3].forEach(function(n){
-    var el=document.getElementById('rt-tier-'+n)
-    var colors={1:'var(--tld)',2:'var(--pu)',3:'var(--am)'}
-    if(n===t){el.style.border='2px solid var(--tl)'}else{el.style.border='1px solid var(--bd)'}
-  })
-  var tier=rateTiers[t]
-  var el=document.getElementById('rt-capital')
-  if(el)el.value=tier.amounts[0]
-  document.getElementById('rt-rate').value=tier.base
-  buildRateTable()
-  buildRateDetail()
-}
-function projValue(capital,rate,months,compound){
-  if(compound){
-    return capital*Math.pow(1+rate/100,months)
-  }else{
-    return capital+(capital*(rate/100)*months)
-  }
-}
-function buildRateTable(){
-  var tier=rateTiers[rateTier]
-  var tbody=document.getElementById('rt-tbody')
-  var cardTi=document.getElementById('rt-card-ti')
-  var cardSub=document.getElementById('rt-card-sub')
-  var badge=document.getElementById('rt-rate-badge')
-  if(cardTi)cardTi.textContent='Projeção de Rendimentos — '+tier.label
-  if(cardSub)cardSub.textContent='Taxa: '+tier.base+'%–'+tier.max+'% a.m. | '+( rateView==='compound'?'Juros Compostos':'Saques Mensais (taxa simples)')
-  if(badge)badge.textContent=tier.base+'%–'+tier.max+'% a.m.'
-  var periods=[6,12,18,24,36]
-  var html=''
-  tier.amounts.forEach(function(amt){
-    html+='<tr><td class="tm">$'+amt.toLocaleString('en-US')+'</td>'
-    periods.forEach(function(m){
-      var compound=rateView==='compound'
-      var end=projValue(amt,tier.base,m,compound)
-      var gain=end-amt
-      var pct=((gain/amt)*100).toFixed(0)
-      html+='<td><div style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;font-weight:600;color:var(--gn)">+$'+Math.round(gain).toLocaleString('en-US')+'</div>'
-      html+='<div style="font-size:10px;color:var(--mu)">+'+pct+'%</div></td>'
-    })
-    html+='</tr>'
-  })
-  if(tbody)tbody.innerHTML=html
-}
-function buildRateDetail(){
-  var capital=Number(document.getElementById('rt-capital').value)||50000
-  var rate=Number(document.getElementById('rt-rate').value)||3.0
-  var months=Math.min(Number(document.getElementById('rt-months').value)||12,36)
-  var compound=rateView==='compound'
-  var totalIncome=0,balance=capital
-  var rows=''
-  for(var m=1;m<=months;m++){
-    var income=compound?balance*(rate/100):capital*(rate/100)
-    if(compound)balance+=income
-    totalIncome+=income
-    rows+='<tr>'
-    rows+='<td>'+m+'</td>'
-    rows+='<td class="tm">$'+Math.round(compound?balance:capital).toLocaleString('en-US')+'</td>'
-    rows+='<td class="tt">+$'+Math.round(income).toLocaleString('en-US')+'</td>'
-    rows+='<td style="font-family:\'Space Grotesk\',sans-serif;font-size:12px;font-weight:600;color:var(--gn)">$'+Math.round(totalIncome).toLocaleString('en-US')+'</td>'
-    rows+='</tr>'
-  }
-  document.getElementById('rt-detail-body').innerHTML=rows
-  // Summary
-  var totalVal=compound?capital*Math.pow(1+rate/100,months):capital+capital*(rate/100)*months
-  var totalGain=totalVal-capital
-  var totalPct=((totalGain/capital)*100).toFixed(1)
-  var monthlyPmt=compound?null:capital*(rate/100)
-  var summaryHtml=''
-  summaryHtml+='<div style="background:var(--s);border:1px solid var(--bd);border-radius:6px;padding:14px 16px"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Capital Inicial</div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:600;color:var(--bk)">$'+capital.toLocaleString('en-US')+'</div></div>'
-  summaryHtml+='<div style="background:var(--gnbg);border:1px solid var(--gnbr);border-radius:6px;padding:14px 16px"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gn);margin-bottom:6px">Rendimento Total</div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:600;color:var(--gn)">+$'+Math.round(totalGain).toLocaleString('en-US')+'</div><div style="font-size:10px;color:var(--mu);margin-top:3px">+'+totalPct+'%</div></div>'
-  summaryHtml+='<div style="background:var(--s);border:1px solid var(--bd);border-radius:6px;padding:14px 16px"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">'+( compound?'Valor Final':'Rend. Mensal')+'</div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:600;color:var(--tld)">$'+( compound?Math.round(totalVal):Math.round(monthlyPmt)).toLocaleString('en-US')+'</div></div>'
-  summaryHtml+='<div style="background:var(--tlbg);border:1px solid var(--tlbr);border-radius:6px;padding:14px 16px"><div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tld);margin-bottom:6px">Taxa / Período</div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;font-weight:600;color:var(--tld)">'+rate+'% a.m.</div><div style="font-size:10px;color:var(--mu);margin-top:3px">'+months+' meses</div></div>'
-  document.getElementById('rt-summary').innerHTML=summaryHtml
-}
+// ── LOGIN ─────────────────────────────────────────────────────────
+const VALID = {email:'ricardo@gstpartners.us', senha:'123456'}
 
-function togglePw(){
-  const pw=document.getElementById('PW')
-  pw.type=pw.type==='password'?'text':'password'
-}
-async function doLogin(){
-  const email=document.getElementById('EM').value.trim()
-  const pass=document.getElementById('PW').value
-  const err=document.getElementById('LE')
-  if(!email||!pass){err.textContent='Preencha e-mail e senha.';return}
-  document.getElementById('LB').disabled=true
-  document.getElementById('LBT').textContent=lang==='pt'?'Entrando...':'Signing in...'
-  err.textContent=''
-  const {data,error}=await db.auth.signInWithPassword({email,password:pass})
-  if(error){
-    err.textContent=lang==='pt'?'E-mail ou senha incorretos.':'Incorrect email or password.'
-    document.getElementById('LB').disabled=false
-    document.getElementById('LBT').textContent=t('LBT')
-    return
-  }
-  CU=data.user
-  await loadApp()
-}
-async function doLogout(){
-  await db.auth.signOut()
-  document.getElementById('APP').classList.remove('on')
-  document.getElementById('LP').style.display='flex'
-  document.getElementById('PW').value=''
-  CU=null;INV=null;PAYS=[];DOCS=[]
-}
-
-// ── LOAD APP ──
-async function loadApp(){
+function doLogin(){
+  const em = document.getElementById('EM').value.trim()
+  const pw = document.getElementById('PW').value
+  const err = document.getElementById('LE')
+  if(!em||!pw){err.textContent='Preencha e-mail e senha.';return}
+  if(em!==VALID.email||pw!==VALID.senha){err.textContent='E-mail ou senha incorretos.';return}
   document.getElementById('LP').style.display='none'
   document.getElementById('APP').classList.add('on')
-  const email=CU.email
-
-  // ── Load investor ──
-  try{
-    const {data:inv,error:invErr}=await db.from('Investidor').select('*').eq('E-mail',email).single()
-    if(inv){INV=inv;renderInv(inv)}
-    else if(invErr){console.warn('Investidor:',invErr.message)}
-  }catch(e){console.warn('Investidor exception:',e)}
-
-  // ── Load payments ──
-  var payEl=document.getElementById('PAY')
-  try{
-    var payResult=await db.from('Pagamentos').select('*').eq('E-mail',email)
-    if(payResult.error){
-      console.error('Pagamentos error:',payResult.error.message)
-      if(payEl)payEl.innerHTML='<div class="empty"><div class="et">Erro ao carregar pagamentos</div><div style="font-size:11px;color:var(--mu);margin-top:4px">'+payResult.error.message+'</div></div>'
-    } else {
-      PAYS=(payResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
-      renderPay(PAYS)
-      renderChart(PAYS)
-    }
-  }catch(e){
-    console.error('Pagamentos exception:',e)
-    if(payEl)payEl.innerHTML='<div class="empty"><div class="et">Erro de conexão</div></div>'
-  }
-
-  // ── Load documents ──
-  var docEl=document.getElementById('DOC')
-  try{
-    var docResult=await db.from('Documentos').select('*').eq('E-mail',email)
-    if(docResult.error){
-      console.error('Documentos error:',docResult.error.message)
-      if(docEl)docEl.innerHTML='<div class="empty"><div class="et">Erro ao carregar documentos</div></div>'
-    } else {
-      DOCS=(docResult.data||[]).sort(function(a,b){return (b['Mês de Referência']||'').localeCompare(a['Mês de Referência']||'')})
-      renderDoc(DOCS)
-    }
-  }catch(e){
-    console.error('Documentos exception:',e)
-    if(docEl)docEl.innerHTML='<div class="empty"><div class="et">Erro de conexão</div></div>'
-  }
-
-  loadAnn();renderNews();renderAlloc();fetchFX()
-  setTimeout(function(){renderDonut();buildRateTable();buildRateDetail()},100)
+  setTimeout(initApp, 50)
 }
 
-// ── RENDER INVESTOR ──
-function renderInv(inv){
-  const name=inv['Nome Completo']||''
-  const first=name.split(' ')[0]
-  const ini=name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase()
-  ;['AV','MAV'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini})
-  document.getElementById('UN').textContent=name
-  document.getElementById('UP').textContent=(inv['Plano']||'')+' · '+(inv['Status']||'')
-  document.getElementById('MUN').textContent=first
-  document.getElementById('MPL').textContent=inv['Plano']||''
-  var weEl=document.getElementById('tb-we')
-  if(weEl)weEl.innerHTML='Bem-vindo, <strong style="color:var(--tld);font-weight:600">'+first+'</strong>'
-  // Detect currency from investor record
-  const moeda = inv['Moeda'] || 'USD'
-  window.INV_CURRENCY = moeda
-  const currSymbol = moeda === 'BRL' ? 'R$ ' : '$ '
-  const currLocale = moeda === 'BRL' ? 'pt-BR' : 'en-US'
-  const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
-  window.fmtCurr = fmt
-  document.getElementById('m1v').textContent=fmt(inv['Aporte (USD)'] || inv['Aporte (BRL)'] || inv['Aporte'])
-  document.getElementById('m1s').textContent=(inv['Plano']||'')+(inv['Data Inicio']?' · '+inv['Data Inicio']:'')
-  // Show currency badge
-  const badge = document.getElementById('currency-badge')
-  if(badge){ badge.textContent = moeda; badge.style.display = 'inline-flex' }
-  // m4 will be updated by renderPay with actual average
-  document.getElementById('m4v').textContent='—'
-  document.getElementById('m4s').textContent='—'
-  const pd={'Tier 1':['3% / mês','2% / mês · mês 19','1% / mês · até mês 120'],'Tier 2':['4% / mês','3% / mês · mês 13','1.5% / mês · até mês 120'],'Tier 3':['5% / mês','4% / mês · mês 7','2% / mês · até mês 120']}
-  const p=pd[inv['Plano']]||['—','—','—']
-  document.getElementById('pc1d').textContent=p[0]
-  document.getElementById('pc2d').textContent=p[1]
-  document.getElementById('pc3d').textContent=p[2]
-  // Cycle duration
-  const dur=inv['Ciclo (meses)']
-  const cycleNote=document.getElementById('cycle-note')
-  const cyTitle=document.getElementById('cy-ti')
-  const cyCm=document.getElementById('cy-cm')
-  if(dur&&dur!==120){
-    const yrs=Math.round(dur/12)
-    cyCm.textContent=yrs+' anos · '+dur+' meses'
-    cycleNote.style.display='block'
-    cycleNote.textContent=lang==='pt'?'Ciclo personalizado de '+dur+' meses conforme contrato.':'Custom cycle of '+dur+' months as per contract.'
-  }else{
-    cyCm.textContent='10 anos · 120 meses'
-    cycleNote.style.display='none'
-  }
-  // Client info for documents page
-  renderClientInfo(inv)
-  if(PAYS.length)updateHeroMetric(inv,PAYS)
+function doLogout(){
+  document.getElementById('APP').classList.remove('on')
+  document.getElementById('LP').style.display='flex'
 }
 
-function renderClientInfo(inv){
-  const card=document.getElementById('client-info-card')
-  const grid=document.getElementById('client-info-grid')
-  if(!card||!grid)return
-  const moedaLabel = (inv['Moeda']||'USD') === 'BRL' ? 'BRL (Reais)' : 'USD (Dólares)'
-  const fields=[
-    ['Nome Completo',inv['Nome Completo']||'—'],
-    ['E-mail',inv['E-mail']||'—'],
-    ['Telefone',inv['Telefone']||'—'],
-    ['Documento (ID/CPF)',inv['Documento']||'—'],
-    ['Endereço',inv['Endereço']||'—'],
-    ['Plano',inv['Plano']||'—'],
-    ['Moeda',moedaLabel],
-  ]
-  let h=''
-  fields.forEach(function(f){
-    h+='<div class="info-row"><div class="info-label">'+f[0]+'</div><div class="info-val">'+f[1]+'</div></div>'
-  })
-  grid.innerHTML=h
-  card.style.display='block'
+function initApp(){
+  buildCommTable()
+  setTimeout(buildChart, 100)
 }
 
-// ── RENDER PAYMENTS ──
-function fmtMes(dateStr){
-  if(!dateStr)return '—'
-  var d=new Date(dateStr+'T12:00:00')
-  var s=d.toLocaleDateString('pt-BR',{month:'short',year:'numeric'}).replace(' de ','/')
-  return s.charAt(0).toUpperCase()+s.slice(1)
-}
-function renderPay(pays){
-  const el=document.getElementById('PAY')
-  const cm=document.getElementById('py-cm')
-  const moeda = window.INV_CURRENCY || 'USD'
-  const currSymbol = moeda === 'BRL' ? 'R$ ' : '$ '
-  const currLocale = moeda === 'BRL' ? 'pt-BR' : 'en-US'
-  const fmt = n => n ? currSymbol + Number(n).toLocaleString(currLocale, {minimumFractionDigits:0}) : '—'
-  const mob=window.innerWidth<=768
-  if(!pays||!pays.length){
-    if(el)el.innerHTML='<div class="empty"><div class="et">'+t('ep')+'</div></div>'
-    if(cm)cm.textContent='0 registros'
-    ;['m2v','m3v','m5v','m6v'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
-    ;['m2s','m3s','m5s','m6s'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='—'})
-    var rpl=document.getElementById('recent-pays-list')
-    if(rpl)rpl.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);font-size:12px">Nenhum pagamento registrado ainda.</div>'
-    return
-  }
-  cm.textContent=pays.length+' '+(lang==='pt'?'registros':'records')
-  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase().trim();return !s.includes('pendente')&&!s.includes('pending')||s.includes('pago')||s.includes('paid')||s===''||s.length>0})
-  const allPaid=paid.length?paid:pays
-  const totalRet=allPaid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
-  // Calculate average monthly return from Rentabilidade %
-  const rents=allPaid.filter(p=>p['Rentabilidade %']).map(p=>Number(p['Rentabilidade %']))
-  const avgRent=rents.length?( rents.reduce((a,b)=>a+b,0)/rents.length):null
-  const m4v=document.getElementById('m4v');const m4s=document.getElementById('m4s')
-  if(m4v){m4v.textContent=avgRent?avgRent.toFixed(2)+'%':'—'}
-  if(m4s){m4s.textContent=avgRent?(lang==='pt'?'média dos últimos '+rents.length+' pagamentos':'avg of last '+rents.length+' payments'):'—'}
-  const totalWith=allPaid.reduce((s,p)=>s+(Number(p['Amortização (USD)'])||0),0)
-  const fmt2=n=>currSymbol+Number(n).toLocaleString(currLocale,{minimumFractionDigits:0})
-  document.getElementById('m2v').textContent=fmt2(totalRet)
-  document.getElementById('m2s').textContent=allPaid.length+' '+(lang==='pt'?'pagamentos':'payments')
-  document.getElementById('m5v').textContent=fmt2(totalWith)
-  document.getElementById('m5s').textContent=lang==='pt'?'Amortizações acumuladas':'Accumulated repayments'
-  const aporte=INV?(Number(INV['Aporte (USD)'])||Number(INV['Aporte (BRL)'])||Number(INV['Aporte'])||0):0
-  const totalRetForPct=allPaid.reduce((s,p)=>s+(Number(p['Rendimento Pago (USD)'])||0),0)
-  if(aporte>0){
-    const pct=((totalRetForPct/aporte)*100).toFixed(1)
-    document.getElementById('m6v').textContent=pct+'%'
-    document.getElementById('m6s').textContent=lang==='pt'?'do capital investido':'of invested capital'
-  }else{
-    document.getElementById('m6v').textContent='—'
-    document.getElementById('m6s').textContent='—'
-  }
-  const pend=pays.find(p=>{const s=(p['Status']||'').toLowerCase();return s==='pendente'||s==='pending'})
-  if(pend){
-    document.getElementById('m3v').textContent=fmt(pend['Rendimento Pago (USD)'])
-    document.getElementById('m3s').textContent=pend['Mês de Referência']||'—'
-  }else{
-    document.getElementById('m3v').textContent='—'
-    document.getElementById('m3s').textContent=lang==='pt'?'Nenhum pendente':'None pending'
-  }
-  // ── Recent pays dashboard panel ──
-  var rpl=document.getElementById('recent-pays-list')
-  if(rpl){
-    var recent=allPaid.slice(0,5)
-    if(!recent.length){rpl.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);font-size:12px">Nenhum pagamento registrado</div>'}
-    else{rpl.innerHTML=recent.map(function(p){
-      var mes=fmtMes(p['Mês de Referência'])
-      var val=fmt2(Number(p['Total do Mês (USD)'])||Number(p['Rendimento Pago (USD)'])||0)
-      var pct=p['Rentabilidade %']?'<span style="font-size:10px;color:var(--mu);margin-left:5px">'+Number(p['Rentabilidade %']).toFixed(2)+'%</span>':''
-      return '<div class="pay-item"><div class="pay-left"><div class="pay-dot"></div><div><div class="pay-mes">'+mes+'</div></div></div><div style="text-align:right"><div class="pay-val">'+val+'</div>'+pct+'</div></div>'
-    }).join('')}
-  }
-  if(mob){
-    let h=''
-    pays.forEach(function(p){
-      const s=(p['Status']||'').toLowerCase()
-      const isPaid=s==='pago'||s==='paid'
-      const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
-      h+='<div style="padding:14px 16px;border-bottom:1px solid var(--bds)">'
-      h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:12px;color:var(--mu)">'+fmtMes(p['Mês de Referência'])+'</span>'+badge+'</div>'
-      const rentMob = p['Rentabilidade %'] ? Number(p['Rentabilidade %']).toFixed(2)+'%' : null; h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
-      h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th2')+'</div><div class="tt" style="font-size:16px">'+fmt(p['Rendimento Pago (USD)'])+'</div></div>'
-      h+='<div><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th4')+'</div><div class="tm" style="font-size:16px">'+fmt(p['Total do Mês (USD)'])+'</div></div>'
-      if(rentMob)h+='<div style="grid-column:span 2;margin-top:4px"><div style="font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:3px">'+t('th6')+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:13px;font-weight:600;color:var(--tld)">'+rentMob+'</div></div>'
-      h+='</div></div>'
-    })
-    el.innerHTML=h
-  }else{
-    let rows=''
-    pays.forEach(function(p){
-      const s=(p['Status']||'').toLowerCase()
-      const isPaid=s==='pago'||s==='paid'
-      const badge=isPaid?'<span class="sb2 sp">'+t('paid')+'</span>':'<span class="sb2 spe">'+t('pending')+'</span>'
-      const rent = p['Rentabilidade %'] ? '<span style="font-family:Space Grotesk,sans-serif;font-weight:600;color:var(--tld)">'+Number(p['Rentabilidade %']).toFixed(2)+'%</span>' : '<span class="td">—</span>'; rows+='<tr><td>'+fmtMes(p['Mês de Referência'])+'</td><td class="tt">'+fmt(p['Rendimento Pago (USD)'])+'</td><td class="tm">'+(p['Amortização (USD)']?fmt(p['Amortização (USD)']):'<span class="td">—</span>')+'</td><td class="tm">'+fmt(p['Total do Mês (USD)'])+'</td><td>'+rent+'</td><td>'+badge+'</td></tr>'
-    })
-    el.innerHTML='<table><thead><tr><th>'+t('th1')+'</th><th>'+t('th2')+'</th><th>'+t('th3')+'</th><th>'+t('th4')+'</th><th>'+t('th6')+'</th><th>'+t('th5')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
-  }
+// ── NAVIGATION ────────────────────────────────────────────────────
+function nav(id, el){
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'))
+  if(el) el.classList.add('on')
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'))
+  const pg = document.getElementById('pg-'+id)
+  if(pg) pg.classList.add('on')
+  document.getElementById('client-detail').style.display='none'
 }
 
-// ── RENDER DOCUMENTS ──
-function renderDoc(docs){
-  const el=document.getElementById('DOC')
-  if(!el)return
-  if(!docs||!docs.length){el.innerHTML='<div class="empty"><div class="et">'+t('ed')+'</div></div>';return}
-  let rows=''
-  docs.forEach(function(d){
-    const link=d['Link do Arquivo']
-    const btn=link?'<a href="'+link+'" target="_blank" class="sb2 sa" style="text-decoration:none;padding:4px 10px">'+t('dl')+'</a>':'<span class="td">—</span>'
-    rows+='<tr><td class="tm">'+(d['Tipo']||'—')+'</td><td>'+(d['Mês de Referência']||'—')+'</td><td>'+btn+'</td></tr>'
-  })
-  el.innerHTML='<table><thead><tr><th>'+t('td1')+'</th><th>'+t('td2')+'</th><th>'+t('td3')+'</th></tr></thead><tbody>'+rows+'</tbody></table>'
-}
-
-// ── CHART ──
-function renderChart(pays){
-  const ctx=document.getElementById('RC')
-  if(!ctx||!ctx.getContext)return
-
-  const paid=pays.filter(p=>{const s=(p['Status']||'').toLowerCase().trim();return s.includes('pago')||s.includes('paid')||s.includes('pag')||s!=='pendente'&&s!=='pending'&&s!==''})
-    .sort((a,b)=>(a['Mês de Referência']||'').localeCompare(b['Mês de Referência']||'')).slice(-12)
-  // If no paid found, try all payments
-  const chartData = paid.length ? paid : pays.sort((a,b)=>(a['Mês de Referência']||'').localeCompare(b['Mês de Referência']||'')).slice(-12)
-  if(!chartData.length){
-    ctx.parentElement.innerHTML='<div class="chart-empty"><div class="chart-empty-bars">'+[40,55,35,65,45,70,50,80,60,75,55,85].map(h=>'<div class="chart-empty-bar" style="height:'+h+'%"></div>').join('')+'</div><div style="font-size:12px;color:var(--mu)">'+t('nodata')+'</div></div>'
-    return
+// ── CLIENT DETAIL ─────────────────────────────────────────────────
+function showClient(key){
+  const c = CLIENTS[key]
+  document.getElementById('client-detail').style.display='block'
+  document.getElementById('cd-name').textContent = c.nome
+  document.getElementById('cd-badge').innerHTML = `<span class="sb2 ${c.statusClass}">${c.status}</span>`
+  document.getElementById('cd-info').innerHTML = `
+    <div class="info-row"><span class="info-label">E-mail</span><span class="info-val">${c.email}</span></div>
+    <div class="info-row"><span class="info-label">Perfil</span><span class="info-val">${c.perfil}</span></div>
+    <div class="info-row"><span class="info-label">Capital</span><span class="info-val">${c.capital}</span></div>
+    <div class="info-row"><span class="info-label">Data do Aporte</span><span class="info-val">${c.aporte}</span></div>
+    <div class="info-row"><span class="info-label">Retorno Mensal</span><span class="info-val">${c.retorno}</span></div>
+    <div class="info-row"><span class="info-label">Com. Entrada</span><span class="info-val" style="color:var(--gn);font-weight:600">US$ ${c.comEntrada.toLocaleString()}</span></div>
+    <div class="info-row"><span class="info-label">Com. Mensal</span><span class="info-val" style="color:var(--tld);font-weight:600">US$ ${c.comMensal.toLocaleString()}</span></div>
+  `
+  if(c.pagamentos.length){
+    const total = c.pagamentos.reduce((s,p)=>s+parseFloat(p.valor.replace('US$ ','').replace(',','.')),0)
+    document.getElementById('cd-comm-total').textContent = 'Total: US$ '+total.toLocaleString('pt-BR',{minimumFractionDigits:2})
+    document.getElementById('cd-pays').innerHTML = `<table><thead><tr><th>Mês</th><th>Data</th><th>Valor</th></tr></thead><tbody>`
+      + c.pagamentos.map(p=>`<tr><td>${p.mes}</td><td style="color:var(--mu)">${p.data}</td><td><span class="tt">${p.valor}</span></td></tr>`).join('')
+      + `</tbody></table>`
+  } else {
+    document.getElementById('cd-pays').innerHTML = '<div style="padding:20px;text-align:center;color:var(--mu);font-size:12px">Aguardando integralização</div>'
+    document.getElementById('cd-comm-total').textContent = '—'
   }
-  const labels=chartData.map(p=>{const d=new Date(p['Mês de Referência']);return d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'short',year:'2-digit'})})
-  const data=chartData.map(p=>Number(p['Rendimento Pago (USD)'])||0)
-  if(lineChart)lineChart.destroy()
-  lineChart=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:(lang==='pt'?'Rendimento':'Return')+' ('+(window.INV_CURRENCY||'USD')+')',data,borderColor:'#2AABB8',backgroundColor:'rgba(42,171,184,0.08)',borderWidth:2,pointBackgroundColor:'#2AABB8',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString('en-US')}}},scales:{y:{beginAtZero:true,grid:{color:'#E2E2DE'},ticks:{font:{family:'JetBrains Mono',size:10},color:'#ABABAB',callback:v=>'$'+v.toLocaleString('en-US')}},x:{grid:{display:false},ticks:{font:{size:10},color:'#ABABAB'}}}}})
+  document.querySelector('#pg-clients').scrollTo(0,0)
 }
 
-// ── DONUT ──
-function renderDonut(){
-  const ctx=document.getElementById('DC')
-  if(!ctx||!ctx.getContext)return
-  if(donutChart)donutChart.destroy()
-  const isDark=document.documentElement.getAttribute('data-theme')==='dark'
-  const allocs=[
-    {name:lang==='pt'?'Renda Fixa':'Fixed Income',pct:35,color:'#2AABB8'},
-    {name:'Private Credit',pct:25,color:'#5DCDD8'},
-    {name:lang==='pt'?'Fundo Imobiliário':'Real Estate',pct:20,color:'#1D8F9B'},
-    {name:'Equity',pct:12,color:'#0E6B7A'},
-    {name:lang==='pt'?'Liquidez':'Liquidity',pct:8,color:'#B8E5EA'}
-  ]
-  donutChart=new Chart(ctx,{
-    type:'doughnut',
+// ── COMMISSIONS TABLE ─────────────────────────────────────────────
+function buildCommTable(){
+  const body = document.getElementById('comm-table-body')
+  if(!body) return
+  body.innerHTML = COMM_HISTORY.map(r=>`
+    <tr>
+      <td style="color:var(--mu)">${r.data}</td>
+      <td><span class="sb2 ${r.tipo==='Entrada'?'sa':'sp'}">${r.tipo}</span></td>
+      <td><span class="tm">${r.cliente}</span></td>
+      <td style="color:var(--mu)">${r.base}</td>
+      <td><span class="tt">${r.valor}</span></td>
+      <td><span class="sb2 ${r.status}">${r.statusLabel}</span></td>
+    </tr>`).join('')
+}
+
+// ── CHART ─────────────────────────────────────────────────────────
+function buildChart(){
+  const ctx = document.getElementById('commChart')
+  if(!ctx) return
+  new Chart(ctx,{
+    type:'bar',
     data:{
-      labels:allocs.map(function(a){return a.name}),
+      labels:['Jan','Fev','Mar','Abr','Mai','Jun*'],
       datasets:[{
-        data:allocs.map(function(a){return a.pct}),
-        backgroundColor:allocs.map(function(a){return a.color}),
-        borderWidth:3,
-        borderColor:isDark?'#1C1F2A':'#fff',
-        hoverOffset:10,
-        hoverBorderWidth:0
+        label:'Comissões (US$)',
+        data:[2532,2532,3532,3532,3532,3027],
+        backgroundColor:'rgba(42,171,184,.18)',
+        borderColor:'#2AABB8',borderWidth:1.5,borderRadius:4,
       }]
     },
-    options:{
-      cutout:'68%',responsive:true,maintainAspectRatio:true,
-      animation:{animateRotate:true,duration:700},
-      plugins:{
-        legend:{display:false},
-        tooltip:{backgroundColor:'rgba(0,0,0,.82)',padding:10,callbacks:{label:function(c){return'  '+c.label+': '+c.raw+'%'}}}
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:function(c){return ' US$ '+c.raw.toLocaleString()}}}},
+      scales:{
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},color:'#BBBBBB',
+          callback:function(v){return 'US$ '+v.toLocaleString()}}},
+        x:{grid:{display:false},ticks:{font:{size:10},color:'#BBBBBB'}}
       }
     }
   })
-  const tbl=document.getElementById('alloc-table')
-  if(tbl){
-    tbl.innerHTML=allocs.map(function(a){
-      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd)">'+
-        '<div style="display:flex;align-items:center;gap:10px">'+
-        '<div style="width:10px;height:10px;border-radius:50%;background:'+a.color+';flex-shrink:0"></div>'+
-        '<span style="font-size:13px;font-weight:500;color:var(--bk)">'+a.name+'</span>'+
-        '</div>'+
-        '<span style="font-family:Space Grotesk,sans-serif;font-size:14px;font-weight:700;color:var(--bk)">'+a.pct+'%</span>'+
-        '</div>'
-    }).join('')+'<div style="display:flex;justify-content:flex-end;padding-top:8px"><span style="font-size:11px;color:var(--mu)">'+( lang==='pt'?'Alocação indicativa':'Indicative allocation')+'</span></div>'
-  }
 }
 
-function renderAlloc(){
-  const grid=document.getElementById('alloc-grid')
-  if(!grid)return
-  const allocs=[
-    {pct:'35%',color:'#2AABB8',name:lang==='pt'?'Renda Fixa US':'US Fixed Income',
-     desc:lang==='pt'?'Títulos do Tesouro Americano e depósitos em bancos segurados pelo FDIC. Foco em preservação de capital e liquidez.':'US Treasury bonds and FDIC-insured deposits. Focus on capital preservation and liquidity.',
-     vs:lang==='pt'?'vs CDI BR (~13.6% a.a.) — menor risco cambial':'vs BR CDI (~13.6% p.a.) — lower FX risk'},
-    {pct:'25%',color:'#E11D48',name:lang==='pt'?'Private Credit':'Private Credit',
-     desc:lang==='pt'?'Crédito privado estruturado com empresas americanas de médio porte. Retornos acima da média do mercado com contratos de prazo definido.':'Structured private credit with US mid-market companies. Above-market returns with defined-term contracts.',
-     vs:lang==='pt'?'vs Debêntures BR — menor volatilidade, denominado em USD':'vs BR Debentures — lower volatility, USD-denominated'},
-    {pct:'20%',color:'#7C3AED',name:lang==='pt'?'Real Estate (REITs)':'Real Estate (REITs)',
-     desc:lang==='pt'?'Fundos imobiliários americanos com distribuição mensal de dividendos. Setor residencial e comercial diversificado.':'US REITs with monthly dividend distribution. Diversified residential and commercial sector.',
-     vs:lang==='pt'?'vs FIIs BR — maior liquidez e proteção em USD':'vs BR REITs — higher liquidity and USD protection'},
-    {pct:'12%',color:'#1A7F4B',name:lang==='pt'?'Equity Estruturado':'Structured Equity',
-     desc:lang==='pt'?'Posições em empresas do S&P 500 com estratégia de proteção (hedge). Foco em setores defensivos.':'S&P 500 positions with hedging strategy. Focus on defensive sectors.',
-     vs:lang==='pt'?'vs Ibovespa — menor volatilidade por design':'vs Ibovespa — lower volatility by design'},
-    {pct:'8%',color:'#D97706',name:lang==='pt'?'Reserva de Liquidez':'Liquidity Reserve',
-     desc:lang==='pt'?'Caixa e equivalentes em money market americano. Garante pagamentos mensais e oportunidades.':'Cash and US money market equivalents. Ensures monthly payments and opportunities.',
-     vs:lang==='pt'?'Equivalente à Selic curta — lastreado em dólar':'Equivalent to short Selic — USD-backed'},
-  ]
-  const allocHtml=allocs.map(a=>'<div class="alloc-card"><div class="alloc-bar" style="background:'+a.color+'"></div><div class="alloc-pct" style="color:'+a.color+'">'+a.pct+'</div><div class="alloc-name">'+a.name+'</div><div class="alloc-desc">'+a.desc+'</div><div class="alloc-vs">'+a.vs+'</div></div>').join(''); if(grid)grid.innerHTML=allocHtml
-  const fdic=document.getElementById('fdic-disc')
-  if(fdic)fdic.textContent=lang==='pt'?'As alocações em renda fixa são realizadas exclusivamente em instituições financeiras com cobertura do FDIC (Federal Deposit Insurance Corporation), garantindo proteção de até US$ 3.000.000 por depositante, por instituição. Esta proteção é fornecida pelo governo federal americano independentemente da situação da instituição.':'Fixed income allocations are made exclusively in FDIC-insured institutions with coverage up to $3,000,000 per depositor, per institution. This protection is provided by the US federal government regardless of the institution\'s condition.'
+// ── Materials download ──
+// Map file names — update these paths when you upload to GitHub
+const MAT_FILES = {
+  'apresentacao':  'GST_Apresentacao_Captadores.pdf',
+  'contrato-cap':  'GST_Contrato_Captador.pdf',
+  'contrato-inv':  'GST_Contrato_Investidor.pdf',
+}
+// Note: PDFs must be in root of GitHub repo alongside this HTML file
+function dlMat(key){
+  const file = MAT_FILES[key]
+  if(!file){ alert('Arquivo não disponível ainda.'); return }
+  const a = document.createElement('a')
+  a.href = file
+  a.download = file
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
 
-// ── FX ──
-async function fetchFX(){
-  function setRate(r){
-    FX_RATE=r
-    var el=document.getElementById('fx-rate-display');if(el)el.textContent='R$ '+r.toFixed(2)
-    var chg=document.getElementById('fx-chg');if(chg)chg.textContent=lang==='pt'?'Taxa atual':'Current rate'
-    calcFX();calcFXrev()
-  }
-  try{
-    var res=await fetch('https://open.er-api.com/v6/latest/USD',{mode:'cors'})
-    var d=await res.json()
-    if(d.rates&&d.rates.BRL){setRate(d.rates.BRL);return}
-  }catch(e){}
-  try{
-    var r2=await fetch('https://api.exchangerate-api.com/v4/latest/USD')
-    var d2=await r2.json()
-    if(d2.rates&&d2.rates.BRL){setRate(d2.rates.BRL);return}
-  }catch(e2){}
-  setRate(FX_RATE)
-}
-function calcFX(){
-  const usdEl=document.getElementById('fx-usd'); if(!usdEl)return
-  const usd=parseFloat(usdEl.value)||0
-  const brl=usd*FX_RATE
-  document.getElementById('fx-brl').textContent='R$ '+brl.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})
-  document.getElementById('fx-rate-note').textContent='1 USD = R$ '+FX_RATE.toFixed(2)
-}
-function calcFXrev(){
-  const brlEl=document.getElementById('fx-brl-inp'); if(!brlEl)return
-  const brl=parseFloat(brlEl.value)||0
-  const usd=brl/FX_RATE
-  document.getElementById('fx-usd-out').textContent='$ '+usd.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})
-  document.getElementById('fx-rate-note2').textContent='1 BRL = $ '+(1/FX_RATE).toFixed(4)
-}
-
-// ── ANNOUNCEMENTS ──
-async function loadAnn(){
-  const el=document.getElementById('ann-section')
-  if(!el)return
-  try{
-    const {data}=await db.from('Avisos').select('*').order('Data',{ascending:false}).limit(3)
-    if(!data||!data.length){el.innerHTML='';return}
-    el.innerHTML=data.map(a=>'<div class="ann"><div class="ann-h"><div class="ann-t">'+( a['Titulo']||'Aviso GST')+'</div><div class="ann-d">'+(a['Data']||'')+'</div></div><div class="ann-b">'+(a['Mensagem']||'')+'</div></div>').join('')
-  }catch(e){el.innerHTML=''}
-}
-
-// ── NEWS ──
-const NEWS_US=[
-  {title:'Wall Street Journal — Markets',url:'https://www.wsj.com/news/markets',src:'WSJ'},
-  {title:'Bloomberg Markets',url:'https://www.bloomberg.com/markets',src:'Bloomberg'},
-  {title:'CNBC — Financial Markets',url:'https://www.cnbc.com/markets/',src:'CNBC'},
-  {title:'Reuters — Business & Finance',url:'https://www.reuters.com/finance/',src:'Reuters'},
-  {title:'MarketWatch',url:'https://www.marketwatch.com/',src:'MarketWatch'},
-  {title:'Financial Times — Markets',url:'https://www.ft.com/markets',src:'FT'},
-]
-const NEWS_BR=[
-  {title:'InfoMoney — Mercados',url:'https://www.infomoney.com.br/mercados/',src:'InfoMoney'},
-  {title:'Valor Econômico — Finanças',url:'https://valor.globo.com/financas/',src:'Valor Econômico'},
-  {title:'Exame Invest — Mercados',url:'https://exame.com/invest/mercados/',src:'Exame'},
-  {title:'Estadão — Economia',url:'https://www.estadao.com.br/economia/',src:'Estadão'},
-  {title:'BTG Pactual — Research',url:'https://www.btgpactual.com/research',src:'BTG'},
-  {title:'XP Investimentos — Análise',url:'https://conteudos.xpi.com.br/acoes/',src:'XP'},
-]
-function renderNews(){
-  renderNewsList(NEWS_US,'NUS')
-  renderNewsList(NEWS_BR,'NBR')
-}
-function renderNewsList(items,elId){
-  const el=document.getElementById(elId)
-  if(!el)return
-  el.innerHTML=''
-  let h=''
-  items.forEach(function(item){
-    const d=document.createElement('div')
-    d.className='ni2'
-    d.setAttribute('data-url',item.url)
-    d.innerHTML='<div class="ndot"></div><div><div class="ntit">'+item.title+'</div><div class="nmet">'+item.src+' · '+(lang==='pt'?'Clique para acessar':'Click to open')+'</div></div>'
-    d.onclick=function(){window.open(this.getAttribute('data-url'),'_blank')}
-    el.appendChild(d)
-  })
-}
-
-// ── TOGGLE METRIC ──
-function toggleMetric(valId,subId){
-  const v=document.getElementById(valId)
-  const s=document.getElementById(subId)
-  if(!v)return
-  const hidden=v.getAttribute('data-hidden')==='1'
-  v.textContent=hidden?(v.getAttribute('data-val')||'—'):'••••••'
-  if(s)s.style.opacity=hidden?'1':'0'
-  v.setAttribute('data-hidden',hidden?'0':'1')
-  if(!hidden)v.setAttribute('data-val',v.textContent==='••••••'?v.getAttribute('data-val')||'—':v.textContent)
-}
-
-// Override renderInv/renderPay to store values for toggle
-const _origRenderInv=renderInv
-// After values are set, store them
-function storeMetricVal(id){
-  const el=document.getElementById(id)
-  if(el)el.setAttribute('data-val',el.textContent)
-}
-
-// ── SUPPORT ──
-async function sendSupport(){
-  const sub=document.getElementById('su-sub').value.trim()
-  const msg=document.getElementById('su-msg').value.trim()
-  if(!sub||!msg)return
-  const btn=document.getElementById('su-btn')
-  btn.disabled=true
-  btn.textContent=lang==='pt'?'Enviando...':'Sending...'
-  try{
-    await db.from('Suporte').insert([{'E-mail':CU.email,'Assunto':sub,'Mensagem':msg,'Data':new Date().toISOString().split('T')[0]}])
-  }catch(e){}
-  document.getElementById('su-ok').style.display='block'
-  document.getElementById('su-sub').value=''
-  document.getElementById('su-msg').value=''
-  btn.disabled=false
-  btn.textContent=t('su-btn')
-}
-
-// ── NAV ──
-function nav(page,el){
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'))
-  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'))
-  document.getElementById('pg-'+page).classList.add('on')
-  el.classList.add('on')
-  if(page==='dashboard'){setTimeout(function(){renderChart(PAYS);renderDonut()},50)}
-  if(page==='alloc'){setTimeout(function(){renderAlloc();setTimeout(runSim,100)},50)}
-  if(page==='news'){setTimeout(function(){renderNews();calcFX()},50)}
-}
-
-// ── COPY ──
-function cp(text,btn){
-  navigator.clipboard.writeText(text).then(function(){
-    const orig=btn.textContent
-    btn.textContent='✓'
-    btn.classList.add('ok')
-    setTimeout(function(){btn.textContent=orig;btn.classList.remove('ok')},1500)
-  })
-}
-
-// ── SIMULATOR ──
-var simChart=null,simMode='simple'
-function setSimMode(m){
-  simMode=m
-  var a=document.getElementById('sim-btn-s'),b=document.getElementById('sim-btn-c')
-  if(a&&b){
-    a.style.cssText='padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:Inter,sans-serif;border:1px solid '+(m==='simple'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
-    b.style.cssText='padding:3px 10px;font-size:11px;font-weight:600;border-radius:5px;cursor:pointer;font-family:Inter,sans-serif;border:1px solid '+(m==='compound'?'var(--tl);background:var(--tl);color:white':'var(--bd);background:var(--bg);color:var(--mu)')
-  }
-  runSim()
-}
-function runSim(){
-  var capEl=document.getElementById('sim-capital');if(!capEl)return
-  var cap=parseFloat(capEl.value)||50000,rate=parseFloat(document.getElementById('sim-rate').value)/100||0.03,mon=parseInt(document.getElementById('sim-months').value)||12
-  var moeda=window.INV_CURRENCY||'USD',sym=moeda==='BRL'?'R$ ':'$ ',loc=moeda==='BRL'?'pt-BR':'en-US'
-  var fmt=function(v){return sym+Math.round(v).toLocaleString(loc)}
-  var n=document.getElementById('sim-note');if(n)n.textContent=simMode==='simple'?'Modo: cliente saca os rendimentos todo mês — capital permanece intacto':'Modo: rendimentos reinvestidos mensalmente (juros compostos)'
-  var tot=0,arr=[],run=cap
-  for(var i=0;i<mon;i++){var r=simMode==='simple'?cap*rate:run*rate;if(simMode==='compound')run+=r;tot+=r;arr.push(Math.round(simMode==='simple'?tot:run-cap))}
-  var fin=simMode==='simple'?cap+tot:run,pct=(tot/cap*100).toFixed(1)
-  var res=document.getElementById('sim-results');if(!res)return
-  var isMob=window.innerWidth<=768
-  res.innerHTML=[['Capital Inicial',fmt(cap),'var(--tl)'],['Rendimento Total',fmt(tot),'var(--gn)'],['Valor Final',fmt(fin),'var(--pu)'],['Rentabilidade',pct+'%','var(--am)']].map(function(c){return'<div style="background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;text-align:center"><div style="font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:3px;white-space:nowrap">'+c[0]+'</div><div style="font-family:Space Grotesk,sans-serif;font-size:14px;font-weight:600;color:'+c[2]+';white-space:nowrap">'+c[1]+'</div></div>'}).join('')
-  res.style.gridTemplateColumns=isMob?'1fr 1fr':'repeat(4,1fr)'
-  var ctx=document.getElementById('SC');if(!ctx||!ctx.getContext)return
-  if(simChart)simChart.destroy()
-  var labels=arr.map(function(_,i){return'M'+(i+1)})
-  simChart=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{data:arr,backgroundColor:'rgba(42,171,184,0.6)',borderColor:'#2AABB8',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:400},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return sym+c.raw.toLocaleString(loc)}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{family:'JetBrains Mono',size:9},color:'#ABABAB',callback:function(v){return sym+v.toLocaleString(loc)},maxTicksLimit:5}},x:{grid:{display:false},ticks:{font:{size:9},color:'#ABABAB',maxTicksLimit:8}}}}})
-}
-// ── WELCOME SCREEN ──
-function showWelcome(name){
-  var wlc=document.getElementById('WLC')
-  if(!wlc)return
-  if(localStorage.getItem('gst-welcomed')==='1'){return}
-  var nm=document.getElementById('wlc-name')
-  if(nm)nm.textContent=lang==='pt'?'Olá, '+name+'!':'Hello, '+name+'!'
-  wlc.style.display='block'
-  document.body.style.overflow='hidden'
-}
-function closeWelcome(){
-  var wlc=document.getElementById('WLC')
-  if(wlc){wlc.style.opacity='0';wlc.style.transition='opacity .3s';setTimeout(function(){wlc.style.display='none';document.body.style.overflow=''},300)}
-  localStorage.setItem('gst-welcomed','1')
-}
-function goStep(idx){
-  closeWelcome()
-  var pages=['dashboard','pay','doc','alloc']
-  setTimeout(function(){nav(pages[idx])},350)
-}
-
-// ── DARK MODE ──
-var isDark=false
-function toggleDark(){
-  isDark=!isDark
-  document.documentElement.setAttribute('data-theme',isDark?'dark':'light')
-  localStorage.setItem('gst-dark',isDark?'1':'0')
-  setTimeout(function(){renderChart(PAYS);renderDonut()},80)
-}
-// ── HERO METRIC ──
-function updateHeroMetric(inv, pays){
-  var moeda=window.INV_CURRENCY||'USD'
-  var sym=moeda==='BRL'?'R$ ':'$ '
-  var loc=moeda==='BRL'?'pt-BR':'en-US'
-  var aporte=Number(inv['Aporte (USD)']||inv['Aporte (BRL)']||inv['Aporte']||0)
-  var paid=(pays||[]).filter(function(p){var s=(p['Status']||'').toLowerCase();return s.includes('pago')||s.includes('paid')})
-  var totalRet=paid.reduce(function(s,p){return s+(Number(p['Rendimento Pago (USD)'])||0)},0)
-  var hmv=document.getElementById('hm-val')
-  var hms=document.getElementById('hm-sub')
-  var hml=document.getElementById('hm-label')
-  var hm2=document.getElementById('hm-ret')
-  if(hmv){hmv.textContent=sym+aporte.toLocaleString(loc,{minimumFractionDigits:0});hmv.setAttribute('data-v',hmv.textContent)}
-  if(hml)hml.textContent=lang==='pt'?'Patrimônio Investido':'Invested Capital'
-  if(hms)hms.textContent=(inv['Plano']||'')+(inv['Data Inicio']?' · Desde '+new Date(inv['Data Inicio']+'T12:00:00').toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'short',year:'numeric'}):'')
-  if(hm2&&totalRet>0)hm2.textContent=(lang==='pt'?'Total recebido: ':'Total received: ')+sym+totalRet.toLocaleString(loc,{minimumFractionDigits:0})
-}
-function toggleHeroMetric(){
-  var el=document.getElementById('hm-val')
-  if(!el)return
-  if(el.getAttribute('data-h')==='1'){el.textContent=el.getAttribute('data-v')||'—';el.setAttribute('data-h','0')}
-  else{el.setAttribute('data-v',el.textContent);el.textContent='••••••';el.setAttribute('data-h','1')}
-}
-
-// ── TIMELINE ──
-function renderTimeline(pays){
-  var el=document.getElementById('TL');if(!el||!INV)return
-  var startDate=new Date((INV['Data Inicio']||Date.now())+'T12:00:00')
-  var plano=INV['Plano']||'Tier 1'
-  var devMap={'Tier 1':18,'Tier 2':12,'Tier 3':6}
-  var devMes=devMap[plano]||18
-  var now=new Date()
-  var meses=Math.floor((now-startDate)/(1000*60*60*24*30.44))
-  var moeda=window.INV_CURRENCY||'USD';var sym=moeda==='BRL'?'R$':'$'
-  var paid=(pays||[]).filter(function(p){var s=(p['Status']||'').toLowerCase();return s.includes('pago')||s.includes('paid')})
-  var totalRet=paid.reduce(function(s,p){return s+(Number(p['Rendimento Pago (USD)'])||0)},0)
-  var cm=document.getElementById('tl-cm')
-  if(cm)cm.textContent=(lang==='pt'?'Mês ':'Month ')+meses
-  var items=[
-    {state:'done',tag:lang==='pt'?'Início':'Start',name:lang==='pt'?'Investimento iniciado':'Investment started',detail:startDate.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'long',year:'numeric'})},
-    {state:meses<devMes?'current':'done',tag:lang==='pt'?'Fase atual':'Current phase',name:lang==='pt'?'Aceleração dos rendimentos':'Return acceleration',detail:(lang==='pt'?'Total recebido: ':'Total received: ')+sym+totalRet.toLocaleString()},
-    {state:meses>=devMes?'done':'future',tag:lang==='pt'?'Fase 2':'Phase 2',name:lang==='pt'?'Início da devolução':'Repayment begins',detail:(lang==='pt'?'A partir do mês ':'From month ')+devMes},
-    {state:'future',tag:lang==='pt'?'Fase final':'Final phase',name:lang==='pt'?'Sócio dos lucros':'Profit partner',detail:lang==='pt'?'Participação nos lucros do fundo':'Fund profit participation'},
-  ]
-  el.innerHTML=items.map(function(item){
-    return '<div class="tl-item tl-'+item.state+'"><div class="tl-dot"></div><div class="tl-tag">'+item.tag+'</div><div class="tl-name">'+item.name+'</div><div class="tl-detail">'+item.detail+'</div></div>'
-  }).join('')
-}
-
-window.addEventListener('load',async function(){
-  if(localStorage.getItem('gst-dark')==='1'){isDark=true;document.documentElement.setAttribute('data-theme','dark')}
-  const {data:{session}}=await db.auth.getSession()
-  if(session){CU=session.user;await loadApp()}
+// Enter key on login
+document.addEventListener('keydown', function(e){
+  if(e.key==='Enter') doLogin()
 })
 </script>
 </body>
