@@ -166,8 +166,8 @@ tbody tr:hover td{background:var(--s2)}
   /* 3-col metrics → 1 col on mobile */
   .metrics[style*="repeat(3"]{grid-template-columns:1fr!important}
   .metrics-3col{grid-template-columns:1fr!important}
-  /* Próxima Distribuição: stack vertically */
-  .dist-flex{flex-direction:column!important;gap:12px!important}
+  /* Próxima Distribuição: stack vertically + center */
+  .dist-flex{flex-direction:column!important;gap:16px!important;align-items:center!important;text-align:center!important}
   .dist-sep{display:none!important}
 }
 /* Client cards responsive fix */
@@ -379,9 +379,10 @@ tbody tr:hover td{background:var(--s2)}
         <div class="cli-card" onclick="showClient('mariana')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
             <div class="av" style="width:36px;height:36px;font-size:13px">MS</div>
-            <div>
+            <div style="min-width:0">
               <div class="cli-name">Mariana Souza</div>
-              <div class="cli-sub">mariana.souza@email.com · Perfil Arrojado</div>
+              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mariana.souza@email.com</div>
+              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -394,9 +395,10 @@ tbody tr:hover td{background:var(--s2)}
         <div class="cli-card" onclick="showClient('felipe')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
             <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--pubg);border-color:var(--pubr);color:var(--pu)">FA</div>
-            <div>
+            <div style="min-width:0">
               <div class="cli-name">Felipe Andrade</div>
-              <div class="cli-sub">felipe.andrade@email.com · Perfil Arrojado</div>
+              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">felipe.andrade@email.com</div>
+              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -409,9 +411,10 @@ tbody tr:hover td{background:var(--s2)}
         <div class="cli-card" onclick="showClient('carolina')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
             <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">CM</div>
-            <div>
+            <div style="min-width:0">
               <div class="cli-name">Carolina Melo</div>
-              <div class="cli-sub">carolina.melo@email.com · Perfil Arrojado</div>
+              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">carolina.melo@email.com</div>
+              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -424,9 +427,10 @@ tbody tr:hover td{background:var(--s2)}
         <div class="cli-card" onclick="showClient('bruno')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
             <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">BT</div>
-            <div>
+            <div style="min-width:0">
               <div class="cli-name">Bruno Tavares</div>
-              <div class="cli-sub">bruno.tavares@email.com · Perfil Arrojado</div>
+              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">bruno.tavares@email.com</div>
+              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
