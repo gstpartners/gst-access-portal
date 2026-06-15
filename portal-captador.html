@@ -113,8 +113,8 @@ tbody tr:hover td{background:var(--s2)}
 /* CLIENT CARD */
 .cli-card{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px;cursor:pointer;transition:all .15s}
 .cli-card:hover{border-color:var(--tlbr);box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.cli-name{font-size:13.5px;font-weight:600;color:var(--bk);margin-bottom:3px}
-.cli-sub{font-size:11px;color:var(--mu);margin-bottom:10px}
+.cli-name{font-size:13.5px;font-weight:600;color:var(--bk);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cli-sub{font-size:11px;color:var(--mu);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cli-stat{display:flex;gap:12px}
 .cli-s{font-size:11px;color:var(--sf)}
 .cli-s span{font-weight:600;color:var(--bk)}
@@ -378,11 +378,11 @@ tbody tr:hover td{background:var(--s2)}
 
         <div class="cli-card" onclick="showClient('mariana')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div class="av" style="width:36px;height:36px;font-size:13px">MS</div>
-            <div style="min-width:0">
+            <div class="av" style="width:36px;height:36px;font-size:13px;flex-shrink:0">MS</div>
+            <div style="min-width:0;flex:1">
               <div class="cli-name">Mariana Souza</div>
-              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">mariana.souza@email.com</div>
-              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
+              <div class="cli-sub">mariana.souza@email.com</div>
+              <div class="cli-sub">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -394,11 +394,11 @@ tbody tr:hover td{background:var(--s2)}
 
         <div class="cli-card" onclick="showClient('felipe')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--pubg);border-color:var(--pubr);color:var(--pu)">FA</div>
-            <div style="min-width:0">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--pubg);border-color:var(--pubr);color:var(--pu);flex-shrink:0">FA</div>
+            <div style="min-width:0;flex:1">
               <div class="cli-name">Felipe Andrade</div>
-              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">felipe.andrade@email.com</div>
-              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
+              <div class="cli-sub">felipe.andrade@email.com</div>
+              <div class="cli-sub">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -410,11 +410,11 @@ tbody tr:hover td{background:var(--s2)}
 
         <div class="cli-card" onclick="showClient('carolina')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">CM</div>
-            <div style="min-width:0">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am);flex-shrink:0">CM</div>
+            <div style="min-width:0;flex:1">
               <div class="cli-name">Carolina Melo</div>
-              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">carolina.melo@email.com</div>
-              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
+              <div class="cli-sub">carolina.melo@email.com</div>
+              <div class="cli-sub">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
@@ -426,11 +426,11 @@ tbody tr:hover td{background:var(--s2)}
 
         <div class="cli-card" onclick="showClient('bruno')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am)">BT</div>
-            <div style="min-width:0">
+            <div class="av" style="width:36px;height:36px;font-size:13px;background:var(--ambg);border-color:var(--ambr);color:var(--am);flex-shrink:0">BT</div>
+            <div style="min-width:0;flex:1">
               <div class="cli-name">Bruno Tavares</div>
-              <div class="cli-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">bruno.tavares@email.com</div>
-              <div class="cli-sub" style="margin-top:1px">Perfil Arrojado</div>
+              <div class="cli-sub">bruno.tavares@email.com</div>
+              <div class="cli-sub">Perfil Arrojado</div>
             </div>
           </div>
           <div class="cli-stat">
