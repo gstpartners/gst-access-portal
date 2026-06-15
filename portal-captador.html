@@ -18,6 +18,7 @@
   --re:#DC2626;--rebg:#FEF2F2;--rebr:#FECACA;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+.mob-top{position:fixed;top:0;left:0;right:0;height:52px;background:var(--bg);border-bottom:1px solid var(--bd);display:none;align-items:center;justify-content:space-between;padding:0 16px;z-index:99}
 body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--bo);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:13px}
 
 /* LOGIN */
@@ -123,7 +124,23 @@ tbody tr:hover td{background:var(--s2)}
 .info-val{font-size:12px;font-weight:500;color:var(--bk)}
 .chart-box{position:relative;height:160px}
 .disc{font-size:10px;color:var(--mu);padding:10px 18px;text-align:center;line-height:1.5;margin-top:6px}
-@media(max-width:768px){.sb{display:none}.mn{margin-left:0;padding:20px}}
+@media(max-width:768px){
+  .sb{width:100%!important;height:52px!important;top:auto!important;bottom:0!important;flex-direction:row!important;border-right:none!important;border-top:1px solid var(--bd)!important;min-height:auto!important;background:var(--bg)!important;z-index:100!important}
+  .sb-logo,.sb-user,.ns,.sb-bot{display:none!important}
+  .sb-nav{padding:0!important;flex:1!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;overflow:hidden!important}
+  .ni{flex:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:4px 2px!important;border-radius:0!important;font-size:8.5px!important;margin:0!important;min-width:0!important}
+  .ni.on{background:var(--tlbg)!important;border-top:2px solid var(--tl)!important;border-left:none!important;border-radius:0!important}
+  .ni svg{width:18px!important;height:18px!important}
+  .mn{margin-left:0!important;padding:20px 14px 72px!important}
+  .mob-top{display:flex!important}
+  .lc{margin:16px!important;padding:28px 20px!important}
+}
+@media(max-width:380px){
+  .ni span{display:none!important}
+  .sb{height:46px!important}
+  .mn{padding:16px 12px 64px!important}
+}
+@media(min-width:769px){.mob-top{display:none!important}}
 </style>
 </head>
 <body>
@@ -152,6 +169,20 @@ tbody tr:hover td{background:var(--s2)}
 
 <!-- APP -->
 <div class="app" id="APP">
+
+  <!-- MOBILE TOP BAR -->
+  <div class="mob-top" id="MOB" style="position:fixed;top:0;left:0;right:0;height:52px;background:var(--bg);border-bottom:1px solid var(--bd);display:none;align-items:center;justify-content:space-between;padding:0 16px;z-index:99">
+    <svg viewBox="0 0 180 90" style="height:26px;width:auto;display:block">
+      <text x="90" y="58" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="58" fill="#6B6B6B" text-anchor="middle" letter-spacing="-1">GST</text>
+      <rect x="12" y="64" width="156" height="24" fill="#2AABB8" rx="1"/>
+      <text x="90" y="81" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white" text-anchor="middle" letter-spacing="5">PARTNERS</text>
+    </svg>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="font-size:11px;font-weight:600;color:var(--mu)" id="mob-user-name">Ricardo</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--tl);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">RC</div>
+    </div>
+  </div>
+
   <!-- SIDEBAR -->
   <aside class="sb">
     <div class="sb-logo">
