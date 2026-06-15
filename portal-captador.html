@@ -141,19 +141,34 @@ tbody tr:hover td{background:var(--s2)}
   .badge-g{align-self:flex-start!important}
   /* Metrics grid */
   .metrics{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-  .cli-grid{grid-template-columns:1fr!important;gap:8px!important}
   .metric{padding:14px 14px 12px!important}
   .ml{font-size:9px!important}
   .mv{font-size:20px!important}
-  /* Tables */
+  /* twocol collapses to single column */
+  .twocol{grid-template-columns:1fr!important;gap:10px!important}
+  /* Client grid 2 cols on mobile */
+  .cli-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
+  /* Client card: sub text wraps cleanly */
+  .cli-sub{white-space:normal!important;word-break:break-word!important;line-height:1.3!important}
+  .cli-name{font-size:12.5px!important}
+  .cli-stat{flex-wrap:wrap!important;gap:6px!important}
+  /* Tables scroll */
   .desk-only{display:none!important}
-  table{font-size:12px!important}
+  table{font-size:11px!important}
+  th{padding:8px 10px!important;font-size:8.5px!important}
+  td{padding:9px 10px!important}
   /* Cards */
   .card{border-radius:8px!important}
   /* Login */
   .lc{margin:20px!important;padding:28px 20px!important}
   /* Show mob-top */
   .mob-top{display:flex!important}
+  /* 3-col metrics → 1 col on mobile */
+  .metrics[style*="repeat(3"]{grid-template-columns:1fr!important}
+  .metrics-3col{grid-template-columns:1fr!important}
+  /* Próxima Distribuição: stack vertically */
+  .dist-flex{flex-direction:column!important;gap:12px!important}
+  .dist-sep{display:none!important}
 }
 /* Client cards responsive fix */
 .cli-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
@@ -164,12 +179,6 @@ tbody tr:hover td{background:var(--s2)}
   .cli-grid{grid-template-columns:1fr!important}
   .metrics{gap:6px!important}
   .mv{font-size:18px!important}
-}
-@media(max-width:600px){
-  .cli-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-}
-@media(max-width:400px){
-  .cli-grid{grid-template-columns:1fr!important}
   .cli-card{padding:12px!important}
 }
 @media(min-width:769px){.mob-top{display:none!important}}
@@ -314,7 +323,7 @@ tbody tr:hover td{background:var(--s2)}
         <!-- Clients summary -->
         <div class="card">
           <div class="ch"><div class="ct">Clientes Ativos</div><div class="cm">Resumo</div></div>
-          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:360px">
+          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:300px">
               <thead><tr><th>Cliente</th><th>Capital</th><th>Comissão/mês</th><th>Status</th></tr></thead>
               <tbody>
                 <tr><td><span class="tm">Mariana Souza</span></td><td><span class="tt">US$ 100.000</span></td><td><span class="tt">US$ 1.790</span></td><td><span class="sb2 sp">Ativo</span></td></tr>
@@ -331,13 +340,13 @@ tbody tr:hover td{background:var(--s2)}
       <div class="card">
         <div class="ch"><div class="ct">Próxima Distribuição</div><div class="cm">30 de junho de 2026</div></div>
         <div class="cb">
-          <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap" class="dist-flex">
             <div>
               <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Comissão estimada</div>
               <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:600;color:var(--tld);letter-spacing:-.04em">US$ 3.027</div>
               <div style="font-size:11px;color:var(--mu);margin-top:4px">Baseado em US$ 235.000 capital ativo (3 clientes)</div>
             </div>
-            <div style="width:1px;height:60px;background:var(--bd)"></div>
+            <div style="width:1px;height:60px;background:var(--bd)" class="dist-sep"></div>
             <div>
               <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Detalhamento</div>
               <div style="font-size:12px;color:var(--bo);line-height:2">
@@ -346,7 +355,7 @@ tbody tr:hover td{background:var(--s2)}
                 Carolina Melo: <strong>US$ 774</strong>
               </div>
             </div>
-            <div style="width:1px;height:60px;background:var(--bd)"></div>
+            <div style="width:1px;height:60px;background:var(--bd)" class="dist-sep"></div>
             <div>
               <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px">Bruno Tavares</div>
               <div style="font-size:12px;color:var(--am)">Pendente integralização</div>
@@ -454,7 +463,7 @@ tbody tr:hover td{background:var(--s2)}
       <div class="topbar">
         <div><div class="tb-ey">Portal do Captador</div><div class="tb-ti">Minhas Comissões</div></div>
       </div>
-      <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metrics metrics-3col" style="grid-template-columns:repeat(3,1fr)">
         <div class="metric accent-gn">
           <div class="ml">Total Recebido</div>
           <div class="mv gn">US$ 19.620</div>
@@ -473,7 +482,7 @@ tbody tr:hover td{background:var(--s2)}
       </div>
       <div class="card">
         <div class="ch"><div class="ct">Histórico de Comissões</div><div class="cm">Todas as entradas</div></div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:360px">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:500px">
             <thead><tr><th>Data</th><th>Tipo</th><th>Cliente</th><th>Capital Base</th><th>Valor Recebido</th><th>Status</th></tr></thead>
             <tbody id="comm-table-body"></tbody>
           </table>
@@ -505,7 +514,7 @@ tbody tr:hover td{background:var(--s2)}
         </div>
         <div class="card">
           <div class="ch"><div class="ct">Tabela de Comissões</div><div class="cm">Vigente</div></div>
-          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:360px">
+          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0"><table style="min-width:280px">
               <thead><tr><th>Produto</th><th>Faixa</th><th>Entrada</th><th>Mensal</th></tr></thead>
               <tbody>
                 <tr><td>Fundo GST</td><td>$25k – $49k</td><td style="color:var(--gn);font-weight:600">2,0%</td><td style="color:var(--tld);font-weight:600">0,99%</td></tr>
@@ -528,7 +537,7 @@ tbody tr:hover td{background:var(--s2)}
       <div class="card">
         <div class="ch"><div class="ct">Materiais de Apresentação</div><div class="cm">Use com seus clientes</div></div>
         <div class="cb" style="padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch">
-          <table style="min-width:400px">
+          <table style="min-width:340px">
             <thead><tr><th>Documento</th><th>Tipo</th><th>Atualização</th><th>Ação</th></tr></thead>
             <tbody id="mat-tbody">
               <tr>
